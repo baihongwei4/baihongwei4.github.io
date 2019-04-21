@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.8.0">
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="TCP是主机对主机层的传输控制协议，提供可靠的连接服务，采用三次握手确认建立一个连接。">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="Hongwei Bai">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="TCP 3-time-handshake">
+    
+
+    <!--Open Graph Description-->
+    
+        <meta property="og:description" content="TCP是主机对主机层的传输控制协议，提供可靠的连接服务，采用三次握手确认建立一个连接。">
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="Mike&#39;s blog">
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article">
+    
+
+    <!--Page Cover-->
+    
+
+        <meta name="twitter:card" content="summary">
+    
+
+    <!-- Title -->
+    
+    <title>TCP 3-time-handshake - Mike&#39;s blog</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet">
+
+    <!-- Google Analytics -->
+    
+
+
+    <!-- favicon -->
+    
+    <link rel="icon" href="/image/favicon.gif">
+    
+
+    <!-- bhw1899 updated -->
+    <link href="//cdn.bootcss.com/mermaid/7.0.14/themes/mermaid.neutral.min.css" rel="stylesheet">
+    <script src="//cdn.bootcss.com/mermaid/7.0.14/mermaid.min.js"></script>
+    <script type="text/javascript">mermaid.initialize({startOnLoad:true});</script>
+</head>
+
+
+<body>
+
+    <!-- Menu -->
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Hongwei' blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                
+                    <li>
+                        <a href="/">
+                            
+                                Home
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/archives">
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/tags">
+                            
+                                Tags
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/categories">
+                            
+                                Categories
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/board">
+                            
+                                board
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://github.com/hongweibai">
+                            
+                                <i class="fa fa-github fa-stack-2x"></i>
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+    <!-- Main Content -->
+    <!-- Page Header -->
+<!-- Set your background image for this header in your post front-matter: cover -->
+
+<header class="intro-header" style="background-image: url('http://www.codeblocq.com/assets/projects/hexo-theme-clean-blog/img/home-bg.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1>TCP 3-time-handshake</h1>
+                    
+                    <span class="meta">
+                        <!-- Date and Author -->
+                        
+                        
+                            2017-12-06
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Tags and categories -->
+           
+                <div class="col-lg-4 col-lg-offset-2 col-md-5 col-md-offset-1 post-tags">
+                    
+                        
+
+
+<a href="/tags/TCP/">#TCP</a> <a href="/tags/handshake/">#handshake</a>
+
+
+                    
+                </div>
+                <div class="col-lg-4 col-md-5 post-categories">
+                    
+                        
+
+<a href="/categories/Network/">Network</a>/ <a href="/categories/Network/Android/">Android</a>/ <a href="/categories/Network/Android/C/">C++</a>/ <a href="/categories/Network/Android/C/Summary/">Summary</a>
+
+                    
+                </div>
+            
+
+            <!-- Gallery -->
+            
+
+            <!-- Post Main Content -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <h2 id="TCP-Header"><a href="#TCP-Header" class="headerlink" title="TCP Header"></a>TCP Header</h2><p>TCP Header<br><img src="https://raw.githubusercontent.com/hongweibai/hongweibai.github.io/master/image/tcp_header.jpg" alt></p>
+<h2 id="三次握手"><a href="#三次握手" class="headerlink" title="三次握手"></a>三次握手</h2><p>首先Client端发送连接请求报文<br>Server段接受连接后回复ACK报文，并为这次连接分配资源。<br>Client端接收到ACK报文后也向Server段发生ACK报文，并分配资源，这样TCP连接就建立了。</p>
+<p>TCP(Transmission Control Protocol)传输控制协议</p>
+<p>TCP是主机对主机层的传输控制协议，提供可靠的连接服务，采用三次握手确认建立一个连接：</p>
+<p>位码即tcp标志位，有6种标示：</p>
+<ul>
+<li>SYN(synchronous建立联机)</li>
+<li>ACK(acknowledgement 确认)</li>
+<li>PSH(push传送)</li>
+<li>FIN(finish结束)</li>
+<li>RST(reset重置)</li>
+<li><p>URG(urgent紧急)</p>
+<p>  Sequence number(顺序号码)<br>  Acknowledge number(确认号码)</p>
+</li>
+<li><p>第一次握手：主机A发送位码为syn＝1,随机产生seq number=1234567的数据包到服务器，主机B由SYN=1知道，A要求建立联机；</p>
+</li>
+<li>第二次握手：主机B收到请求后要确认联机信息，向A发送ack number=(主机A的seq+1),syn=1,ack=1,随机产生seq=7654321的包</li>
+<li>第三次握手：主机A收到后检查ack number是否正确，即第一次发送的seq number+1,以及位码ack是否为1，若正确，主机A会再发送ack number=(主机B的seq+1),ack=1，主机B收到后确认seq值与ack=1则连接建立成功。<br>  完成三次握手，主机A与主机B开始传送数据。</li>
+</ul>
+<p>在TCP/IP协议中，TCP协议提供可靠的连接服务，采用三次握手建立一个连接。</p>
+<ul>
+<li>第一次握手：建立连接时，客户端发送syn包(syn=j)到服务器，并进入SYN_SEND状态，等待服务器确认；</li>
+<li>第二次握手：服务器收到syn包，必须确认客户的SYN（ack=j+1），同时自己也发送一个SYN包（syn=k），即SYN+ACK包，此时服务器进入SYN_RECV状态；</li>
+<li>第三次握手：客户端收到服务器的SYN＋ACK包，向服务器发送确认包ACK(ack=k+1)，此包发送完毕，客户端和服务器进入ESTABLISHED状态，完成三次握手。 完成三次握手，客户端与服务器开始传送数据.</li>
+</ul>
+<div class="mermaid">
+  sequenceDiagram
+    participant A(Client)
+    participant B(Server)
+    Note left of A(Client): CLOSED
+    Note right of B(Server): LISTEN
+    A(Client)->>B(Server): SYN=1 seq=i
+    Note left of A(Client): SYN_SENT
+    Note right of B(Server): Allocate Resource
+    B(Server)->>A(Client): SYN=1 seq=i+1 ACK=1 ackseq=j
+    Note right of B(Server): SYN_RECV
+    Note left of A(Client): Allocate Resource
+    Note left of A(Client): ESTABLISHED
+    A(Client)->>B(Server): SYN=0 ACK=1 ackseq=j+1
+    Note right of B(Server): ESTABLISHED
+</div>
+
+<h2 id="四次分手："><a href="#四次分手：" class="headerlink" title="四次分手："></a>四次分手：</h2><p>由于TCP连接是全双工的，因此每个方向都必须单独进行关闭。这个原则是当一方完成它的数据发送任务后就能发送一个FIN来终止这个方向的连接。收到一个 FIN只意味着这一方向上没有数据流动，一个TCP连接在收到一个FIN后仍能发送数据。首先进行关闭的一方将执行主动关闭，而另一方执行被动关闭。</p>
+<p>（1）客户端A发送一个FIN，用来关闭客户A到服务器B的数据传送（报文段4）。<br>（2）服务器B收到这个FIN，它发回一个ACK，确认序号为收到的序号加1（报文段5）。和SYN一样，一个FIN将占用一个序号。<br>（3）服务器B关闭与客户端A的连接，发送一个FIN给客户端A（报文段6）。<br>（4）客户端A发回ACK报文确认，并将确认序号设置为收到序号加1（报文段7）。</p>
+<div class="mermaid">
+  sequenceDiagram
+   participant A
+   participant B
+   Note left of A: ESTABLISHED
+   Note right of B: ESTABLISHED
+   A->>B: FIN=1 seq=i
+   Note left of A: FIN_WAIT_1
+   B->>A: FIN=1 ACK=1 seq=i+1
+   Note right of B: CLOSE_WAIT
+   Note left of A: FIN_WAIT_2
+   B->>A: FIN=1 seq=j
+   Note right of B: LAST_ACK
+   A->>B: FIN=1 ACK=1 seq=j+1
+   Note left of A: TIME_WAIT
+   Note right of B: CLOSED
+   Note left of A: 2MSL
+   Note left of A: CLOSED
+</div>
+
+<h2 id="状态详解"><a href="#状态详解" class="headerlink" title="状态详解:"></a>状态详解:</h2><ol>
+<li><p>CLOSED： 这个没什么好说的了，表示初始状态。</p>
+</li>
+<li><p>LISTEN： 这个也是非常容易理解的一个状态，表示服务器端的某个SOCKET处于监听状态，可以接受连接了。</p>
+</li>
+<li><p>SYN_RCVD： 这个状态表示接受到了SYN报文，在正常情况下，这个状态是服务器端的SOCKET在建立TCP连接时的三次握手会话过程中的一个中间状态，很短暂，基本 上用netstat你是很难看到这种状态的，除非你特意写了一个客户端测试程序，故意将三次TCP握手过程中最后一个ACK报文不予发送。因此这种状态 时，当收到客户端的ACK报文后，它会进入到ESTABLISHED状态。</p>
+</li>
+<li><p>SYN_SENT： 这个状态与SYN_RCVD遥想呼应，当客户端SOCKET执行CONNECT连接时，它首先发送SYN报文，因此也随即它会进入到了SYN_SENT状态，并等待服务端的发送三次握手中的第2个报文。SYN_SENT状态表示客户端已发送SYN报文。</p>
+</li>
+<li><p>ESTABLISHED：这个容易理解了，表示连接已经建立了。</p>
+</li>
+<li><p>FIN_WAIT_1： 这个状态要好好解释一下，其实FIN_WAIT_1和FIN_WAIT_2状态的真正含义都是表示等待对方的FIN报文。而这两种状态的区别 是：FIN_WAIT_1状态实际上是当SOCKET在ESTABLISHED状态时，它想主动关闭连接，向对方发送了FIN报文，此时该SOCKET即 进入到FIN_WAIT_1状态。而当对方回应ACK报文后，则进入到FIN_WAIT_2状态，当然在实际的正常情况下，无论对方何种情况下，都应该马 上回应ACK报文，所以FIN_WAIT_1状态一般是比较难见到的，而FIN_WAIT_2状态还有时常常可以用netstat看到。</p>
+</li>
+<li><p>FIN_WAIT_2：上面已经详细解释了这种状态，实际上FIN_WAIT_2状态下的SOCKET，表示半连接，也即有一方要求close连接，但另外还告诉对方，我暂时还有点数据需要传送给你，稍后再关闭连接。</p>
+</li>
+<li><p>TIME_WAIT： 表示收到了对方的FIN报文，并发送出了ACK报文，就等2MSL后即可回到CLOSED可用状态了。如果FIN_WAIT_1状态下，收到了对方同时带FIN标志和ACK标志的报文时，可以直接进入到TIME_WAIT状态，而无须经过FIN_WAIT_2状态。</p>
+</li>
+<li><p>CLOSING： 这种状态比较特殊，实际情况中应该是很少见，属于一种比较罕见的例外状态。正常情况下，当你发送FIN报文后，按理来说是应该先收到（或同时收到）对方的 ACK报文，再收到对方的FIN报文。但是CLOSING状态表示你发送FIN报文后，并没有收到对方的ACK报文，反而却也收到了对方的FIN报文。什 么情况下会出现此种情况呢？其实细想一下，也不难得出结论：那就是如果双方几乎在同时close一个SOCKET的话，那么就出现了双方同时发送FIN报 文的情况，也即会出现CLOSING状态，表示双方都正在关闭SOCKET连接。</p>
+</li>
+<li><p>CLOSE_WAIT： 这种状态的含义其实是表示在等待关闭。怎么理解呢？当对方close一个SOCKET后发送FIN报文给自己，你系统毫无疑问地会回应一个ACK报文给对 方，此时则进入到CLOSE_WAIT状态。接下来呢，实际上你真正需要考虑的事情是察看你是否还有数据发送给对方，如果没有的话，那么你也就可以 close这个SOCKET，发送FIN报文给对方，也即关闭连接。所以你在CLOSE_WAIT状态下，需要完成的事情是等待你去关闭连接。</p>
+</li>
+<li><p>LAST_ACK： 这个状态还是比较容易好理解的，它是被动关闭一方在发送FIN报文后，最后等待对方的ACK报文。当收到ACK报文后，也即可以进入到CLOSED可用状态了。</p>
+</li>
+</ol>
+<h1 id="Why-CLOSE-WAIT-Timeout-is-2MSL"><a href="#Why-CLOSE-WAIT-Timeout-is-2MSL" class="headerlink" title="Why CLOSE_WAIT Timeout is 2MSL?"></a>Why CLOSE_WAIT Timeout is 2MSL?</h1><p>MSL是Maximum Segment Lifetime英文的缩写，中文可以译为“报文最大生存时间”，他是任何报文在网络上存在的最长时间，超过这个时间报文将被丢弃。因为tcp报文（segment）是ip数据报（datagram）的数据部分，具体称谓请参见《数据在网络各层中的称呼》一文，而ip头中有一个TTL域，TTL是time to live的缩写，中文可以译为“生存时间”，这个生存时间是由源主机设置初始值但不是存的具体时间，而是存储了一个ip数据报可以经过的最大路由数，每经过一个处理他的路由器此值就减1，当此值为0则数据报将被丢弃，同时发送ICMP报文通知源主机。RFC 793中规定MSL为2分钟，实际应用中常用的是30秒，1分钟和2分钟等。</p>
+<p>Why 2MSL？<br>2MSL即两倍的MSL，TCP的TIME_WAIT状态也称为2MSL等待状态，当TCP的一端发起主动关闭，在发出最后一个ACK包后，即第3次握手完成后发送了第四次握手的ACK包后就进入了TIME_WAIT状态，必须在此状态上停留两倍的MSL时间，等待2MSL时间主要目的是怕最后一个ACK包对方没收到，那么对方在超时后将重发第三次握手的FIN包，主动关闭端接到重发的FIN包后可以再发一个ACK应答包。在TIME_WAIT状态时两端的端口不能使用，要等到2MSL时间结束才可继续使用。当连接处于2MSL等待阶段时任何迟到的报文段都将被丢弃。不过在实际应用中可以通过设置SO_REUSEADDR选项达到不必等待2MSL时间结束再使用此端口。</p>
+<p>TTL与MSL是有关系的但不是简单的相等的关系，MSL要大于等于TTL。</p>
+<p>Ref[1] <a href="http://blog.csdn.net/whuslei/article/details/6667471/" target="_blank" rel="noopener">TCP协议中的三次握手和四次挥手(图解)</a><br>Ref[2] <a href="https://www.cnblogs.com/cy568searchx/p/3711670.html" target="_blank" rel="noopener">TCP通信的三次握手和四次撒手的详细流程（顿悟）</a><br>Ref[3] <a href="http://network.51cto.com/art/201406/442963.htm" target="_blank" rel="noopener">Picture</a><br>Ref[4] <a href="http://blog.csdn.net/xiaofei0859/article/details/6044694" target="_blank" rel="noopener">什么是2MSL</a></p>
+<p><div id="container"></div></p>
+<p><link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css"></p>
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+var gitment = new Gitment({
+  id: 'tcp_3_time_handshake', // 可选。默认为 location.href
+  owner: 'hongweibai',  //改你自己的名字
+  repo: 'blog_comments',  //专门储存评论一个GitHub仓库
+  oauth: {
+    client_id: '03adfa8ab6ec80389e54', //改为你自己的，下同
+    client_secret: '834cdbbb5528756744608ce0e6ab0412e3da4f2a',
+  },
+})
+gitment.render('container')
+</script>
+
+                
+            </div>
+
+            <!-- Comments -->
+            
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    
+
+
+                </div>
+            
+        </div>
+    </div>
+</article>
+
+    <!-- Footer -->
+    <hr>
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+
+                    
+
+                    
+                        <li>
+                            <a href="https://github.com/hongweibai" target="_blank">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    
+
+                    
+
+                    
+                        <li>
+                            <a href="mailto:bhw8412@hotmail.com" target="_blank">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-envelope-o fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    
+
+                    
+                </ul>
+                <p class="copyright text-muted">&copy; 2019 Hongwei Bai<br></p>
+                <p class="copyright text-muted">Original Theme <a target="_blank" href="http://startbootstrap.com/template-overviews/clean-blog/">Clean Blog</a> from <a href="http://startbootstrap.com/" target="_blank">Start Bootstrap</a></p>
+                <p class="copyright text-muted">Adapted for <a target="_blank" href="https://hexo.io/">Hexo</a> by <a href="http://www.codeblocq.com/" target="_blank">Jonathan Klughertz</a></p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+    <!-- After footer scripts -->
+    
+<!-- jQuery -->
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+<!-- Gallery -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Disqus Comments -->
+
+
+
+</body>
+
+</html>

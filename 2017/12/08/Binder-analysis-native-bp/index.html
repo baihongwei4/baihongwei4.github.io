@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.8.0">
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="This article analysises native bp binder. Following this clue provided by book&#39;Understanding Android internals: VolumeII&#39;, I explore how native binder works on its proxy side.">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="Hongwei Bai">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="Android 7.1.2 native Bp binder analysis">
+    
+
+    <!--Open Graph Description-->
+    
+        <meta property="og:description" content="This article analysises native bp binder. Following this clue provided by book&#39;Understanding Android internals: VolumeII&#39;, I explore how native binder works on its proxy side.">
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="Mike&#39;s blog">
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article">
+    
+
+    <!--Page Cover-->
+    
+
+        <meta name="twitter:card" content="summary">
+    
+
+    <!-- Title -->
+    
+    <title>Android 7.1.2 native Bp binder analysis - Mike&#39;s blog</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet">
+
+    <!-- Google Analytics -->
+    
+
+
+    <!-- favicon -->
+    
+    <link rel="icon" href="/image/favicon.gif">
+    
+
+    <!-- bhw1899 updated -->
+    <link href="//cdn.bootcss.com/mermaid/7.0.14/themes/mermaid.neutral.min.css" rel="stylesheet">
+    <script src="//cdn.bootcss.com/mermaid/7.0.14/mermaid.min.js"></script>
+    <script type="text/javascript">mermaid.initialize({startOnLoad:true});</script>
+</head>
+
+
+<body>
+
+    <!-- Menu -->
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Hongwei' blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                
+                    <li>
+                        <a href="/">
+                            
+                                Home
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/archives">
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/tags">
+                            
+                                Tags
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/categories">
+                            
+                                Categories
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/board">
+                            
+                                board
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://github.com/hongweibai">
+                            
+                                <i class="fa fa-github fa-stack-2x"></i>
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+    <!-- Main Content -->
+    <!-- Page Header -->
+<!-- Set your background image for this header in your post front-matter: cover -->
+
+<header class="intro-header" style="background-image: url('http://www.codeblocq.com/assets/projects/hexo-theme-clean-blog/img/home-bg.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1>Android 7.1.2 native Bp binder analysis</h1>
+                    
+                    <span class="meta">
+                        <!-- Date and Author -->
+                        
+                        
+                            2017-12-08
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Tags and categories -->
+           
+                <div class="col-lg-4 col-lg-offset-2 col-md-5 col-md-offset-1 post-tags">
+                    
+                        
+
+
+<a href="/tags/源码分析/">#源码分析</a> <a href="/tags/Binder/">#Binder</a>
+
+
+                    
+                </div>
+                <div class="col-lg-4 col-md-5 post-categories">
+                    
+                        
+
+<a href="/categories/Android/">Android</a>/ <a href="/categories/Android/Original/">Original</a>
+
+                    
+                </div>
+            
+
+            <!-- Gallery -->
+            
+
+            <!-- Post Main Content -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <p>借助《深入理解Android》一书中的分析思路入手，从mediaserver入手，分析Android的Binder机制在native层的实现；<br>本文的分析基于Android 7.1.2版本；</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Main_mediaserver.cpp:main()</span><br></pre></td></tr></table></figure>
+<p>defaultServiceManager()中创建了BpBinder<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">gDefaultServiceManager = interface_cast&lt;IServiceManager&gt;(</span><br><span class="line">                ProcessState::self()-&gt;getContextObject(NULL));</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ProcessState::self()-&gt;getContextObject(NULL))</span><br></pre></td></tr></table></figure>
+<p>归根结底是调用了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">b = new BpBinder(handle);</span><br></pre></td></tr></table></figure></p>
+<p>其中handle=0</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gDefaultServiceManager = interface_cast&lt;IServiceManager&gt;(ProcessState::self()-&gt;getContextObject(NULL));</span><br></pre></td></tr></table></figure>
+<p>=&gt; gDefaultServiceManager = interface_cast<iservicemanager>(new BpBinder(0));</iservicemanager></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">inline sp&lt;INTERFACE&gt; interface_cast(const sp&lt;IBinder&gt;&amp; obj)</span><br><span class="line">&#123;</span><br><span class="line">    return INTERFACE::asInterface(obj);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>=&gt; gDefaultServiceManager =IServiceManager.asInterface(new BpBinder(0))</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#define DECLARE_META_INTERFACE(INTERFACE)                               \</span><br><span class="line">    static const android::String16 descriptor;                          \</span><br><span class="line">    </span><br><span class="line">    static android::sp&lt;I##INTERFACE&gt; asInterface(const android::sp&lt;android::IBinder&gt;&amp; obj);                  \</span><br><span class="line">	入参是个IBinder类型，返回值是IServiceManager    </span><br><span class="line"></span><br><span class="line">virtual const android::String16&amp; getInterfaceDescriptor() const;    \</span><br><span class="line">    I##INTERFACE();                                                     \</span><br><span class="line">    virtual ~I##INTERFACE();</span><br></pre></td></tr></table></figure>
+<p>再接上上面：<br>=&gt; gDefaultServiceManager =IServiceManager类型，由asInterface的实现返回值；</p>
+<p>现在还缺asInterface的实现。<br>在IServiceManager.cpp最后<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">IMPLEMENT_META_INTERFACE(ServiceManager, &quot;android.os.IServiceManager&quot;);</span><br></pre></td></tr></table></figure></p>
+<p>宏定义：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">#define IMPLEMENT_META_INTERFACE(INTERFACE, NAME)                       \</span><br><span class="line">    const android::String16 I##INTERFACE::descriptor(NAME);             \</span><br><span class="line">    </span><br><span class="line">const android::String16&amp; I##INTERFACE::getInterfaceDescriptor() const &#123;</span><br><span class="line">	return I##INTERFACE::descriptor;                                \</span><br><span class="line">    &#125;                                                                   \</span><br><span class="line"></span><br><span class="line">android::sp&lt;I##INTERFACE&gt; I##INTERFACE::asInterface(const android::sp&lt;android::IBinder&gt;&amp; obj)                   \</span><br><span class="line">    &#123;                                                                   \</span><br><span class="line">	android::sp&lt;I##INTERFACE&gt; intr;                                 \</span><br><span class="line">	        if (obj != NULL) &#123;                                              \</span><br><span class="line">	            intr = static_cast&lt;I##INTERFACE*&gt;(obj-&gt;queryLocalInterface( I##INTERFACE::descriptor).get());               \</span><br><span class="line">	            if (intr == NULL) &#123;                                         \</span><br><span class="line">	                intr = new Bp##INTERFACE(obj);                          \</span><br><span class="line">	            &#125;                                                           \</span><br><span class="line">	        &#125;                                                               \</span><br><span class="line">	        return intr;                                                    \</span><br><span class="line">    &#125;                                                                   \</span><br><span class="line"></span><br><span class="line"> I##INTERFACE::I##INTERFACE() &#123; &#125;                                    \</span><br><span class="line">    I##INTERFACE::~I##INTERFACE() &#123; &#125;                                   \</span><br></pre></td></tr></table></figure></p>
+<p>=&gt; intr = static_cast&lt;I##INTERFACE*&gt;(obj-&gt;queryLocalInterface(I##INTERFACE::descriptor).get());               \</p>
+<p>这一句。把这一坨obj-&gt;queryLocalInterface( I##INTERFACE::descriptor).get() 强转成 *IServiceManager</p>
+<p>=&gt; intr = static_cast&lt;I##INTERFACE*&gt;(BpBinder-&gt;queryLocalInterface( I##INTERFACE::descriptor).get());<br>IBinder里 virtual sp<iinterface>  queryLocalInterface(const String16&amp; descriptor);</iinterface></p>
+<p>=&gt;intr = static_cast&lt;I##INTERFACE*&gt;(IServiceManager.get());<br>回顾下IMPLEMENT宏的2个入参：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">IMPLEMENT_META_INTERFACE(ServiceManager, &quot;android.os.IServiceManager&quot;);</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sp&lt;IInterface&gt;  IBinder::queryLocalInterface(const String16&amp; /*descriptor*/)</span><br><span class="line">&#123;</span><br><span class="line">    return NULL;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>返回空，所以进了：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">intr = new Bp##INTERFACE(obj);</span><br></pre></td></tr></table></figure></p>
+<p>INTERFACE=ServiceManager，所以变成<br>=&gt; intr = new BpServiceManager(new BpBinder(0));</p>
+<p>在IServiceManager.cpp中<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">class BpServiceManager : public BpInterface&lt;IServiceManager&gt;</span><br></pre></td></tr></table></figure></p>
+<p>=&gt; gDefaultServiceManager=new BpServiceManager(new BpBinder(0));<br>constructor是空的，继续看其父类BpInterface，还是空的，继续看父类</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">class BpInterface : public INTERFACE, public BpRefBase</span><br></pre></td></tr></table></figure>
+<p>他有两个父类<br>不过其实BpInterface的constructor指明了怎么构造：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">template&lt;typename INTERFACE&gt;</span><br><span class="line">inline BpInterface&lt;INTERFACE&gt;::BpInterface(const sp&lt;IBinder&gt;&amp; remote)</span><br><span class="line">    : BpRefBase(remote)</span><br><span class="line">&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>so，看BpRefBase<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">BpRefBase::BpRefBase(const sp&lt;IBinder&gt;&amp; o)</span><br><span class="line">    : mRemote(o.get()), mRefs(NULL), mState(0)</span><br><span class="line">&#123;</span><br><span class="line">    extendObjectLifetime(OBJECT_LIFETIME_WEAK);</span><br><span class="line"></span><br><span class="line">    if (mRemote) &#123;</span><br><span class="line">        mRemote-&gt;incStrong(this);           // Removed on first IncStrong().</span><br><span class="line">        mRefs = mRemote-&gt;createWeak(this);  // Held for our entire lifetime.</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>最后，把BpBinder(0)赋值给了mRemote。</p>
+<p>再次回到main函数，下一行：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">MediaPlayerService::instantiate();</span><br><span class="line">void MediaPlayerService::instantiate() &#123;</span><br><span class="line">    defaultServiceManager()-&gt;addService(</span><br><span class="line">            String16(&quot;media.player&quot;), new MediaPlayerService());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>实际上是BpServiceManager-&gt;addService<br>原型：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">virtual status_t addService(const String16&amp; name, const sp&lt;IBinder&gt;&amp; service,</span><br><span class="line">            bool allowIsolated = false)</span><br></pre></td></tr></table></figure></p>
+<p>父类还是个纯虚函数；<br>关键一行：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">status_t err = remote()-&gt;transact(ADD_SERVICE_TRANSACTION, data, &amp;reply);</span><br></pre></td></tr></table></figure></p>
+<p>即：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">status_t err =BpBinder(0)-&gt;transact(ADD_SERVICE_TRANSACTION, data, &amp;reply);</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">status_t BpBinder::transact(</span><br><span class="line">    uint32_t code, const Parcel&amp; data, Parcel* reply, uint32_t flags)</span><br><span class="line">&#123;</span><br><span class="line">    // Once a binder has died, it will never come back to life.</span><br><span class="line">    if (mAlive) &#123;</span><br><span class="line">        status_t status = IPCThreadState::self()-&gt;transact(</span><br><span class="line">            mHandle, code, data, reply, flags);</span><br><span class="line">        if (status == DEAD_OBJECT) mAlive = 0;</span><br><span class="line">        return status;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return DEAD_OBJECT;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>出现了干活的IPCThreadState</p>
+<p>内部：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">err = writeTransactionData(BC_TRANSACTION, flags, handle, code, data, NULL);</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">if (reply) &#123;</span><br><span class="line">            err = waitForResponse(reply);</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            Parcel fakeReply;</span><br><span class="line">            err = waitForResponse(&amp;fakeReply);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">return new IPCThreadState;</span><br></pre></td></tr></table></figure>
+<p>——<br>C++在new时的初始化的规律可能为：对于有构造函数的类，不论有没有括号，都用构造函数进行初始化；如果没有构造函数，则不加括号的new只分配内存空间，不进行内存的初始化，而加了括号的new会在分配内存的同时初始化为0。<br>来自<a href="http://blog.csdn.net/ywending/article/details/51096547" target="_blank" rel="noopener">Ref1</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">IPCThreadState::IPCThreadState()</span><br><span class="line">    : mProcess(ProcessState::self()), ——关联上了ProcessState</span><br><span class="line">      mMyThreadId(gettid()),</span><br><span class="line">      mStrictModePolicy(0),</span><br><span class="line">      mLastTransactionBinderFlags(0)</span><br></pre></td></tr></table></figure>
+<p>再看talkWithDriver<br>里面if (ioctl(mProcess-&gt;mDriverFD, BINDER_WRITE_READ, &amp;bwr) &gt;= 0)<br>Ioctl<br>参数：实际上#define BINDER_WRITE_READ _IOWR(‘b’, 1, struct binder_write_read)<br>内核提供了一些宏来帮助定义命令：<br>//nr为序号，datatype为数据类型,如int<br>_IO(type, nr ) //没有参数的命令<br>_IOR(type, nr, datatype) //从驱动中读数据<br>_IOW(type, nr, datatype) //写数据到驱动<br>_IOWR(type,nr, datatype) //双向传送<br>来自<a href="https://www.cnblogs.com/geneil/archive/2011/12/04/2275372.html" target="_blank" rel="noopener">Ref2</a></p>
+<p>最终，基于分析流程画出Binder在native层bp端的UML图，如下：<br>有些地方把BnServiceManager也画在这张图里，继承BBinder，我觉得不太妥当；<br>因为从类的继承关系来讲，这是没问题的，它确实继承自BBinder，但如果联系实际流程，BnServiceManager实际上并不和Bp端的对象在一起。<br>即使同一进程内有继承自BBinder的类或对象，也是用于另一个C/S通信模型的，会引起理解上的困难。<br>因此我画的类图并不包含这一部分。<br><img src="https://raw.githubusercontent.com/hongweibai/hongweibai.github.io/master/image/uml_binder_native_bp.gif" alt></p>
+<p><div id="container"></div></p>
+<p><link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css"></p>
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+var gitment = new Gitment({
+  id: 'binder_analysis_native_bp', // 可选。默认为 location.href
+  owner: 'hongweibai',  //改你自己的名字
+  repo: 'blog_comments',  //专门储存评论一个GitHub仓库
+  oauth: {
+    client_id: '03adfa8ab6ec80389e54', //改为你自己的，下同
+    client_secret: '834cdbbb5528756744608ce0e6ab0412e3da4f2a',
+  },
+})
+gitment.render('container')
+</script>
+
+                
+            </div>
+
+            <!-- Comments -->
+            
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    
+
+
+                </div>
+            
+        </div>
+    </div>
+</article>
+
+    <!-- Footer -->
+    <hr>
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+
+                    
+
+                    
+                        <li>
+                            <a href="https://github.com/hongweibai" target="_blank">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    
+
+                    
+
+                    
+                        <li>
+                            <a href="mailto:bhw8412@hotmail.com" target="_blank">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-envelope-o fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    
+
+                    
+                </ul>
+                <p class="copyright text-muted">&copy; 2019 Hongwei Bai<br></p>
+                <p class="copyright text-muted">Original Theme <a target="_blank" href="http://startbootstrap.com/template-overviews/clean-blog/">Clean Blog</a> from <a href="http://startbootstrap.com/" target="_blank">Start Bootstrap</a></p>
+                <p class="copyright text-muted">Adapted for <a target="_blank" href="https://hexo.io/">Hexo</a> by <a href="http://www.codeblocq.com/" target="_blank">Jonathan Klughertz</a></p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+    <!-- After footer scripts -->
+    
+<!-- jQuery -->
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+<!-- Gallery -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Disqus Comments -->
+
+
+
+</body>
+
+</html>

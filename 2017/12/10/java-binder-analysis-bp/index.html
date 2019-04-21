@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.8.0">
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="This analysis go through the process that how AMS registers itself to systemServer and then analyze how AMS respond to clients&#39; binder request.">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="Hongwei Bai">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="Java Binder analysis especially for Bp side">
+    
+
+    <!--Open Graph Description-->
+    
+        <meta property="og:description" content="This analysis go through the process that how AMS registers itself to systemServer and then analyze how AMS respond to clients&#39; binder request.">
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="Mike&#39;s blog">
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article">
+    
+
+    <!--Page Cover-->
+    
+
+        <meta name="twitter:card" content="summary">
+    
+
+    <!-- Title -->
+    
+    <title>Java Binder analysis especially for Bp side - Mike&#39;s blog</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet">
+
+    <!-- Google Analytics -->
+    
+
+
+    <!-- favicon -->
+    
+    <link rel="icon" href="/image/favicon.gif">
+    
+
+    <!-- bhw1899 updated -->
+    <link href="//cdn.bootcss.com/mermaid/7.0.14/themes/mermaid.neutral.min.css" rel="stylesheet">
+    <script src="//cdn.bootcss.com/mermaid/7.0.14/mermaid.min.js"></script>
+    <script type="text/javascript">mermaid.initialize({startOnLoad:true});</script>
+</head>
+
+
+<body>
+
+    <!-- Menu -->
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Hongwei' blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                
+                    <li>
+                        <a href="/">
+                            
+                                Home
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/archives">
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/tags">
+                            
+                                Tags
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/categories">
+                            
+                                Categories
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/board">
+                            
+                                board
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://github.com/hongweibai">
+                            
+                                <i class="fa fa-github fa-stack-2x"></i>
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+    <!-- Main Content -->
+    <!-- Page Header -->
+<!-- Set your background image for this header in your post front-matter: cover -->
+
+<header class="intro-header" style="background-image: url('http://www.codeblocq.com/assets/projects/hexo-theme-clean-blog/img/home-bg.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1>Java Binder analysis especially for Bp side</h1>
+                    
+                    <span class="meta">
+                        <!-- Date and Author -->
+                        
+                        
+                            2017-12-10
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Tags and categories -->
+           
+                <div class="col-lg-4 col-lg-offset-2 col-md-5 col-md-offset-1 post-tags">
+                    
+                        
+
+
+<a href="/tags/源码分析/">#源码分析</a> <a href="/tags/Binder/">#Binder</a>
+
+
+                    
+                </div>
+                <div class="col-lg-4 col-md-5 post-categories">
+                    
+                        
+
+<a href="/categories/Android/">Android</a>/ <a href="/categories/Android/Original/">Original</a>
+
+                    
+                </div>
+            
+
+            <!-- Gallery -->
+            
+
+            <!-- Post Main Content -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <p>This analysis follows the clue from book 《深入理解Android卷II》chapter2.</p>
+<p>It mentions a concept - FLAG_ONEWAY, which is only available in java binder and it provide a asynchronized way to invoke server end method. Read the book or the Internet for more detail.</p>
+<p>We go through the process that how AMS registers itself to systemServer and then analyze how AMS respond to clients’ binder request.</p>
+<p>As suggested in Ref[1] book, we start from<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ActivityServiceManager.java::setSystemProcess().</span><br></pre></td></tr></table></figure></p>
+<p>In later articles, I have to connect this part to the whole picture, so that we can see how it starts.</p>
+<p>Now start,</p>
+<p>I draw these two class UML in the beginning so that I and my readers can have an overview to java binder relationships.</p>
+<p>I split the UML into two, since I strongly believe that mixing object (or say class) in two different processes together in one UML could cause confusion.</p>
+<p>In our case, we call IPC method addService in AMS, which acts as client in this process. While ServiceManager in this case acts as server and provide actual implementation.</p>
+<p>This aticle focuses on Java binder Bp side. Though in this diagram, ServiceManagerNative seems to be Bn side class. However, note that we only use its static method asInterface() here to create a new object of ServiceManagerProxy.</p>
+<p>Here is the Java Binder Bp UML:<br><img src="https://raw.githubusercontent.com/hongweibai/hongweibai.github.io/master/image/binder_java_bp.jpg" alt></p>
+<p>In<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">setSystemProcess()</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ServiceManager.addService(Context.ACTIVITY_SERVICE, this, true);</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public static final String ACTIVITY_SERVICE = &quot;activity&quot;;</span><br></pre></td></tr></table></figure>
+<p>Method:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public static void addService(String name, IBinder service, boolean allowIsolated) &#123;</span><br></pre></td></tr></table></figure></p>
+<p>So how this method can use itself as Ibinder type.</p>
+<p>See its class UML above.</p>
+<p>Now we go into addService() this static method:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public static void addService(String name, IBinder service, boolean allowIsolated) &#123;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">getIServiceManager().addService(name, service, allowIsolated);</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">private static IServiceManager getIServiceManager() &#123;</span><br><span class="line">    if (sServiceManager != null) &#123;</span><br><span class="line">        return sServiceManager;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // Find the service manager</span><br><span class="line">    sServiceManager = ServiceManagerNative.asInterface(BinderInternal.getContextObject());</span><br><span class="line">    return sServiceManager;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * Return the global &quot;context object&quot; of the system.  This is usually</span><br><span class="line">     * an implementation of IServiceManager, which you can use to find</span><br><span class="line">     * other services.</span><br><span class="line">     */</span><br><span class="line">	public static final native IBinder getContextObject();</span><br></pre></td></tr></table></figure>
+<p> it is a JNI call, go to<br>android_util_Binder.cpp<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">static jobject android_os_BinderInternal_getContextObject(JNIEnv* env, jobject clazz)</span><br><span class="line">&#123;</span><br><span class="line">    sp&lt;IBinder&gt; b = ProcessState::self()-&gt;getContextObject(NULL);</span><br><span class="line">    return javaObjectForIBinder(env, b);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>According to recent article: <a href="https://hongweibai.github.io/2017/12/08/Binder-analysis-native-bp/">Android 7.1 Binder native analysis</a><br>ProcessState::self()-&gt;getContextObject(NULL) returns a new BpBinder(0),</p>
+<p>In this method:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">if (val-&gt;checkSubclass(&amp;gBinderOffsets)) &#123;</span><br><span class="line">    // One of our own!</span><br><span class="line">    jobject object = static_cast&lt;JavaBBinder*&gt;(val.get())-&gt;object();</span><br><span class="line">…</span><br><span class="line">    return object;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>From the comments and cast type: JavaBBinder, I guess it return a server-end Bbinder object,<br>And it always return false:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">bool IBinder::checkSubclass(const void* /*subclassID*/) const</span><br><span class="line">&#123;</span><br><span class="line">    return false;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>In our case, we skip this block,</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jobject object = (jobject)val-&gt;findObject(&amp;gBinderProxyOffsets);</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jobject res = jniGetReferent(env, object);</span><br></pre></td></tr></table></figure>
+<p>I can not find the method jniGetReferent in my project, so leave it to future<a href="https://hongweibai.github.io/2017/12/03/New-topic-to-do/">linkto:where is jniGetReferent()</a></p>
+<p>Anyway, it returns a java object reference.</p>
+<p>And this class is registered here, in<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">const char* const kBinderProxyPathName = &quot;android/os/BinderProxy&quot;;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">static int int_register_android_os_BinderProxy(JNIEnv* env)</span><br><span class="line">…</span><br><span class="line">clazz = FindClassOrDie(env, kBinderProxyPathName);</span><br></pre></td></tr></table></figure>
+<p>Is the existence of the global variable gBinderProxyOffsets means that there is only one copy of binder proxy? I guess so.<br>When we look at binder.cpp::attach and detach methods, they are complicated. But in general, they store the new created java object into a structure through its ObjectManager. Later we can see how they use this java object, which actually is BinderProxy.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sServiceManager = ServiceManagerNative.asInterface(BinderInternal.getContextObject());</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">=&gt;sServiceManager = ServiceManagerNative.asInterface(new BinderProxy);</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">static public IServiceManager asInterface(IBinder obj)</span><br><span class="line">…</span><br><span class="line">    return new ServiceManagerProxy(obj);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>ServiceManagerProxy::addService, which is in file ServiceManagerNative.java</p>
+<p>In addService:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">…</span><br><span class="line">mRemote.transact(ADD_SERVICE_TRANSACTION, data, reply, 0);</span><br></pre></td></tr></table></figure></p>
+<p>via<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public ServiceManagerProxy(IBinder remote) &#123;</span><br><span class="line">    mRemote = remote;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>We know mRemote = new BinderProxy() passed in from ServiceManagerProxy’s constructor.</p>
+<p>In file Binder.java, we found BinderProxy::transact,<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public boolean transact(int code, Parcel data, Parcel reply, int flags) throws RemoteException &#123;</span><br><span class="line">    Binder.checkParcel(this, code, data, &quot;Unreasonably large binder buffer&quot;);</span><br><span class="line">    if (Binder.isTracingEnabled()) &#123; Binder.getTransactionTracker().addTrace(); &#125;</span><br><span class="line">    return transactNative(code, data, reply, flags);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>In Android 7.1.2, this native method is registered by dynamic.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">static const JNINativeMethod gBinderProxyMethods[] = &#123;</span><br><span class="line">     /* name, signature, funcPtr */</span><br><span class="line">	…</span><br><span class="line">	 &#123;&quot;transactNative&quot;,      &quot;(ILandroid/os/Parcel;Landroid/os/Parcel;I)Z&quot;, (void*)android_os_BinderProxy_transact&#125;,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>Then<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">static jboolean android_os_BinderProxy_transact(JNIEnv* env, jobject obj, jint code, jobject dataObj, jobject replyObj, jint flags) // throws RemoteException</span><br></pre></td></tr></table></figure></p>
+<p>We can also see that,<br>Register system jni process is just after vm onCreate()<br>In this method: in AndroidRuntime.cpp<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">if (startReg(env) &lt; 0) &#123;</span><br></pre></td></tr></table></figure></p>
+<p>Its parent method is start() which is invoked by app_main.cpp’s<br>runtime.start(“com.android.internal.os.ZygoteInit”, args, zygote);</p>
+<p>OK, go back.</p>
+<p>Core process in android_os_BinderProxy_transact is<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">status_t err = target-&gt;transact(code, *data, reply, flags);</span><br></pre></td></tr></table></figure></p>
+<p>Target is,<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">IBinder* target = (IBinder*)</span><br><span class="line">        env-&gt;GetLongField(obj, gBinderProxyOffsets.mObject);</span><br></pre></td></tr></table></figure></p>
+<p>To figure out what is mObject, we go back to javaObjectForIBinder()</p>
+<p>let us look at Binder proxy register method again,<br>in int_register_android_os_BinderProxy<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gBinderProxyOffsets.mObject = GetFieldIDOrDie(env, clazz, &quot;mObject&quot;, &quot;J&quot;);</span><br></pre></td></tr></table></figure></p>
+<p>So we go to BinderProxy.mObject field, which is in Binder.java,<br>There is no method setting this private field, either in BinderProxy or its base class Binder.</p>
+<p>So we look at javaObjectForIBinder() again in android_util_Binder.cpp.<br>OK,<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">env-&gt;SetLongField(object, gBinderProxyOffsets.mObject, (jlong)val.get());</span><br></pre></td></tr></table></figure></p>
+<p>and val.get() is val itself a.k.a. BpBinder(0).</p>
+<p>So, target is the BpBinder in native layer.<br>and here it invoke BpBinder.cpp::transact().</p>
+<p>OK. The binder client end process is complete and it then reuse native binder mechanism to finish IPC invoke. See more detail about native binder, go to <a href="https://hongweibai.github.io/2017/12/08/Binder-analysis-native-bp/">Native Binder analysis for Bp</a></p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p>Ref1:《深入理解Android卷II》chapter2</p>
+<p><div id="container"></div></p>
+<p><link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css"></p>
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+var gitment = new Gitment({
+  id: 'java_binder_analysis_bp', // 可选。默认为 location.href
+  owner: 'hongweibai',  //改你自己的名字
+  repo: 'blog_comments',  //专门储存评论一个GitHub仓库
+  oauth: {
+    client_id: '03adfa8ab6ec80389e54', //改为你自己的，下同
+    client_secret: '834cdbbb5528756744608ce0e6ab0412e3da4f2a',
+  },
+})
+gitment.render('container')
+</script>
+
+
+                
+            </div>
+
+            <!-- Comments -->
+            
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    
+
+
+                </div>
+            
+        </div>
+    </div>
+</article>
+
+    <!-- Footer -->
+    <hr>
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+
+                    
+
+                    
+                        <li>
+                            <a href="https://github.com/hongweibai" target="_blank">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    
+
+                    
+
+                    
+                        <li>
+                            <a href="mailto:bhw8412@hotmail.com" target="_blank">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-envelope-o fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    
+
+                    
+                </ul>
+                <p class="copyright text-muted">&copy; 2019 Hongwei Bai<br></p>
+                <p class="copyright text-muted">Original Theme <a target="_blank" href="http://startbootstrap.com/template-overviews/clean-blog/">Clean Blog</a> from <a href="http://startbootstrap.com/" target="_blank">Start Bootstrap</a></p>
+                <p class="copyright text-muted">Adapted for <a target="_blank" href="https://hexo.io/">Hexo</a> by <a href="http://www.codeblocq.com/" target="_blank">Jonathan Klughertz</a></p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+    <!-- After footer scripts -->
+    
+<!-- jQuery -->
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+<!-- Gallery -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Disqus Comments -->
+
+
+
+</body>
+
+</html>

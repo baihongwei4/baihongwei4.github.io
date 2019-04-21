@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.8.0">
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="The position of socket in a typical protocol stack is shown below: It locates between application layer and transportation layer.">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="Hongwei Bai">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="Socket programming">
+    
+
+    <!--Open Graph Description-->
+    
+        <meta property="og:description" content="The position of socket in a typical protocol stack is shown below: It locates between application layer and transportation layer.">
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="Mike&#39;s blog">
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article">
+    
+
+    <!--Page Cover-->
+    
+
+        <meta name="twitter:card" content="summary">
+    
+
+    <!-- Title -->
+    
+    <title>Socket programming - Mike&#39;s blog</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet">
+
+    <!-- Google Analytics -->
+    
+
+
+    <!-- favicon -->
+    
+    <link rel="icon" href="/image/favicon.gif">
+    
+
+    <!-- bhw1899 updated -->
+    <link href="//cdn.bootcss.com/mermaid/7.0.14/themes/mermaid.neutral.min.css" rel="stylesheet">
+    <script src="//cdn.bootcss.com/mermaid/7.0.14/mermaid.min.js"></script>
+    <script type="text/javascript">mermaid.initialize({startOnLoad:true});</script>
+</head>
+
+
+<body>
+
+    <!-- Menu -->
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Hongwei' blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                
+                    <li>
+                        <a href="/">
+                            
+                                Home
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/archives">
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/tags">
+                            
+                                Tags
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/categories">
+                            
+                                Categories
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/board">
+                            
+                                board
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://github.com/hongweibai">
+                            
+                                <i class="fa fa-github fa-stack-2x"></i>
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+    <!-- Main Content -->
+    <!-- Page Header -->
+<!-- Set your background image for this header in your post front-matter: cover -->
+
+<header class="intro-header" style="background-image: url('http://www.codeblocq.com/assets/projects/hexo-theme-clean-blog/img/home-bg.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1>Socket programming</h1>
+                    
+                    <span class="meta">
+                        <!-- Date and Author -->
+                        
+                        
+                            2017-12-09
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Tags and categories -->
+           
+                <div class="col-lg-4 col-lg-offset-2 col-md-5 col-md-offset-1 post-tags">
+                    
+                        
+
+
+<a href="/tags/Socket/">#Socket</a>
+
+
+                    
+                </div>
+                <div class="col-lg-4 col-md-5 post-categories">
+                    
+                        
+
+<a href="/categories/Network/">Network</a>
+
+                    
+                </div>
+            
+
+            <!-- Gallery -->
+            
+
+            <!-- Post Main Content -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <h2 id="Intorduction"><a href="#Intorduction" class="headerlink" title="Intorduction"></a>Intorduction</h2><p>The position of socket in a typical protocol stack is shown below:<br>It locates between application layer and transportation layer.<br><div class="mermaid">
+  graph TD
+app[Application layer: User processes]
+socket[Socket abstract layer]
+trans[Transportation layer: TCP/UDP]
+network[Network layer: IP]
+dll[Data link layer]
+phy[Physical layer]
+app-.-socket
+socket-.-trans
+trans-.-network
+network-.-dll
+dll-.-phy
+</div>
+</p>
+<p>A typical model of socket interaction is like:<br>This diagram is copy from <a href="http://www.jianshu.com/p/90348ef3f41e" target="_blank" rel="noopener">Ref1</a>.<br><img src="https://raw.githubusercontent.com/hongweibai/hongweibai.github.io/master/image/socket_simple.jpg" alt></p>
+<p>So do these two examples:</p>
+<p>server.py<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">import socket</span><br><span class="line"></span><br><span class="line">HOST = &apos;localhost&apos;      # 服务器主机地址</span><br><span class="line">PORT = 5000             # 服务器监听端口</span><br><span class="line">BUFFER_SIZE = 2048      # 读取数据大小</span><br><span class="line"></span><br><span class="line"># 创建一个套接字</span><br><span class="line">sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)  </span><br><span class="line"># 绑定主机和端口</span><br><span class="line">sock.bind((HOST, PORT))</span><br><span class="line"># 开启socket监听</span><br><span class="line">sock.listen(5)</span><br><span class="line"></span><br><span class="line">print &apos;Server start, listening &#123;&#125;&apos;.format(PORT)</span><br><span class="line"></span><br><span class="line">while True:</span><br><span class="line">    # 建立连接，连接为建立的时候阻塞</span><br><span class="line">    conn, addr = sock.accept()</span><br><span class="line">    while True:</span><br><span class="line">        # 读取数据，数据还没到来阻塞</span><br><span class="line">        data = conn.recv(BUFFER_SIZE)</span><br><span class="line">        if len(data):</span><br><span class="line">            print &apos;Server Recv Data: &#123;&#125;&apos;.format(data)</span><br><span class="line">            conn.send(data)</span><br><span class="line">            print &apos;Server Send Data: &#123;&#125;&apos;.format(data)</span><br><span class="line">        else:</span><br><span class="line">            print &apos;Server Recv Over&apos;</span><br><span class="line">            break</span><br><span class="line">    conn.close()</span><br><span class="line">sock.close()</span><br></pre></td></tr></table></figure></p>
+<p>client.py<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">import socket</span><br><span class="line"></span><br><span class="line">HOST = &apos;localhost&apos;</span><br><span class="line">PORT = 5000</span><br><span class="line">BUFFER_SIZE = 1024</span><br><span class="line"></span><br><span class="line"># 创建客户端套接字</span><br><span class="line">sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)</span><br><span class="line"># 连接到服务器</span><br><span class="line">sock.connect((HOST, PORT))</span><br><span class="line"></span><br><span class="line">try:</span><br><span class="line">    message = &quot;Hello&quot;</span><br><span class="line">    # 发起数据给服务器</span><br><span class="line">    sock.sendall(message)</span><br><span class="line">    amount_received = 0</span><br><span class="line">    amount_expected = len(message)</span><br><span class="line">    while amount_received &lt; amount_expected:</span><br><span class="line">        # 接收服务器返回的数据</span><br><span class="line">        data = sock.recv(10)</span><br><span class="line">        amount_received += len(data)</span><br><span class="line">        print &apos;Client Received: &#123;&#125;&apos;.format(data)</span><br><span class="line"></span><br><span class="line">except socket.errno, e:</span><br><span class="line">    print &apos;Socket error: &#123;&#125;&apos;.format(e)</span><br><span class="line">except Exception, e:</span><br><span class="line">    print &apos;Other exception: %s&apos;.format(e)</span><br><span class="line">finally:</span><br><span class="line">    print &apos;Closing connection to the server&apos;</span><br><span class="line">    sock.close()</span><br></pre></td></tr></table></figure></p>
+<h2 id="Endianness"><a href="#Endianness" class="headerlink" title="Endianness"></a>Endianness</h2><p>The Internet applies Big-endian, which means that whenever addressing memory or sending/storing words bytewise, the most significant byte.<br>So use these methods properly:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">htons()--&quot;Host to Network Short&quot; ; htonl()--&quot;Host to Network Long&quot;</span><br><span class="line">ntohs()--&quot;Network to Host Short&quot; ; ntohl()--&quot;Network to Host Long&quot;</span><br></pre></td></tr></table></figure></p>
+<h2 id="Socket-APIs"><a href="#Socket-APIs" class="headerlink" title="Socket APIs"></a>Socket APIs</h2><p>Now we look at some important APIs:<br>Quote <a href="https://en.wikipedia.org/wiki/Berkeley_sockets" target="_blank" rel="noopener">Ref3:Wiki:Berkeley sockets</a></p>
+<blockquote>
+<p>socket() creates a new socket of a certain socket type, identified by an integer number, and allocates system resources to it.</p>
+<p>send() and recv(), or write() and read(), or sendto() and recvfrom(), are used for sending and receiving data to/from a remote socket.</p>
+<p>close() causes the system to release resources allocated to a socket. In case of TCP, the connection is terminated.<br>gethostbyname() and gethostbyaddr() are used to resolve host names and addresses. IPv4 only.</p>
+<p>select() is used to suspend, waiting for one or more of a provided list of sockets to be ready to read, ready to write, or that have errors.</p>
+<p>poll() is used to check on the state of a socket in a set of sockets. The set can be tested to see if any socket can be written to, read from or if an error occurred.</p>
+<p>getsockopt() is used to retrieve the current value of a particular socket option for the specified socket.</p>
+<p>setsockopt() is used to set a particular socket option for the specified socket.</p>
+</blockquote>
+<p>Server only:</p>
+<blockquote>
+<p>bind() is typically used on the server side, and associates a socket with a socket address structure, i.e. a specified local port number and IP address.</p>
+<p>listen() is used on the server side, and causes a bound TCP socket to enter listening state.</p>
+<p>accept() is used on the server side. It accepts a received incoming attempt to create a new TCP connection from the remote client, and creates a new socket associated with the socket address pair of this connection.</p>
+</blockquote>
+<p>Client only:</p>
+<blockquote>
+<p>connect() is used on the client side, and assigns a free local port number to a socket. In case of a TCP socket, it causes an attempt to establish a new TCP connection.</p>
+</blockquote>
+<p>methods with parameters:<br><code>int socket(int family, int type, int protocol);</code></p>
+<p><code>int bind(int sockfd, struct sockaddr *my_addr, int addrlen);</code></p>
+<p><code>int listen(int sockfd， int backlog);</code></p>
+<p><code>int accept(int sockfd, struct sockaddr *addr, int *addrlen);</code></p>
+<p><code>int connect(int sockfd, struct sockaddr *serv_addr, int addrlen);</code></p>
+<p><code>int send(int sockfd, const void *msg, int len, int flags);</code></p>
+<p><code>int recv(int sockfd,void *buf,int len,unsigned int flags);</code></p>
+<p><code>int sendto(int sockfd, const void *msg,int len,unsigned int flags,const struct sockaddr *to,int tolen);</code></p>
+<p><code>int recvfrom(int sockfd,void *buf,int len,unsigned int flags,struct sockaddr *from,int *fromlen);</code></p>
+<p>sendto() and recvfrom() are used for connectionless interactions. e.g. SOCK_DGRAM/SOCK_RAW</p>
+<p><code>close(int sockfd);</code></p>
+<p><code>int shutdown(int sockfd,int how);</code></p>
+<p>Compared to close(), shutdown() has one more parameter, which indicates how to close this connection:</p>
+<ul>
+<li>0 No more data received</li>
+<li>1 No more data sent</li>
+<li>2 No more data sent and received</li>
+<li>close(): both send and receive are available</li>
+</ul>
+<h2 id="Sync-vs-Async-Blocked-vs-Unblocked"><a href="#Sync-vs-Async-Blocked-vs-Unblocked" class="headerlink" title="Sync vs. Async, Blocked vs. Unblocked"></a>Sync vs. Async, Blocked vs. Unblocked</h2><p>There is a chinese story which help me understand these difference clearly.<br>I am going to translate it later:</p>
+<blockquote>
+<p>老张爱喝茶，废话不说，煮开水。出场人物：老张，水壶两把（普通水壶，简称水壶；会响的水壶，简称响水壶）。<br>1 老张把水壶放到火上，立等水开。（同步阻塞）老张觉得自己有点傻</p>
+<p>2 老张把水壶放到火上，去客厅看电视，时不时去厨房看看水开没有。（同步非阻塞）老张还是觉得自己有点傻，于是变高端了，买了把会响笛的那种水壶。水开之后，能大声发出嘀~~~~的噪音。</p>
+<p>3 老张把响水壶放到火上，立等水开。（异步阻塞）老张觉得这样傻等意义不大</p>
+<p>4 老张把响水壶放到火上，去客厅看电视，水壶响之前不再去看它了，响了再去拿壶。（异步非阻塞）</p>
+<p>老张觉得自己聪明了。所谓同步异步，只是对于水壶而言。普通水壶，同步；响水壶，异步。虽然都能干活，但响水壶可以在自己完工之后，提示老张水开了。这是普通水壶所不能及的。同步只能让调用者去轮询自己（情况2中），造成老张效率的低下。</p>
+<p>所谓阻塞非阻塞，仅仅对于老张而言。立等的老张，阻塞；看电视的老张，非阻塞。情况1和情况3中老张就是阻塞的，媳妇喊他都不知道。虽然3中响水壶是异步的，可对于立等的老张没有太大的意义。所以一般异步是配合非阻塞使用的，这样才能发挥异步的效用。</p>
+<p>——来源网络，作者不明。</p>
+</blockquote>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="http://www.jianshu.com/p/90348ef3f41e" target="_blank" rel="noopener">Ref1:Socket通信原理简介</a><br><a href="https://www.cnblogs.com/luxiaoxun/archive/2012/10/16/2725760.html" target="_blank" rel="noopener">Ref2:网络编程socket基本API详解</a><br><a href="https://en.wikipedia.org/wiki/Berkeley_sockets" target="_blank" rel="noopener">Ref3:Wiki:Berkeley sockets</a></p>
+<p><div id="container"></div></p>
+<p><link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css"></p>
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+var gitment = new Gitment({
+  id: 'socket_programming', // 可选。默认为 location.href
+  owner: 'hongweibai',  //改你自己的名字
+  repo: 'blog_comments',  //专门储存评论一个GitHub仓库
+  oauth: {
+    client_id: '03adfa8ab6ec80389e54', //改为你自己的，下同
+    client_secret: '834cdbbb5528756744608ce0e6ab0412e3da4f2a',
+  },
+})
+gitment.render('container')
+</script>
+
+                
+            </div>
+
+            <!-- Comments -->
+            
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    
+
+
+                </div>
+            
+        </div>
+    </div>
+</article>
+
+    <!-- Footer -->
+    <hr>
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+
+                    
+
+                    
+                        <li>
+                            <a href="https://github.com/hongweibai" target="_blank">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    
+
+                    
+
+                    
+                        <li>
+                            <a href="mailto:bhw8412@hotmail.com" target="_blank">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-envelope-o fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    
+
+                    
+                </ul>
+                <p class="copyright text-muted">&copy; 2019 Hongwei Bai<br></p>
+                <p class="copyright text-muted">Original Theme <a target="_blank" href="http://startbootstrap.com/template-overviews/clean-blog/">Clean Blog</a> from <a href="http://startbootstrap.com/" target="_blank">Start Bootstrap</a></p>
+                <p class="copyright text-muted">Adapted for <a target="_blank" href="https://hexo.io/">Hexo</a> by <a href="http://www.codeblocq.com/" target="_blank">Jonathan Klughertz</a></p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+    <!-- After footer scripts -->
+    
+<!-- jQuery -->
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+<!-- Gallery -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Disqus Comments -->
+
+
+
+</body>
+
+</html>

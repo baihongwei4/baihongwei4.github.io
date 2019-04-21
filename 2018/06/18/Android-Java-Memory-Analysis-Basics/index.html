@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.8.0">
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="Android OOM分析之基础，介绍了各种引用、Java内存模型、基本垃圾回收算法等。">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="Hongwei Bai">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="Android OOM分析之基础">
+    
+
+    <!--Open Graph Description-->
+    
+        <meta property="og:description" content="Android OOM分析之基础，介绍了各种引用、Java内存模型、基本垃圾回收算法等。">
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="Mike&#39;s blog">
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article">
+    
+
+    <!--Page Cover-->
+    
+
+        <meta name="twitter:card" content="summary">
+    
+
+    <!-- Title -->
+    
+    <title>Android OOM分析之基础 - Mike&#39;s blog</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet">
+
+    <!-- Google Analytics -->
+    
+
+
+    <!-- favicon -->
+    
+    <link rel="icon" href="/image/favicon.gif">
+    
+
+    <!-- bhw1899 updated -->
+    <link href="//cdn.bootcss.com/mermaid/7.0.14/themes/mermaid.neutral.min.css" rel="stylesheet">
+    <script src="//cdn.bootcss.com/mermaid/7.0.14/mermaid.min.js"></script>
+    <script type="text/javascript">mermaid.initialize({startOnLoad:true});</script>
+</head>
+
+
+<body>
+
+    <!-- Menu -->
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Hongwei' blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                
+                    <li>
+                        <a href="/">
+                            
+                                Home
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/archives">
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/tags">
+                            
+                                Tags
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/categories">
+                            
+                                Categories
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/board">
+                            
+                                board
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://github.com/hongweibai">
+                            
+                                <i class="fa fa-github fa-stack-2x"></i>
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+    <!-- Main Content -->
+    <!-- Page Header -->
+<!-- Set your background image for this header in your post front-matter: cover -->
+
+<header class="intro-header" style="background-image: url('http://www.codeblocq.com/assets/projects/hexo-theme-clean-blog/img/home-bg.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1>Android OOM分析之基础</h1>
+                    
+                    <span class="meta">
+                        <!-- Date and Author -->
+                        
+                        
+                            2018-06-18
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Tags and categories -->
+           
+                <div class="col-lg-4 col-lg-offset-2 col-md-5 col-md-offset-1 post-tags">
+                    
+                        
+
+
+<a href="/tags/OOM/">#OOM</a> <a href="/tags/Memory-Leak/">#Memory Leak</a>
+
+
+                    
+                </div>
+                <div class="col-lg-4 col-md-5 post-categories">
+                    
+                        
+
+<a href="/categories/Android/">Android</a>/ <a href="/categories/Android/Java/">Java</a>
+
+                    
+                </div>
+            
+
+            <!-- Gallery -->
+            
+
+            <!-- Post Main Content -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <h3 id="1-关于强引用、软引用、强引用、弱引用等："><a href="#1-关于强引用、软引用、强引用、弱引用等：" class="headerlink" title="1. 关于强引用、软引用、强引用、弱引用等："></a>1. 关于强引用、软引用、强引用、弱引用等：</h3><p><a href="https://docs.oracle.com/javase/7/docs/api/" target="_blank" rel="noopener">https://docs.oracle.com/javase/7/docs/api/</a><br>中文版：<br>《Java API 1.6 SoftReference类》<br>以下第一张截图出自：<a href="https://www.baidu.com/s?wd=java%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%AC%AC%E4%BA%8C%E7%89%88&amp;rsv_spt=1&amp;rsv_iqid=0xb8b0b70300008ea7&amp;issp=1&amp;f=8&amp;rsv_bp=1&amp;rsv_idx=2&amp;ie=utf-8&amp;rqlang=cn&amp;tn=baiduhome_pg&amp;rsv_enter=1&amp;oq=git%2520%25E4%25BB%2593%25E5%25BA%2593%2520respo&amp;rsv_t=2bb1ADpnSrzXwxmAgAkHVgPhcIsWrxLgeAUL0tZUNgY%2Bx7b6NhVU8lY%2FschbyNYMFnKD&amp;inputT=4946&amp;rsv_pq=eeab0cfb0000dc12&amp;rsv_sug3=63&amp;rsv_sug1=44&amp;rsv_sug7=100&amp;rsv_sug2=0&amp;rsv_sug4=5546" target="_blank" rel="noopener">《Java虚拟机（第二版）》</a><br>其它截图均出自：《JAVA API1.6中文文档.CHM》</p>
+<p><img src="https://raw.githubusercontent.com/hongweibai/hongweibai.github.io/master/image/mat2/1.jpg" alt></p>
+<p><img src="https://raw.githubusercontent.com/hongweibai/hongweibai.github.io/master/image/mat2/2.jpg" alt></p>
+<p><img src="https://raw.githubusercontent.com/hongweibai/hongweibai.github.io/master/image/mat2/3.jpg" alt></p>
+<p><img src="https://raw.githubusercontent.com/hongweibai/hongweibai.github.io/master/image/mat2/4.jpg" alt></p>
+<h3 id="2-Java内存模型："><a href="#2-Java内存模型：" class="headerlink" title="2. Java内存模型："></a>2. Java内存模型：</h3><p>以下截图均出自：<a href="https://www.baidu.com/s?wd=java%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%AC%AC%E4%BA%8C%E7%89%88&amp;rsv_spt=1&amp;rsv_iqid=0xb8b0b70300008ea7&amp;issp=1&amp;f=8&amp;rsv_bp=1&amp;rsv_idx=2&amp;ie=utf-8&amp;rqlang=cn&amp;tn=baiduhome_pg&amp;rsv_enter=1&amp;oq=git%2520%25E4%25BB%2593%25E5%25BA%2593%2520respo&amp;rsv_t=2bb1ADpnSrzXwxmAgAkHVgPhcIsWrxLgeAUL0tZUNgY%2Bx7b6NhVU8lY%2FschbyNYMFnKD&amp;inputT=4946&amp;rsv_pq=eeab0cfb0000dc12&amp;rsv_sug3=63&amp;rsv_sug1=44&amp;rsv_sug7=100&amp;rsv_sug2=0&amp;rsv_sug4=5546" target="_blank" rel="noopener">《Java虚拟机（第二版）》</a><br>垃圾回收的主要对象为Java堆（截图2.2.4节），贴出部分重要章节，剩下的可以自行看书。<br><img src="https://raw.githubusercontent.com/hongweibai/hongweibai.github.io/master/image/mat2/5.jpg" alt></p>
+<p><img src="https://raw.githubusercontent.com/hongweibai/hongweibai.github.io/master/image/mat2/6.jpg" alt></p>
+<p><img src="https://raw.githubusercontent.com/hongweibai/hongweibai.github.io/master/image/mat2/7.jpg" alt></p>
+<p><img src="https://raw.githubusercontent.com/hongweibai/hongweibai.github.io/master/image/mat2/8.jpg" alt></p>
+<h3 id="3-Java垃圾回收"><a href="#3-Java垃圾回收" class="headerlink" title="3. Java垃圾回收"></a>3. Java垃圾回收</h3><p>以下截图均出自：<a href="https://www.baidu.com/s?wd=java%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%AC%AC%E4%BA%8C%E7%89%88&amp;rsv_spt=1&amp;rsv_iqid=0xb8b0b70300008ea7&amp;issp=1&amp;f=8&amp;rsv_bp=1&amp;rsv_idx=2&amp;ie=utf-8&amp;rqlang=cn&amp;tn=baiduhome_pg&amp;rsv_enter=1&amp;oq=git%2520%25E4%25BB%2593%25E5%25BA%2593%2520respo&amp;rsv_t=2bb1ADpnSrzXwxmAgAkHVgPhcIsWrxLgeAUL0tZUNgY%2Bx7b6NhVU8lY%2FschbyNYMFnKD&amp;inputT=4946&amp;rsv_pq=eeab0cfb0000dc12&amp;rsv_sug3=63&amp;rsv_sug1=44&amp;rsv_sug7=100&amp;rsv_sug2=0&amp;rsv_sug4=5546" target="_blank" rel="noopener">《Java虚拟机（第二版）》</a>，感兴趣的同学自行阅读。<br>Java的垃圾回收机制大体基于引用计数和可达性分析两大类，复杂的回收都是两者的结合。<br>对于OOM分析，可达性分析是理论基础。（下面第一张图）</p>
+<p>Java中有多种回收算法，由复制、标记、清除等动作组合而成，再根据回收的时机，又可以分为并行、串行、以及两者结合。根据堆内数据以及平台的特点，运用不同的算法实现高效回收。JVM调优的本质也是根据数据结构的具体情况进行调参从而达到优化的目的。</p>
+<p>Java后期，包括Android的Dalvik、ART均对垃圾回收算法不断改进，但是万变不离其宗，下面这些基本算法还是组成各个复杂回收机制的基本单元。<br><img src="https://raw.githubusercontent.com/hongweibai/hongweibai.github.io/master/image/mat2/9.jpg" alt></p>
+<p><img src="https://raw.githubusercontent.com/hongweibai/hongweibai.github.io/master/image/mat2/10.jpg" alt></p>
+<p><img src="https://raw.githubusercontent.com/hongweibai/hongweibai.github.io/master/image/mat2/11.jpg" alt></p>
+<p><img src="https://raw.githubusercontent.com/hongweibai/hongweibai.github.io/master/image/mat2/12.jpg" alt></p>
+<p><div id="container"></div></p>
+<p><link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css"></p>
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+var gitment = new Gitment({
+  id: 'android_mem_analysis_basic',
+  owner: 'hongweibai',
+  repo: 'blog_comments',
+  oauth: {
+    client_id: '03adfa8ab6ec80389e54',
+    client_secret: '834cdbbb5528756744608ce0e6ab0412e3da4f2a',
+  },
+})
+gitment.render('container')
+</script>
+
+                
+            </div>
+
+            <!-- Comments -->
+            
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    
+
+
+                </div>
+            
+        </div>
+    </div>
+</article>
+
+    <!-- Footer -->
+    <hr>
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+
+                    
+
+                    
+                        <li>
+                            <a href="https://github.com/hongweibai" target="_blank">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    
+
+                    
+
+                    
+                        <li>
+                            <a href="mailto:bhw8412@hotmail.com" target="_blank">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-envelope-o fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    
+
+                    
+                </ul>
+                <p class="copyright text-muted">&copy; 2019 Hongwei Bai<br></p>
+                <p class="copyright text-muted">Original Theme <a target="_blank" href="http://startbootstrap.com/template-overviews/clean-blog/">Clean Blog</a> from <a href="http://startbootstrap.com/" target="_blank">Start Bootstrap</a></p>
+                <p class="copyright text-muted">Adapted for <a target="_blank" href="https://hexo.io/">Hexo</a> by <a href="http://www.codeblocq.com/" target="_blank">Jonathan Klughertz</a></p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+    <!-- After footer scripts -->
+    
+<!-- jQuery -->
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+<!-- Gallery -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Disqus Comments -->
+
+
+
+</body>
+
+</html>
