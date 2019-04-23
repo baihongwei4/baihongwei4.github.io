@@ -20,7 +20,7 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="Maybe The Simplest Way to Help You Really Understand Dagger Android (Chapter 1 MVVM) Part A">
+        <meta property="og:title" content="Maybe The Simplest Way to Help You Really Understand Dagger Android (Chapter 1 MVVM)">
     
 
     <!--Open Graph Description-->
@@ -44,7 +44,7 @@
 
     <!-- Title -->
     
-    <title>Maybe The Simplest Way to Help You Really Understand Dagger Android (Chapter 1 MVVM) Part A - Hey Mike!</title>
+    <title>Maybe The Simplest Way to Help You Really Understand Dagger Android (Chapter 1 MVVM) - Hey Mike!</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
@@ -168,7 +168,7 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <div class="post-heading">
-                    <h1>Maybe The Simplest Way to Help You Really Understand Dagger Android (Chapter 1 MVVM) Part A</h1>
+                    <h1>Maybe The Simplest Way to Help You Really Understand Dagger Android (Chapter 1 MVVM)</h1>
                     
                     <span class="meta">
                         <!-- Date and Author -->
@@ -227,9 +227,16 @@
 <p>When coming to MVVM injection, I hope to borrow ideas and find my own best practice.</p>
 <p>I downloaded three related project samples from GitHub, which I also recommend you to do the same.</p>
 <p>They are:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$git@github.com:gahfy/MVVMPosts.git (Kotlin)</span><br><span class="line"></span><br><span class="line">$git@github.com:Pravin-Divraniya/mvvm-dagger-kotlin.git (Kotlin)</span><br><span class="line"></span><br><span class="line">$git@github.com:princessdharmy/triviums.git (Kotlin)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><a href="mailto:git@github.com" target="_blank" rel="noopener">git@github.com</a>:gahfy/MVVMPosts.git (Kotlin)</p>
+<p><a href="mailto:git@github.com" target="_blank" rel="noopener">git@github.com</a>:Pravin-Divraniya/mvvm-dagger-kotlin.git (Kotlin)</p>
+<p><a href="mailto:git@github.com" target="_blank" rel="noopener">git@github.com</a>:princessdharmy/triviums.git (Kotlin)</p>
+</blockquote>
 <p>and My previous project:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">XCube (Java)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>XCube (Java)</p>
+</blockquote>
+<p><br></p>
 <h3 id="A-Glance-of-dagger-sample"><a href="#A-Glance-of-dagger-sample" class="headerlink" title="A Glance of dagger sample"></a>A Glance of dagger sample</h3><p>There are several essential elements in Dagger framework:</p>
 <ol>
 <li>Component</li>
@@ -252,19 +259,19 @@
 <td>Component</td>
 <td>Interface</td>
 <td>@Component</td>
-<td>interface Builder<br>inject()</td>
+<td>interface Builder<br>inject()<br></td>
 </tr>
 <tr>
 <td>Module</td>
 <td>Class</td>
 <td>@Module</td>
-<td>Anything the module want to @Provides e.g. Context, DAO, etc.</td>
+<td>Anything the module want to @Provides e.g. Context, DAO, etc.<br></td>
 </tr>
 <tr>
 <td>Builder</td>
 <td>Interface</td>
 <td>@Component.Builder</td>
-<td>build() which return its component type<br>Anything it want to bind, annotated by @BindsInstance</td>
+<td>build() which return its component type<br>Anything it want to bind, annotated by @BindsInstance<br></td>
 </tr>
 </tbody>
 </table>
@@ -289,20 +296,26 @@
 <li><p>[x] An Fragment’s module that provides “each fragment” instance. e.g. view model instance etc.</p>
 </li>
 <li><p>[x] An ActivityBuilder for Fragment’s component, to build the dagger instance for injection.</p>
-<p>I believe that if you successfully organize your application with app and activity injection, fragment is similar, I would not describe it in my passage, you could reference sample in this repository:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$git@github.com:princessdharmy/triviums.git (Kotlin)</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 </li>
 </ol>
+<p>I believe that if you successfully organize your application with app and activity injection, fragment is similar, I would not describe it in my passage, you could reference sample in this repository:</p>
+<blockquote>
+<p>​     <a href="mailto:git@github.com" target="_blank" rel="noopener">git@github.com</a>:princessdharmy/triviums.git (Kotlin)</p>
+</blockquote>
+<p><br></p>
 <h3 id="A-Very-Very-Simple-Sample"><a href="#A-Very-Very-Simple-Sample" class="headerlink" title="A Very Very Simple Sample"></a>A Very Very Simple Sample</h3><p>I prefer to organize my package like this: (In my previous project ‘XCube’)</p>
 <p><img src="/image/di_pkg.png" alt="1555912086984"></p>
 <p>I put all dagger-related classes in package ‘di’, which is short for dependent injection.</p>
 <p>Then the 2nd level packages are component and module.</p>
 <p>Here is my new Kotlin, MVVM project:</p>
 <p><img src="/image/di_pkg_new.png" alt="di_pkg_new"></p>
-<p>I would not paste my code segments here, you can check them on github: </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://github.com/hongweibai/mike-demo-dagger2-mvvm-kotlin-androidx</span><br></pre></td></tr></table></figure>
+<p>I would not paste my code segments here, you can check them on my github: </p>
+<blockquote>
+<p><a href="https://github.com/hongweibai/mike-demo-dagger2-mvvm-kotlin-androidx" target="_blank" rel="noopener">https://github.com/hongweibai/mike-demo-dagger2-mvvm-kotlin-androidx</a></p>
+</blockquote>
+<p><br></p>
 <h3 id="Go-a-little-deeper-about-how-it-works"><a href="#Go-a-little-deeper-about-how-it-works" class="headerlink" title="Go a little deeper about how it works"></a>Go a little deeper about how it works</h3><p>Many people have asked me about how it really works and I guess that it keeps the project safer if developers know more about how it works.</p>
 <p>You might have noticed that the first time you compile your code, it does not work. Then you do that again without any further modification, it works!</p>
 <p>It is because that dagger generate code itself based on your annotations and the 2nd time you compile it, the generated code start to work.</p>
