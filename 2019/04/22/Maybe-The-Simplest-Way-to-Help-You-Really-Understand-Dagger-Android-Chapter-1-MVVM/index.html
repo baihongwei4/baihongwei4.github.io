@@ -215,11 +215,11 @@
 
             <!-- Post Main Content -->
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <p>For a really long time, I was thinking about writing a really simple and understandable passage to help developers to understand dagger dependent injection, both its usage and how it works.</p>
-<p>I introduced Dagger2-Java in my commercial project one year ago. Several weeks later, I found Dagger-Android was much easier to deploy than Dagger2-Java to an Android application. Although I explained several times to others who tried to introduced dagger to their projects or just wanted to figure out why the project could works like this. I still think I could do better, explaining it in a more systematic manner.</p>
-<p>This stuff were hold up too long. Now it is the time.</p>
-<p>In my previous projects, I prefer MVP+ pattern, because for a component-based application platform rather than a single application, presenter layer could contains more business logic. Also considering not all business components (or modules) are view-related, I chose MVP.</p>
-<p>Now I am migrating one of my old applications to Kotlin and refactoring it with MVVM pattern. There are minor difference between injection details between Java and Kotlin, and between MVP and MVVM. So I do some experiments and tests on it. Incidentally, I hope to record all the details to help others who is new to dagger.</p>
+                <p>For a really long time, I was thinking about writing a really simple and understandable passage to help understand dagger dependent injection, both its usage and how it works.</p>
+<p>I introduced Dagger2-Java in my commercial project one year ago. Several weeks later, I found Dagger-Android was much easier to deploy. Although I explained several times to others who tried to introduced dagger to their projects or just wanted to figure out why the project could works like this. I think I could do better, explaining it more systematically.</p>
+<p>It was hold up too long. Now it is the time.</p>
+<p>In my previous projects, I prefer MVP pattern, because for a component-based application platform rather than a single application, presenter layer could contains more business logic. Also considering not all business components (or modules) are view-related, I chose MVP.</p>
+<p>Now I am migrating one of my old applications to Kotlin and refactoring it with MVVM pattern. There are minor difference about dagger injection details between Java and Kotlin, as well as between MVP and MVVM. So I do some experiments and tests on it. At the same time, I hope to write them down to share.</p>
 <blockquote>
 <p><em>Read the fucking</em> source <em>code</em> - <strong>Linus Torvalds</strong></p>
 </blockquote>
@@ -293,10 +293,8 @@
 </li>
 <li><p>If you want to inject a Fragment instance, you need:</p>
 <ul>
-<li><p>[x] An Fragment’s module that provides “each fragment” instance. e.g. view model instance etc.</p>
-</li>
-<li><p>[x] An ActivityBuilder for Fragment’s component, to build the dagger instance for injection.</p>
-</li>
+<li style="list-style: none"><input type="checkbox" checked> An Fragment’s module that provides “each fragment” instance. e.g. view model instance etc.</li>
+<li style="list-style: none"><input type="checkbox" checked> An ActivityBuilder for Fragment’s component, to build the dagger instance for injection.</li>
 </ul>
 </li>
 </ol>
@@ -305,24 +303,64 @@
 <p>​     <a href="mailto:git@github.com" target="_blank" rel="noopener">git@github.com</a>:princessdharmy/triviums.git (Kotlin)</p>
 </blockquote>
 <p><br></p>
-<h3 id="A-Very-Very-Simple-Sample"><a href="#A-Very-Very-Simple-Sample" class="headerlink" title="A Very Very Simple Sample"></a>A Very Very Simple Sample</h3><p>I prefer to organize my package like this: (In my previous project ‘XCube’)</p>
+<h3 id="A-Very-Simple-Sample"><a href="#A-Very-Simple-Sample" class="headerlink" title="A Very  Simple Sample"></a>A Very  Simple Sample</h3><p>I prefer to organize my package like this: (In my previous project ‘XCube’)</p>
 <p><img src="/image/di_pkg.png" alt="1555912086984"></p>
-<p>I put all dagger-related classes in package ‘di’, which is short for dependent injection.</p>
-<p>Then the 2nd level packages are component and module.</p>
-<p>Here is my new Kotlin, MVVM project:</p>
+<p>And below is what they look like in my new Kotlin, MVVM project:</p>
 <p><img src="/image/di_pkg_new.png" alt="di_pkg_new"></p>
-<p>I would not paste my code segments here, you can check them on my github: </p>
+<p>The complete Android Studio project is available on my github: </p>
 <blockquote>
 <p><a href="https://github.com/hongweibai/mike-demo-dagger2-mvvm-kotlin-androidx" target="_blank" rel="noopener">https://github.com/hongweibai/mike-demo-dagger2-mvvm-kotlin-androidx</a></p>
 </blockquote>
 <p><br></p>
-<h3 id="Go-a-little-deeper-about-how-it-works"><a href="#Go-a-little-deeper-about-how-it-works" class="headerlink" title="Go a little deeper about how it works"></a>Go a little deeper about how it works</h3><p>Many people have asked me about how it really works and I guess that it keeps the project safer if developers know more about how it works.</p>
-<p>You might have noticed that the first time you compile your code, it does not work. Then you do that again without any further modification, it works!</p>
+<h3 id="Go-a-little-deeper-about-how-it-works"><a href="#Go-a-little-deeper-about-how-it-works" class="headerlink" title="Go a little deeper about how it works"></a>Go a little deeper about how it works</h3><p>Many people have asked me about how it really works and I guess that understanding it have several benefits:</p>
+<ol>
+<li>Learn design ideas from masters</li>
+<li>Feel more comfortable while using it (at least works for me)</li>
+<li>Use it with more flexibility.</li>
+<li>Easier to tackle problems about it.</li>
+</ol>
+<p>You might have noticed that the first time you build the dagger project, it does not work. Then you do that again without any modification, it works.</p>
 <p>It is because that dagger generate code itself based on your annotations and the 2nd time you compile it, the generated code start to work.</p>
 <p><img src="\image\di_gen.png" alt="di_gen"></p>
 <p>As illustrated above in the screenshot, you could easily find the generated code, which actually bridges between your dependent injection code and your business code.</p>
-<h4 id="To-be-continued…"><a href="#To-be-continued…" class="headerlink" title="To be continued…"></a>To be continued…</h4><p><div id="container"></div></p>
-<p><link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css"></p>
+<p>I was intended to draw a class UML diagram as well as a invocation flow chart, but then I found it make it even more complex and difficult to understand. I still suggest you read the code yourself that definitely make it clear. I will list several keynotes to the reading:</p>
+<ol>
+<li><p>Find the real connections between Android native code and dagger code. Actually there are three:</p>
+<ol>
+<li><p>App.kt extends DaggerApplication.java</p>
+</li>
+<li><p>MainActivity.kt extends DaggerAppCompatActivity.java</p>
+</li>
+<li><p>this line of code: </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">return DaggerAppComponent.builder().create(this)</span><br></pre></td></tr></table></figure>
+<p>in override method applicationInjector()</p>
+</li>
+</ol>
+</li>
+<li><p>Start your call stack analysis from: </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DaggerAppComponent.builder().create(this)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Some questions might enlighten:</p>
+<ol>
+<li><p>Why in App.kt injection is explicitly invoked, but in MainActivity.kt, it is not?</p>
+<p>ANSWER: DaggerAppCompatActivity::onCreate() invokes AndroidInjection.inject(this)</p>
+</li>
+<li><p>What does AndroidInjection.inject(this) do in DaggerAppCompatActivity?</p>
+<p>ANSWER: DaggerApplication keeps a global activity pool (and other components). By invoking AndroidInjection.inject(this), activity instance register itself to DaggerApplication’s pool.</p>
+</li>
+<li><p>When does App::applicationInjector() is called?</p>
+<p>ANSWER: DaggerApplication::onCreate()</p>
+</li>
+</ol>
+</li>
+</ol>
+<p>Compared with its earlier version, dagger 2.16 is much simpler and need less boilerplate, although it has to dependent generated code to bridge. </p>
+<div id="container"></div>
+
+
+
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+
 <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
 <script>
 var gitment = new Gitment({
