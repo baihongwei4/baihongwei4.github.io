@@ -223,20 +223,31 @@
 <p><a href="https://www.jianshu.com/p/72015bc37c74" target="_blank" rel="noopener">https://www.jianshu.com/p/72015bc37c74</a></p>
 <p><a href="https://www.cnblogs.com/niocai/archive/2011/11/02/2233585.html" target="_blank" rel="noopener">https://www.cnblogs.com/niocai/archive/2011/11/02/2233585.html</a></p>
 </blockquote>
-<h3 id="Here-is-my-combined-version"><a href="#Here-is-my-combined-version" class="headerlink" title="Here is my combined version:"></a>Here is my combined version:</h3><p>1）首先linux上是否装上了ftp服务，命令：rpm -qa | grep vsftpd</p>
+<h3 id="Here-is-my-combined-version"><a href="#Here-is-my-combined-version" class="headerlink" title="Here is my combined version:"></a>Here is my combined version:</h3><p>1）首先linux上是否装上了ftp服务，命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpm -qa | grep vsftpd</span><br></pre></td></tr></table></figure>
 <p>若没有安装则进行第二步安装</p>
-<p>2)安装ftp服务，命令：yum -y install ftp vsftpd</p>
-<p>3)由于是默认安装，我们查看一下配置文件路径，命令：rpm -qc vsftpd</p>
-<p>4）备份配置文件：命令：cp vsftp.config vsftpd.conf.origin</p>
+<p>2)安装ftp服务，命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y install ftp vsftpd</span><br></pre></td></tr></table></figure>
+<p>3)由于是默认安装，我们查看一下配置文件路径，命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpm -qc vsftpd</span><br></pre></td></tr></table></figure>
+<p>4）备份配置文件：命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp vsftp.config vsftpd.conf.origin</span><br></pre></td></tr></table></figure>
 <p>5)vi可以修改配置文件，进行授权等，这里先不改它</p>
-<p>6）安装ftp，命令：yum -y install ftp</p>
+<p>6）安装ftp，命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y install ftp</span><br></pre></td></tr></table></figure>
 <p>​      a.发现已安装，先不管他；</p>
-<p>​      b.测试一下本机是否可以访问ftp，命令：ftp localhost，发现也是成功的，也不管了</p>
-<p>​      c.退出ftp，命令：exit</p>
-<p>7)查看一下防火墙状态，命令：systemctl status vsftpd.service</p>
-<p>若开启了防火墙则关闭，命令：systemctl stop vsftpd.service</p>
+<p>​      b.测试一下本机是否可以访问ftp，命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ftp localhost</span><br></pre></td></tr></table></figure>
+<p>，发现也是成功的，也不管了</p>
+<p>​      c.退出ftp，命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">exit</span><br></pre></td></tr></table></figure>
+<p>7)查看一下防火墙状态，命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl status vsftpd.service</span><br></pre></td></tr></table></figure>
+<p>若开启了防火墙则关闭，命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl stop vsftpd.service</span><br></pre></td></tr></table></figure>
 <p>或者这里也可以设置防火墙放开改服务，大家自行百度了</p>
-<p>8）建立一个ftp用户，并设密码，命令：adduser ftpuser;passwd ftpuser</p>
+<p>8）建立一个ftp用户，并设密码，命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adduser ftpuser;passwd ftpuser</span><br></pre></td></tr></table></figure>
 <p>在 vsftpd.conf 文件中查找并配置：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># 禁止匿名访问</span><br><span class="line"></span><br><span class="line">anonymous_enable=NO</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line"># 允许本地用户登录FTP</span><br><span class="line"></span><br><span class="line">local_enable=YES</span><br></pre></td></tr></table></figure>
 <p><strong>4.</strong> <strong>启动</strong> <strong>FTP</strong> <strong>服务</strong></p>
@@ -270,8 +281,8 @@
 <p> 命令: LIST</p>
 </blockquote>
 <p>解决方法：更改Filezilla设置，编辑-设置-连接-FTP-被动模式，将“使用服务器的外部ip地址来代替”改为“回到主动模式”即可。</p>
-<h3 id="Modify-default-FTP-root-directory"><a href="#Modify-default-FTP-root-directory" class="headerlink" title="Modify default FTP root directory:"></a>Modify default FTP root directory:</h3><blockquote>
-<p>修改vsftpd的配置文件/etc/vsftpd/vsftpd.conf,添加下面三行  </p>
+<h3 id="Modify-default-FTP-root-directory"><a href="#Modify-default-FTP-root-directory" class="headerlink" title="Modify default FTP root directory:"></a>Modify default FTP root directory:</h3><p>修改vsftpd的配置文件/etc/vsftpd/vsftpd.conf,添加下面三行  </p>
+<blockquote>
 <p>local_root=/media/ftp/pub  </p>
 <p>chroot_local_user=YES  </p>
 <p>anon_root=/var/www/html/  </p>
