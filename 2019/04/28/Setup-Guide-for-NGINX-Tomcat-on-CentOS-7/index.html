@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.8.0">
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="Setup Guide for NGINX-Tomcat on CentOS 7 (Alibaba Cloud) including change NGINX root, redirection to Tomcat for jsp/do/etc. as well as load-balance related configuration.">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="Mike Hongwei Bai">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="Setup Guide for NGINX-Tomcat on CentOS 7">
+    
+
+    <!--Open Graph Description-->
+    
+        <meta property="og:description" content="Setup Guide for NGINX-Tomcat on CentOS 7 (Alibaba Cloud) including change NGINX root, redirection to Tomcat for jsp/do/etc. as well as load-balance related configuration.">
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="Hey Mike!">
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article">
+    
+
+    <!--Page Cover-->
+    
+
+        <meta name="twitter:card" content="summary">
+    
+
+    <!-- Title -->
+    
+    <title>Setup Guide for NGINX-Tomcat on CentOS 7 - Hey Mike!</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet">
+
+    <!-- Google Analytics -->
+    
+
+
+    <!-- favicon -->
+    
+    <link rel="icon" href="/image/favicon.gif">
+    
+
+    <!-- bhw1899 updated -->
+    <link href="//cdn.bootcss.com/mermaid/7.0.14/themes/mermaid.neutral.min.css" rel="stylesheet">
+    <script src="//cdn.bootcss.com/mermaid/7.0.14/mermaid.min.js"></script>
+    <script type="text/javascript">mermaid.initialize({startOnLoad:true});</script>
+</head>
+
+
+<body>
+
+    <!-- Menu -->
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Mike (Hongwei Bai)'s blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                
+                    <li>
+                        <a href="/">
+                            
+                                Home
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/archives">
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/tags">
+                            
+                                Tags
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/categories">
+                            
+                                Categories
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/board">
+                            
+                                board
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://github.com/hongweibai">
+                            
+                                <i class="fa fa-github fa-stack-2x"></i>
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+    <!-- Main Content -->
+    <!-- Page Header -->
+<!-- Set your background image for this header in your post front-matter: cover -->
+
+<header class="intro-header" style="background-image: url('http://www.codeblocq.com/assets/projects/hexo-theme-clean-blog/img/home-bg.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1>Setup Guide for NGINX-Tomcat on CentOS 7</h1>
+                    
+                    <span class="meta">
+                        <!-- Date and Author -->
+                        
+                        
+                            2019-04-28
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Tags and categories -->
+           
+                <div class="col-lg-4 col-lg-offset-2 col-md-5 col-md-offset-1 post-tags">
+                    
+                        
+
+
+<a href="/tags/Server/">#Server</a> <a href="/tags/CentOS/">#CentOS"</a> <a href="/tags/Demo/">#Demo</a> <a href="/tags/Guide/">#Guide</a> <a href="/tags/Tomcat/">#Tomcat</a> <a href="/tags/NGINX/">#NGINX</a>
+
+
+                    
+                </div>
+                <div class="col-lg-4 col-md-5 post-categories">
+                    
+                        
+
+<a href="/categories/CentOS/">CentOS</a>/ <a href="/categories/CentOS/Demo/">Demo</a>
+
+                    
+                </div>
+            
+
+            <!-- Gallery -->
+            
+
+            <!-- Post Main Content -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <p>In this article, I will skip the NGINX installation process, which I will come back and replenish it later.</p>
+<p>First, find your nginx running directory, which is </p>
+<blockquote>
+<p>/etc/nginx</p>
+</blockquote>
+<p>for me.</p>
+<p>Start from editing config file: </p>
+<blockquote>
+<p>nginx.conf</p>
+</blockquote>
+<p>Below is a template I found on: <a href="https://www.jianshu.com/p/f63344d49f85" target="_blank" rel="noopener">https://www.jianshu.com/p/f63344d49f85</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">user  nobody;</span><br><span class="line">#==worker进程数，一般设置为CPU个数===</span><br><span class="line">worker_processes  1;</span><br><span class="line">events &#123;</span><br><span class="line">    worker_connections  1024;</span><br><span class="line">&#125;</span><br><span class="line">http &#123;</span><br><span class="line">    server &#123;</span><br><span class="line">        #============监听的Nginx端口========</span><br><span class="line">        listen 127.0.0.1:80;</span><br><span class="line">        server_name  127.0.0.1;</span><br><span class="line">        access_log  logs/host.access.log  combined;</span><br><span class="line">        #============对不同请求的处理=============</span><br><span class="line">        location ~ \.(jsp|jspx|do|action)?$ </span><br><span class="line">        &#123;   </span><br><span class="line">            #=============tomcat的资源位置============</span><br><span class="line">            root /usr/local/tomcatnginx/www;</span><br><span class="line">            index index.jsp index.jspx index.do;</span><br><span class="line">            #==========Nginx提供的代理============</span><br><span class="line">            proxy_set_header X-Forwarded-Host $host;</span><br><span class="line">            proxy_set_header X-Forwarded-Server $host;</span><br><span class="line">            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;</span><br><span class="line">            #=== 如果遇到.jsp .jspx .do .action 的请求就进入该服务器(tomcat)===</span><br><span class="line">            proxy_pass http://127.0.0.1:8080;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>You should create your own based on it.</p>
+<p>Hers is how I do: I backup the original conf file: </p>
+<blockquote>
+<p>conf.d/default.conf</p>
+</blockquote>
+<p>and modified it as below:</p>
+<pre><code>server {
+    listen       80;
+    server_name  localhost;
+
+#charset koi8-r;
+access_log  /var/log/nginx/host.access.log  main;
+
+location / {
+    root   /usr/mike/myserver/ROOT;
+    index  index.html index.htm;
+}
+
+#error_page  404              /404.html;
+
+# redirect server error pages to the static page /50x.html
+#
+error_page   500 502 503 504  /50x.html;
+location = /50x.html {
+    root   /usr/share/nginx/html;
+}
+
+location ~ \.(jsp|jspx|do|action)?$
+    {
+        #=============tomcat.....============
+        root /usr/mike/myserver/webapps;
+        index index.jsp index.jspx index.do;
+        #==========Nginx.....============
+        proxy_set_header X-Forwarded-Host $host;
+        proxy_set_header X-Forwarded-Server $host;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        #=== .....jsp .jspx .do .action ..........(tomcat)===
+        proxy_pass http://127.0.0.1:8080;
+    }
+
+# proxy the PHP scripts to Apache listening on 127.0.0.1:80
+#
+#location ~ \.php$ {
+#    proxy_pass   http://127.0.0.1;
+#}
+
+# pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
+#
+#location ~ \.php$ {
+#    root           html;
+#    fastcgi_pass   127.0.0.1:9000;
+#    fastcgi_index  index.php;
+#    fastcgi_param  SCRIPT_FILENAME  /scripts$fastcgi_script_name;
+#    include        fastcgi_params;
+#}
+
+# deny access to .htaccess files, if Apache&apos;s document root
+# concurs with nginx&apos;s one
+
+    # deny access to .htaccess files, if Apache&apos;s document root
+    # concurs with nginx&apos;s one
+    #
+    #location ~ /\.ht {
+    #    deny  all;
+    #}
+}
+</code></pre><p>The following bold lines are emphasized because it plays a vital role:</p>
+<p>location / {<br>    <strong>root   /usr/mike/myserver/ROOT;</strong> // This is for changing the NGINX static web root directory.<br>    index  index.html index.htm;<br>}</p>
+<p><strong>location ~ .(jsp|jspx|do|action)?$</strong><br>    <strong>{</strong><br>        <strong>#=============tomcat…..============</strong><br>        <strong>root /usr/mike/myserver/webapps;</strong> // This is for changing the Tomcat webapp root directory.<br>        <strong>index index.jsp index.jspx index.do;</strong> // This is for redirection condiftions<br>        <strong>#==========Nginx…..============</strong><br>        <strong>proxy_set_header X-Forwarded-Host $host;</strong><br>        <strong>proxy_set_header X-Forwarded-Server $host;</strong><br>        <strong>proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;</strong><br>        <strong>#=== …..jsp .jspx .do .action ……….(tomcat)===</strong><br>        <strong>proxy_pass <a href="http://127.0.0.1:8080" target="_blank" rel="noopener">http://127.0.0.1:8080</a>; // This is for redirection destination. a.k.a. Tomcat server.</strong><br>    }**</p>
+<p>Check config file:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$nginx -t</span><br></pre></td></tr></table></figure>
+<p>Force kill NGINX:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$killall -9 nginx</span><br></pre></td></tr></table></figure>
+<p>Then start again:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$nginx</span><br></pre></td></tr></table></figure>
+<h3 id="How-to-test"><a href="#How-to-test" class="headerlink" title="How to test?"></a>How to test?</h3><p>Now assuming that your:</p>
+<ul>
+<li>Tomcat root: usr/mike/myserver/webapps. Port is <strong>8080</strong>.</li>
+<li>NGINX root: usr/mike/myserver/ROOT. Port is <strong>80</strong>.</li>
+</ul>
+<p>put index.html (as A), a.jsp(as B) into webapps</p>
+<p>and put index.html(as C), index.jsp(as D) into ROOT</p>
+<p>Then you can test it on Chrome web browser’s address bar:</p>
+<ul>
+<li>http://<ip>:8080, You get <strong><em>A</em></strong>.</ip></li>
+<li>http://<ip>:80, You get NGINX default index page.</ip></li>
+<li><p>http://<ip>/index, You get <strong><em>C</em></strong>.</ip></p>
+</li>
+<li><p>http://<ip>/index.jsp, You get 404 error. Because .jsp is redirected to Tomcat dir, where no index.jsp exists.</ip></p>
+</li>
+<li>http://<ip>/a.jsp, You get <strong><em>B</em></strong></ip></li>
+</ul>
+<h3 id="Load-Balance"><a href="#Load-Balance" class="headerlink" title="Load Balance"></a>Load Balance</h3><p>I found this article quite useful to understand how it works: <a href="https://blog.csdn.net/qq_32784303/article/details/81207916" target="_blank" rel="noopener">https://blog.csdn.net/qq_32784303/article/details/81207916</a></p>
+<p>I did not try that because I only have one Tomcat server.</p>
+<p>I quote some vital things: </p>
+<p><img src="\image\nginx_load_balance_conf.png" alt="nginx_load_balance_conf"></p>
+<p>While config and restart are done, web browser visit should switch between these two Tomcat servers.</p>
+<p><img src="\image\nginx_load_balance_t1.png" alt="nginx_load_balance_t1"></p>
+<div id="container"></div>
+
+<p><img src="\image\nginx_load_balance_t2.png" alt="nginx_load_balance_t2"></p>
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+var gitment = new Gitment({
+  id: 'setup_nginx_centos7',
+  owner: 'MikeHongweiBai',
+  repo: 'blog_comments',
+  oauth: {
+    client_id: '03adfa8ab6ec80389e54',
+    client_secret: '834cdbbb5528756744608ce0e6ab0412e3da4f2a',
+  },
+})
+gitment.render('container')
+</script>
+
+                
+            </div>
+
+            <!-- Comments -->
+            
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    
+
+
+                </div>
+            
+        </div>
+    </div>
+</article>
+
+    <!-- Footer -->
+    <hr>
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+
+                    
+
+                    
+                        <li>
+                            <a href="https://github.com/hongweibai" target="_blank">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    
+
+                    
+
+                    
+                        <li>
+                            <a href="mailto:bhw8412@hotmail.com" target="_blank">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-envelope-o fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    
+
+                    
+                </ul>
+                <p class="copyright text-muted">&copy; 2019 Mike Hongwei Bai<br></p>
+                <p class="copyright text-muted">Original Theme <a target="_blank" href="http://startbootstrap.com/template-overviews/clean-blog/">Clean Blog</a> from <a href="http://startbootstrap.com/" target="_blank">Start Bootstrap</a></p>
+                <p class="copyright text-muted">Adapted for <a target="_blank" href="https://hexo.io/">Hexo</a> by <a href="http://www.codeblocq.com/" target="_blank">Jonathan Klughertz</a></p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+    <!-- After footer scripts -->
+    
+<!-- jQuery -->
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+<!-- Gallery -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Disqus Comments -->
+
+
+
+</body>
+
+</html>
