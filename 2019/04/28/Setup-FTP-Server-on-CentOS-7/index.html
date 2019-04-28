@@ -10,7 +10,7 @@
 
     <!--Description-->
     
-        <meta name="description" content="Difference between two types of lock in Linux: Mutex and Spin lock">
+        <meta name="description" content="Setup FTP server on CentOS 7 (Alibaba Cloud) including vsftpd install and configuration, root directory change, permission settings, and anonymous visit configurations.">
     
 
     <!--Author-->
@@ -20,12 +20,12 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="Linux lock">
+        <meta property="og:title" content="Setup Guide FTP Server on CentOS 7 (简体中文)">
     
 
     <!--Open Graph Description-->
     
-        <meta property="og:description" content="Difference between two types of lock in Linux: Mutex and Spin lock">
+        <meta property="og:description" content="Setup FTP server on CentOS 7 (Alibaba Cloud) including vsftpd install and configuration, root directory change, permission settings, and anonymous visit configurations.">
     
 
     <!--Open Graph Site Name-->
@@ -44,7 +44,7 @@
 
     <!-- Title -->
     
-    <title>Linux lock - Hey Mike!</title>
+    <title>Setup Guide FTP Server on CentOS 7 (简体中文) - Hey Mike!</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
@@ -168,13 +168,13 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <div class="post-heading">
-                    <h1>Linux lock</h1>
+                    <h1>Setup Guide FTP Server on CentOS 7 (简体中文)</h1>
                     
                     <span class="meta">
                         <!-- Date and Author -->
                         
                         
-                            2017-12-05
+                            2019-04-28
                         
                     </span>
                 </div>
@@ -195,7 +195,7 @@
                         
 
 
-<a href="/tags/Mutex/">#Mutex</a> <a href="/tags/spinlock/">#spinlock</a> <a href="/tags/lock/">#lock</a>
+<a href="/tags/Server/">#Server</a> <a href="/tags/CentOS/">#CentOS"</a> <a href="/tags/Demo/">#Demo</a> <a href="/tags/Guide/">#Guide</a> <a href="/tags/FTP/">#FTP</a>
 
 
                     
@@ -204,7 +204,7 @@
                     
                         
 
-<a href="/categories/Linux/">Linux</a>
+<a href="/categories/CentOS/">CentOS</a>/ <a href="/categories/CentOS/Demo/">Demo</a>
 
                     
                 </div>
@@ -215,40 +215,84 @@
 
             <!-- Post Main Content -->
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <p>Type:</p>
-<ul>
-<li>Mutex: sleep-waiting</li>
-<li>Spin lock: busy-waiting</li>
-</ul>
-<p>Spin lock APIs:</p>
-<ul>
-<li>pthread_spin_lock</li>
-<li>pthread_spin_trylock</li>
-<li>pthread_spin_unlock</li>
-</ul>
-<p>Efficiency:<br>    Spin lock &gt; Mutex<br>    Why: spin lock would not cause invoker sleep.</p>
-<p>Pros/cons:</p>
-<ul>
-<li>Spin lock occupies CPU while waiting.</li>
-<li>Inefficient if spin lock could not acquire lock in a short time.</li>
-<li>Easy to cause dead lock.</li>
-<li>Really needed in preemptive core or SMP. <a href="https://hongweibai.github.io/2017/12/03/New-topic-to-do/" target="_blank" rel="noopener">linkto:core</a></li>
-<li>Properly applied when waiting time is short.</li>
-</ul>
-<p>Reserved:</p>
-<ul>
-<li>How does Spin lock implemented?</li>
-</ul>
+                <p>I mainly quote from several articles by others, But some of them may not suit my environment or just have mistakes. I picked what I need and form this guide, mainly for myself.</p>
+<p>I did not translate it to English yet. Maybe later.</p>
+<p>Original quote sources are:</p>
+<blockquote>
+<p><a href="https://blog.csdn.net/bhtj27/article/details/65627836" target="_blank" rel="noopener">https://blog.csdn.net/bhtj27/article/details/65627836</a></p>
+<p><a href="https://www.jianshu.com/p/72015bc37c74" target="_blank" rel="noopener">https://www.jianshu.com/p/72015bc37c74</a></p>
+<p><a href="https://www.cnblogs.com/niocai/archive/2011/11/02/2233585.html" target="_blank" rel="noopener">https://www.cnblogs.com/niocai/archive/2011/11/02/2233585.html</a></p>
+</blockquote>
+<h3 id="Here-is-my-combined-version"><a href="#Here-is-my-combined-version" class="headerlink" title="Here is my combined version:"></a>Here is my combined version:</h3><p>1）首先linux上是否装上了ftp服务，命令：rpm -qa | grep vsftpd</p>
+<p>若没有安装则进行第二步安装</p>
+<p>2)安装ftp服务，命令：yum -y install ftp vsftpd</p>
+<p>3)由于是默认安装，我们查看一下配置文件路径，命令：rpm -qc vsftpd</p>
+<p>4）备份配置文件：命令：cp vsftp.config vsftpd.conf.origin</p>
+<p>5)vi可以修改配置文件，进行授权等，这里先不改它</p>
+<p>6）安装ftp，命令：yum -y install ftp</p>
+<p>​      a.发现已安装，先不管他；</p>
+<p>​      b.测试一下本机是否可以访问ftp，命令：ftp localhost，发现也是成功的，也不管了</p>
+<p>​      c.退出ftp，命令：exit</p>
+<p>7)查看一下防火墙状态，命令：systemctl status vsftpd.service</p>
+<p>若开启了防火墙则关闭，命令：systemctl stop vsftpd.service</p>
+<p>或者这里也可以设置防火墙放开改服务，大家自行百度了</p>
+<p>8）建立一个ftp用户，并设密码，命令：adduser ftpuser;passwd ftpuser</p>
+<p>在 vsftpd.conf 文件中查找并配置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># 禁止匿名访问</span><br><span class="line"></span><br><span class="line">anonymous_enable=NO</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line"># 允许本地用户登录FTP</span><br><span class="line"></span><br><span class="line">local_enable=YES</span><br></pre></td></tr></table></figure>
+<p><strong>4.</strong> <strong>启动</strong> <strong>FTP</strong> <strong>服务</strong></p>
+<p>启动服务：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"># service vsftpd stop：停止服务</span><br><span class="line"></span><br><span class="line"># service vsftpd restart：重启服务</span><br><span class="line"></span><br><span class="line">service vsftpd start</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line"># 设置开机启动 FTP 服务</span><br><span class="line"></span><br><span class="line">chkconfig vsftpd on</span><br></pre></td></tr></table></figure>
+<p>FAQ：</p>
+<p>使用Filezilla连接路由器内的计算机搭建的ftp服务器时常会出现如下错误：</p>
+<blockquote>
+<p> 状态: 正在连接 XXXXXXXXXXXXXX…</p>
+<p> 状态: 连接建立，等待欢迎消息…</p>
+<p> 响应: 220 Microsoft FTP Service</p>
+<p> 命令: USER XXXXXXXXXXXXX</p>
+<p>响应: 331 Password required for XXXXXXXXXXXXXX</p>
+<p>命令: PASS <strong>**</strong></p>
+<p> 响应: 230 User XXXXXXXXXXX logged in.</p>
+<p> 命令: SYST</p>
+<p> 响应: 215 Windows_NT</p>
+<p>#### </p>
+<p> 命令: FEAT</p>
+<p>### </p>
+<p> 响应: 500 ‘FEAT’: command not understood</p>
+<p> 状态: 已连接</p>
+<p> 状态: 读取目录列表…</p>
+<p> 命令: PWD</p>
+<p> 响应: 257 “/“ is current directory.</p>
+<p> 命令: TYPE I</p>
+<p> 响应: 200 Type set to I.</p>
+<p> 命令: PASV</p>
+<p> 响应: 227 Entering Passive Mode (192,168,1,102,9,128).</p>
+<p> 状态: 服务器发回了不可路由的地址。使用服务器地址代替。</p>
+<p> 命令: LIST</p>
+</blockquote>
+<p>解决方法：更改Filezilla设置，编辑-设置-连接-FTP-被动模式，将“使用服务器的外部ip地址来代替”改为“回到主动模式”即可。</p>
+<h3 id="Modify-default-FTP-root-directory"><a href="#Modify-default-FTP-root-directory" class="headerlink" title="Modify default FTP root directory:"></a>Modify default FTP root directory:</h3><blockquote>
+<p>修改vsftpd的配置文件/etc/vsftpd/vsftpd.conf,添加下面三行  </p>
+<p>local_root=/media/ftp/pub  </p>
+<p>chroot_local_user=YES  </p>
+<p>anon_root=/var/www/html/  </p>
+</blockquote>
+<p>Quote source: <a href="https://blog.csdn.net/yifansj/article/details/72855484" target="_blank" rel="noopener">https://blog.csdn.net/yifansj/article/details/72855484</a></p>
+<h3 id="Permission-settings-for-FTP-directory"><a href="#Permission-settings-for-FTP-directory" class="headerlink" title="Permission settings for FTP directory:"></a>Permission settings for FTP directory:</h3><p>For root directory, it has to be:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod a-w &lt;root&gt;</span><br></pre></td></tr></table></figure>
+<p>Otherwise, ftp connection could not be setup.</p>
+<p>For content directory, it has to be:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod 777 &lt;content&gt;</span><br></pre></td></tr></table></figure>
+<p>Otherwise, user could not upload/modify files.</p>
 <p><div id="container"></div></p>
 <p><link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css"></p>
 <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
 <script>
 var gitment = new Gitment({
-  id: 'linux_lock', // 可选。默认为 location.href
-  owner: 'hongweibai',  //改你自己的名字
-  repo: 'blog_comments',  //专门储存评论一个GitHub仓库
+  id: 'setup_ftp_centos7',
+  owner: 'hongweibai',
+  repo: 'blog_comments',
   oauth: {
-    client_id: '03adfa8ab6ec80389e54', //改为你自己的，下同
+    client_id: '03adfa8ab6ec80389e54',
     client_secret: '834cdbbb5528756744608ce0e6ab0412e3da4f2a',
   },
 })
