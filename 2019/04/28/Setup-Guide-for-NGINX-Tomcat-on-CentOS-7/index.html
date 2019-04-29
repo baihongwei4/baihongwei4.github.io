@@ -302,7 +302,7 @@ location ~ \.(jsp|jspx|do|action)?$
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$killall -9 nginx</span><br></pre></td></tr></table></figure>
 <p>Then start again:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$nginx</span><br></pre></td></tr></table></figure>
-<h3 id="How-to-test"><a href="#How-to-test" class="headerlink" title="How to test?"></a>How to test?</h3><p>Now assuming that your:</p>
+<h3 id="How-To-Test"><a href="#How-To-Test" class="headerlink" title="How To Test?"></a>How To Test?</h3><p>Now assuming that your:</p>
 <ul>
 <li>Tomcat root: usr/mike/myserver/webapps. Port is <strong>8080</strong>.</li>
 <li>NGINX root: usr/mike/myserver/ROOT. Port is <strong>80</strong>.</li>
@@ -319,6 +319,21 @@ location ~ \.(jsp|jspx|do|action)?$
 </li>
 <li>http://<ip>/a.jsp, You get <strong><em>B</em></strong></ip></li>
 </ul>
+<h3 id="API-Redirect-Config"><a href="#API-Redirect-Config" class="headerlink" title="API Redirect Config"></a>API Redirect Config</h3><p>Server API may not end with .jsp. For example:</p>
+<blockquote>
+<p>http://<ip>/mike-demo-springboot-1.0-SNAPSHOT/app/hello</ip></p>
+</blockquote>
+<p>NGINX could also filter keywords in url:</p>
+<p>like:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">location ~ /api/ &#123;</span><br><span class="line">    proxy_pass  http://127.0.0.1:8080;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>This setting could not support either:</p>
+<blockquote>
+<p>http://<ip>/app/apixxx</ip></p>
+</blockquote>
+<p>or</p>
+<blockquote>
+<p>http://<ip>/mike-demo-springboot-1.0-SNAPSHOT/app/hello</ip></p>
+</blockquote>
 <h3 id="Load-Balance"><a href="#Load-Balance" class="headerlink" title="Load Balance"></a>Load Balance</h3><p>I found this article quite useful to understand how it works: <a href="https://blog.csdn.net/qq_32784303/article/details/81207916" target="_blank" rel="noopener">https://blog.csdn.net/qq_32784303/article/details/81207916</a></p>
 <p>I did not try that because I only have one Tomcat server.</p>
 <p>I quote some vital things: </p>
