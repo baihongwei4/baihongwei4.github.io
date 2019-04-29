@@ -10,8 +10,6 @@
 
     <!--Description-->
     
-        <meta name="description" content="Setup Tomcat on CentOS 7 (Alibaba Cloud) including change tomcat webapps root directory.">
-    
 
     <!--Author-->
     
@@ -20,12 +18,10 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="Setup Guide for Tomcat on CentOS 7">
+        <meta property="og:title" content="Hey Mike!">
     
 
     <!--Open Graph Description-->
-    
-        <meta property="og:description" content="Setup Tomcat on CentOS 7 (Alibaba Cloud) including change tomcat webapps root directory.">
     
 
     <!--Open Graph Site Name-->
@@ -33,7 +29,7 @@
 
     <!--Type page-->
     
-        <meta property="og:type" content="article">
+        <meta property="og:type" content="website">
     
 
     <!--Page Cover-->
@@ -44,7 +40,7 @@
 
     <!-- Title -->
     
-    <title>Setup Guide for Tomcat on CentOS 7 - Hey Mike!</title>
+    <title>CentOS - Hey Mike!</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
@@ -160,112 +156,49 @@
 </nav>
 
     <!-- Main Content -->
-    <!-- Page Header -->
-<!-- Set your background image for this header in your post front-matter: cover -->
+    
 
+<!-- Page Header -->
+<!-- Set your background image for this header in the theme's configuration: index_cover -->
 <header class="intro-header" style="background-image: url('http://www.codeblocq.com/assets/projects/hexo-theme-clean-blog/img/home-bg.jpg')">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <div class="post-heading">
-                    <h1>Setup Guide for Tomcat on CentOS 7</h1>
-                    
-                    <span class="meta">
-                        <!-- Date and Author -->
-                        
-                        
-                            2019-04-28
-                        
-                    </span>
+                <div class="site-heading">
+                    <h1>CentOS</h1>
                 </div>
             </div>
         </div>
     </div>
 </header>
 
-<!-- Post Content -->
-<article>
-    <div class="container">
-        <div class="row">
-
-            <!-- Tags and categories -->
-           
-                <div class="col-lg-4 col-lg-offset-2 col-md-5 col-md-offset-1 post-tags">
-                    
-                        
-
-
-<a href="/tags/Tomcat/">#Tomcat</a> <a href="/tags/Server/">#Server</a> <a href="/tags/CentOS/">#CentOS"</a> <a href="/tags/Demo/">#Demo</a> <a href="/tags/Guide/">#Guide</a>
-
-
-                    
-                </div>
-                <div class="col-lg-4 col-md-5 post-categories">
-                    
-                        
-
-<a href="/categories/CentOS/">CentOS</a>/ <a href="/categories/CentOS/Demo/">Demo</a>
-
-                    
-                </div>
+<!-- Main Content -->
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
             
-
-            <!-- Gallery -->
+                <div class="post-preview">
+    <a href="/2019/04/29/Spring-Boot-Deployment-Guide/">
+        <h1 class="post-title archive">
+            Spring Boot Deployment Guide
+        </h1>
+    </a>
+    <p class="post-meta archive">
+        <!-- Date and Author -->
+        
+        2019-04-29
+    </p>
+</div>
             
-
-            <!-- Post Main Content -->
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <p>Before I write this post, I have already setup my tomcat. So From now on, the tutorial is mainly about how to change root webapps directory to a new location, which is for my study of Tomcat+Nginx framework server.</p>
-<p>I will come back later to supplement tomcat install and config part later.</p>
-<h3 id="Change-tomcat-default-webApps-root"><a href="#Change-tomcat-default-webApps-root" class="headerlink" title="Change tomcat default webApps root:"></a>Change tomcat default webApps root:</h3><ol>
-<li><p>Find tomcat dir first.</p>
-</li>
-<li><p>Find &lt;Hosts>  ……&lt;/Hosts> in server.xml</p>
-</li>
-<li><p>Add one line:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;Context path=&quot;&quot; docBase=&quot;/usr/mike/myserver/webapps&quot; debug=&quot;0&quot; reloadable=&quot;true&quot;/&gt;</span><br></pre></td></tr></table></figure>
-<p>above &lt;/Hosts>.</p>
-</li>
-<li><p>Restart tomcat.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/&lt;tomcat-dir&gt;/bin/shutdown.sh</span><br><span class="line">/&lt;tomcat-dir&gt;/bin/startup.sh</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p><img src="\image\tomcat_chdir.png" alt="tomcat_chdir"></p>
-<h3 id="Another-way-to-change-webApps-root"><a href="#Another-way-to-change-webApps-root" class="headerlink" title="Another way to change webApps root:"></a>Another way to change webApps root:</h3><p>The method above could only enable a index page for tomcat.  </p>
-<p>If you want to deploy more than one web application and the management page, there is a better way.</p>
-<p>Change value of appBase under tag Host will do, as below.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;Host name=&quot;localhost&quot;  appBase=&quot;/usr/mike/myserver/webapps&quot;</span><br><span class="line">         unpackWARs=&quot;true&quot; autoDeploy=&quot;true&quot;&gt;</span><br><span class="line"></span><br><span class="line">     &lt;!-- SingleSignOn valve, share authentication between web applications</span><br><span class="line">          Documentation at: /docs/config/valve.html --&gt;</span><br><span class="line">     &lt;!--</span><br><span class="line">     &lt;Valve className=&quot;org.apache.catalina.authenticator.SingleSignOn&quot; /&gt;</span><br><span class="line">     --&gt;</span><br><span class="line"></span><br><span class="line">     &lt;!-- Access log processes all example.</span><br><span class="line">          Documentation at: /docs/config/valve.html</span><br><span class="line">          Note: The pattern used is equivalent to using pattern=&quot;common&quot; --&gt;</span><br><span class="line">     &lt;Valve className=&quot;org.apache.catalina.valves.AccessLogValve&quot; directory=&quot;logs&quot;</span><br><span class="line">            prefix=&quot;localhost_access_log&quot; suffix=&quot;.txt&quot;</span><br><span class="line">            pattern=&quot;%h %l %u %t &amp;quot;%r&amp;quot; %s %b&quot; /&gt;</span><br><span class="line"></span><br><span class="line">   &lt;/Host&gt;</span><br></pre></td></tr></table></figure>
-<p><div id="container"></div></p>
-<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
-
-<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
-<script>
-var gitment = new Gitment({
-  id: 'setup_tomcat_centos7',
-  owner: 'MikeHongweiBai',
-  repo: 'blog_comments',
-  oauth: {
-    client_id: '03adfa8ab6ec80389e54',
-    client_secret: '834cdbbb5528756744608ce0e6ab0412e3da4f2a',
-  },
-})
-gitment.render('container')
-</script>
-
-                
-            </div>
-
-            <!-- Comments -->
-            
-                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                    
-
-
-                </div>
-            
+            <div class="archive-before-pagination"></div>
+            <ul class="pager">
+    
+    
+</ul>
         </div>
     </div>
-</article>
+</div>
+
 
     <!-- Footer -->
     <hr>

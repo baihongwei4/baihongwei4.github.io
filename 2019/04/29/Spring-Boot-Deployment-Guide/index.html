@@ -10,7 +10,7 @@
 
     <!--Description-->
     
-        <meta name="description" content="Setup Tomcat on CentOS 7 (Alibaba Cloud) including change tomcat webapps root directory.">
+        <meta name="description" content="About how to deploy Spring Boot on a server.">
     
 
     <!--Author-->
@@ -20,12 +20,12 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="Setup Guide for Tomcat on CentOS 7">
+        <meta property="og:title" content="Spring Boot Deployment Guide">
     
 
     <!--Open Graph Description-->
     
-        <meta property="og:description" content="Setup Tomcat on CentOS 7 (Alibaba Cloud) including change tomcat webapps root directory.">
+        <meta property="og:description" content="About how to deploy Spring Boot on a server.">
     
 
     <!--Open Graph Site Name-->
@@ -44,7 +44,7 @@
 
     <!-- Title -->
     
-    <title>Setup Guide for Tomcat on CentOS 7 - Hey Mike!</title>
+    <title>Spring Boot Deployment Guide - Hey Mike!</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
@@ -168,13 +168,13 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <div class="post-heading">
-                    <h1>Setup Guide for Tomcat on CentOS 7</h1>
+                    <h1>Spring Boot Deployment Guide</h1>
                     
                     <span class="meta">
                         <!-- Date and Author -->
                         
                         
-                            2019-04-28
+                            2019-04-29
                         
                     </span>
                 </div>
@@ -195,7 +195,7 @@
                         
 
 
-<a href="/tags/Tomcat/">#Tomcat</a> <a href="/tags/Server/">#Server</a> <a href="/tags/CentOS/">#CentOS"</a> <a href="/tags/Demo/">#Demo</a> <a href="/tags/Guide/">#Guide</a>
+<a href="/tags/Guide/">#Guide</a> <a href="/tags/Spring/">#Spring</a> <a href="/tags/Spring-Boot/">#Spring Boot</a>
 
 
                     
@@ -204,7 +204,7 @@
                     
                         
 
-<a href="/categories/CentOS/">CentOS</a>/ <a href="/categories/CentOS/Demo/">Demo</a>
+<a href="/categories/Server/">Server</a>/ <a href="/categories/Server/CentOS/">CentOS</a>/ <a href="/categories/Server/CentOS/Spring-Boot/">Spring Boot</a>
 
                     
                 </div>
@@ -215,33 +215,60 @@
 
             <!-- Post Main Content -->
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <p>Before I write this post, I have already setup my tomcat. So From now on, the tutorial is mainly about how to change root webapps directory to a new location, which is for my study of Tomcat+Nginx framework server.</p>
-<p>I will come back later to supplement tomcat install and config part later.</p>
-<h3 id="Change-tomcat-default-webApps-root"><a href="#Change-tomcat-default-webApps-root" class="headerlink" title="Change tomcat default webApps root:"></a>Change tomcat default webApps root:</h3><ol>
-<li><p>Find tomcat dir first.</p>
-</li>
-<li><p>Find &lt;Hosts>  ……&lt;/Hosts> in server.xml</p>
-</li>
-<li><p>Add one line:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;Context path=&quot;&quot; docBase=&quot;/usr/mike/myserver/webapps&quot; debug=&quot;0&quot; reloadable=&quot;true&quot;/&gt;</span><br></pre></td></tr></table></figure>
-<p>above &lt;/Hosts>.</p>
-</li>
-<li><p>Restart tomcat.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/&lt;tomcat-dir&gt;/bin/shutdown.sh</span><br><span class="line">/&lt;tomcat-dir&gt;/bin/startup.sh</span><br></pre></td></tr></table></figure>
-</li>
+                <h3 id="Spring-and-Spring-Boot"><a href="#Spring-and-Spring-Boot" class="headerlink" title="Spring and Spring Boot"></a>Spring and Spring Boot</h3><p>A number of people on the Internet compare them as Servlet and Spring MVC.</p>
+<p>Spring Boot is based on Spring and it is much easier to config and deploy.</p>
+<p>While Some of them complains about Spring Boot does not have xml config, while they config in java.</p>
+<p>Spring Boot is more suitable for small and fast project.</p>
+<p>If you want to select a framework for a bigger project or an organization, go for Spring Cloud, which is based on Spring Boot and has config files.</p>
+<p>Anyway, I choose to study Spring Boot for now.</p>
+<h3 id="Spring-Boot-deploy"><a href="#Spring-Boot-deploy" class="headerlink" title="Spring Boot deploy"></a>Spring Boot deploy</h3><p>Normally, there are three deployment ways:</p>
+<ol>
+<li>IntellJ IDEA debug</li>
+<li>jar library</li>
+<li>war library</li>
 </ol>
-<p><img src="\image\tomcat_chdir.png" alt="tomcat_chdir"></p>
-<h3 id="Another-way-to-change-webApps-root"><a href="#Another-way-to-change-webApps-root" class="headerlink" title="Another way to change webApps root:"></a>Another way to change webApps root:</h3><p>The method above could only enable a index page for tomcat.  </p>
-<p>If you want to deploy more than one web application and the management page, there is a better way.</p>
-<p>Change value of appBase under tag Host will do, as below.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;Host name=&quot;localhost&quot;  appBase=&quot;/usr/mike/myserver/webapps&quot;</span><br><span class="line">         unpackWARs=&quot;true&quot; autoDeploy=&quot;true&quot;&gt;</span><br><span class="line"></span><br><span class="line">     &lt;!-- SingleSignOn valve, share authentication between web applications</span><br><span class="line">          Documentation at: /docs/config/valve.html --&gt;</span><br><span class="line">     &lt;!--</span><br><span class="line">     &lt;Valve className=&quot;org.apache.catalina.authenticator.SingleSignOn&quot; /&gt;</span><br><span class="line">     --&gt;</span><br><span class="line"></span><br><span class="line">     &lt;!-- Access log processes all example.</span><br><span class="line">          Documentation at: /docs/config/valve.html</span><br><span class="line">          Note: The pattern used is equivalent to using pattern=&quot;common&quot; --&gt;</span><br><span class="line">     &lt;Valve className=&quot;org.apache.catalina.valves.AccessLogValve&quot; directory=&quot;logs&quot;</span><br><span class="line">            prefix=&quot;localhost_access_log&quot; suffix=&quot;.txt&quot;</span><br><span class="line">            pattern=&quot;%h %l %u %t &amp;quot;%r&amp;quot; %s %b&quot; /&gt;</span><br><span class="line"></span><br><span class="line">   &lt;/Host&gt;</span><br></pre></td></tr></table></figure>
+<p>1 and 3 could not use same project code, several code have to be changed.</p>
+<h4 id="Deploy-1-IntelliJ-IDEA-Debug"><a href="#Deploy-1-IntelliJ-IDEA-Debug" class="headerlink" title="Deploy 1 - IntelliJ IDEA Debug"></a>Deploy 1 - IntelliJ IDEA Debug</h4><p>Sprint Boot has embeded tomcat server, so with the code below:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@SpringBootApplication</span><br><span class="line">public class DemoApplication &#123;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        SpringApplication.run(DemoApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Click “Run DemoApplication” would work.</p>
+<h4 id="Deploy-2-JAR-Library"><a href="#Deploy-2-JAR-Library" class="headerlink" title="Deploy 2 - JAR Library"></a>Deploy 2 - JAR Library</h4><p>add this property to pom.xml:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;packaging&gt;jar&lt;/packaging&gt;</span><br></pre></td></tr></table></figure>
+<p>Then build jar executable by run maven/package:</p>
+<p><img src="\image\maven_package.png" alt="maven_package"></p>
+<p>Embedded Tomcat port could be modified by add config file:</p>
+<blockquote>
+<p>application.yml</p>
+</blockquote>
+<p>under </p>
+<blockquote>
+<p>resources</p>
+</blockquote>
+<p>folder, and the content is like below:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">logging:</span><br><span class="line">  file: &quot;logs/config/mike_springboot2.log&quot;</span><br><span class="line">info:</span><br><span class="line">  name : &quot;springboot2&quot;</span><br><span class="line"></span><br><span class="line">server:</span><br><span class="line">  port: 8082</span><br><span class="line">  #项目名，如果不设定，默认是</span><br><span class="line">  context-path: /apptest</span><br></pre></td></tr></table></figure>
+<p>Then simply execute command:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -jar &lt;spring boot jar file&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="Deploy-3-deploy-war-to-Tomcat-NGINX-server"><a href="#Deploy-3-deploy-war-to-Tomcat-NGINX-server" class="headerlink" title="Deploy 3 - deploy war to Tomcat/NGINX server"></a>Deploy 3 - deploy war to Tomcat/NGINX server</h4><p>To deploy war on a Tomcat server, I have to change some code.</p>
+<p>First, the application class:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">@SpringBootApplication</span><br><span class="line">public class DemoApplication extends SpringBootServletInitializer &#123;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        SpringApplication.run(DemoApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) &#123;</span><br><span class="line">        return builder.sources(DemoApplication.class);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Extends from SpringBootServletInitializer.class</li>
+<li>Override method: configure()</li>
+</ul>
+<p>Then the simplest way is upload war file on Tomcat’s management page.</p>
+<p><img src="\image\tomcat_upload_war.png" alt="tomcat_upload_war"></p>
+<p>Then  you will see war file have been unzipped:</p>
+<p><img src="\image\tomcat_war_unzip.png" alt="tomcat_war_unzip"></p>
+<p>Test it on Chrome browser, it works.</p>
+<p>If there are always errors while executing java -jar command.</p>
+<p>try upgrade Spring Boot version, by modifying pox.xml:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">   &lt;parent&gt;</span><br><span class="line">       &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">       &lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt;</span><br><span class="line">&lt;version&gt;2.1.3.RELEASE&lt;/version&gt;</span><br><span class="line">       &lt;relativePath/&gt;</span><br><span class="line">   &lt;/parent&gt;</span><br></pre></td></tr></table></figure>
 <p><div id="container"></div></p>
 <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
 
 <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
 <script>
 var gitment = new Gitment({
-  id: 'setup_tomcat_centos7',
+  id: 'springboot_deploy_guide',
   owner: 'MikeHongweiBai',
   repo: 'blog_comments',
   oauth: {
