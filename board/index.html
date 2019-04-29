@@ -11,9 +11,11 @@
     <!--Description-->
     
         <meta name="description" content="var gitment = new Gitment({
-  id: &#39;home_board&#39;, // 可选。默认为 location.href
-  owner: &#39;hongweibai&#39;,  //改你自己的名字
-  repo: &#39;blog_comments&#39;,  //专门储存评论一个GitHub仓库">
+  id: &#39;home_board&#39;,
+  owner: &#39;MikeHongweiBai&#39;,
+  repo: &#39;blog_comments&#39;,
+  oauth: {
+    client_id: &#39;03adfa8ab6ec80389e54&#39;, ">
     
 
     <!--Author-->
@@ -206,11 +208,11 @@
 <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
 <script>
 var gitment = new Gitment({
-  id: 'home_board', // 可选。默认为 location.href
-  owner: 'hongweibai',  //改你自己的名字
-  repo: 'blog_comments',  //专门储存评论一个GitHub仓库
+  id: 'home_board',
+  owner: 'MikeHongweiBai',
+  repo: 'blog_comments',
   oauth: {
-    client_id: '03adfa8ab6ec80389e54', //改为你自己的，下同
+    client_id: '03adfa8ab6ec80389e54', // mike
     client_secret: '834cdbbb5528756744608ce0e6ab0412e3da4f2a',
   },
 })
