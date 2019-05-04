@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.8.0">
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="Front-End Study Submit Form, premarily focus on two means: traditional url way and AJAX way.">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="Mike Hongwei Bai">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="Front-End Study Submit Form">
+    
+
+    <!--Open Graph Description-->
+    
+        <meta property="og:description" content="Front-End Study Submit Form, premarily focus on two means: traditional url way and AJAX way.">
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="Hey Mike!">
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article">
+    
+
+    <!--Page Cover-->
+    
+
+        <meta name="twitter:card" content="summary">
+    
+
+    <!-- Title -->
+    
+    <title>Front-End Study Submit Form - Hey Mike!</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet">
+
+    <!-- Google Analytics -->
+    
+
+
+    <!-- favicon -->
+    
+    <link rel="icon" href="/image/favicon.gif">
+    
+
+    <!-- bhw1899 updated -->
+    <link href="//cdn.bootcss.com/mermaid/7.0.14/themes/mermaid.neutral.min.css" rel="stylesheet">
+    <script src="//cdn.bootcss.com/mermaid/7.0.14/mermaid.min.js"></script>
+    <script type="text/javascript">mermaid.initialize({startOnLoad:true});</script>
+</head>
+
+
+<body>
+
+    <!-- Menu -->
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Mike (Hongwei Bai)'s blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                
+                    <li>
+                        <a href="/">
+                            
+                                Home
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/archives">
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/tags">
+                            
+                                Tags
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/categories">
+                            
+                                Categories
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/board">
+                            
+                                board
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://github.com/MikeHongweiBai">
+                            
+                                <i class="fa fa-github fa-stack-2x"></i>
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+    <!-- Main Content -->
+    <!-- Page Header -->
+<!-- Set your background image for this header in your post front-matter: cover -->
+
+<header class="intro-header" style="background-image: url('http://www.codeblocq.com/assets/projects/hexo-theme-clean-blog/img/home-bg.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1>Front-End Study Submit Form</h1>
+                    
+                    <span class="meta">
+                        <!-- Date and Author -->
+                        
+                        
+                            2019-05-04
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Tags and categories -->
+           
+                <div class="col-lg-4 col-lg-offset-2 col-md-5 col-md-offset-1 post-tags">
+                    
+                        
+
+
+<a href="/tags/Server/">#Server</a> <a href="/tags/CentOS/">#CentOS</a> <a href="/tags/Demo/">#Demo</a> <a href="/tags/Guide/">#Guide</a> <a href="/tags/AJAX/">#AJAX</a> <a href="/tags/Front-end/">#Front end</a>
+
+
+                    
+                </div>
+                <div class="col-lg-4 col-md-5 post-categories">
+                    
+                        
+
+<a href="/categories/AJAX/">AJAX</a>/ <a href="/categories/AJAX/Front-end/">Front end</a>/ <a href="/categories/AJAX/Front-end/Note/">Note</a>
+
+                    
+                </div>
+            
+
+            <!-- Gallery -->
+            
+
+            <!-- Post Main Content -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <p>I know there are several ways to submit a form. However, as my always style, I focus on the most essential and popular ways.</p>
+<h3 id="Traditional-URL-Submit-Form"><a href="#Traditional-URL-Submit-Form" class="headerlink" title="Traditional URL Submit Form"></a>Traditional URL Submit Form</h3><p>In my Spring Boot project, add a method like this:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@PostMapping</span>(value = <span class="string">"/submit.do"</span>)</span><br><span class="line"><span class="meta">@ResponseBody</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">submit</span><span class="params">(@RequestParam String name, @RequestParam String password)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"submit succeed! name: "</span> + name + <span class="string">", password: "</span> + password;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>And in my index.html page,</p>
+<p>Put form code inside <body> tag:</body></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"form-div"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">form</span> <span class="attr">id</span>=<span class="string">"form1"</span> <span class="attr">action</span>=<span class="string">"http://localhost:8082/submit.do"</span> <span class="attr">title</span>=<span class="string">""</span> <span class="attr">method</span>=<span class="string">"post"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>用户名：<span class="tag">&lt;<span class="name">input</span> <span class="attr">name</span>=<span class="string">"name"</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">id</span>=<span class="string">"txtUserName"</span> <span class="attr">tabindex</span>=<span class="string">"1"</span> <span class="attr">size</span>=<span class="string">"15"</span> <span class="attr">value</span>=<span class="string">""</span> /&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>密　码：<span class="tag">&lt;<span class="name">input</span> <span class="attr">name</span>=<span class="string">"password"</span> <span class="attr">type</span>=<span class="string">"password"</span> <span class="attr">id</span>=<span class="string">"TextBox2"</span> <span class="attr">tabindex</span>=<span class="string">"2"</span> <span class="attr">size</span>=<span class="string">"16"</span> <span class="attr">value</span>=<span class="string">""</span> /&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"submit"</span> <span class="attr">id</span>=<span class="string">"submitButton"</span>  <span class="attr">name</span>=<span class="string">"submitButton"</span> <span class="attr">value</span>=<span class="string">"Submit"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>Then I get my result:</p>
+<p><img src="\image\form_submit_url.png" alt="form_submit_url"></p>
+<h3 id="AJAX-Way"><a href="#AJAX-Way" class="headerlink" title="AJAX Way"></a>AJAX Way</h3><p>About Using AJAX to filter data and then submit to new page, there are still more than one way.</p>
+<p>I just pick the way suitable for me: AJAX-Spring Boot.</p>
+<p>SpringBoot Controller code:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@CrossOrigin</span>(origins = <span class="string">"http://127.0.0.1:5500"</span>, maxAge = <span class="number">3600</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DictController</span> </span>&#123;</span><br><span class="line">    <span class="meta">@PostMapping</span>(value = <span class="string">"/submit.do"</span>)</span><br><span class="line">    <span class="meta">@ResponseBody</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> User <span class="title">submit</span><span class="params">(@Valid @RequestBody User user)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"submit succeed! user.name: "</span> + user.getName() + <span class="string">", age: "</span> + user.getAge());</span><br><span class="line">        <span class="keyword">return</span> user;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>In index.html, under <body> tag:</body></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">class</span>=<span class="string">"form-horizontal"</span> <span class="attr">id</span>=<span class="string">"login-form"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">class</span>=<span class="string">"form-control"</span> <span class="attr">id</span>=<span class="string">"id"</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">class</span>=<span class="string">"form-control"</span> <span class="attr">id</span>=<span class="string">"username"</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">class</span>=<span class="string">"form-control"</span> <span class="attr">id</span>=<span class="string">"age"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">"submit"</span> <span class="attr">id</span>=<span class="string">"bth-login"</span> <span class="attr">class</span>=<span class="string">"btn btn-primary btn-lg"</span>&gt;</span>Login<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>In java script file:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="built_in">document</span>).ready(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line"> </span><br><span class="line">    $(<span class="string">"#login-form"</span>).submit(<span class="function"><span class="keyword">function</span> (<span class="params">event</span>) </span>&#123;</span><br><span class="line"> </span><br><span class="line">        <span class="comment">//stop submit the form event. Do this manually using ajax post function</span></span><br><span class="line">        event.preventDefault();</span><br><span class="line"> </span><br><span class="line">        <span class="keyword">var</span> user = &#123;&#125;</span><br><span class="line">        user[<span class="string">"id"</span>] =  $(<span class="string">"#id"</span>).val();</span><br><span class="line">        user[<span class="string">"name"</span>] = $(<span class="string">"#username"</span>).val();</span><br><span class="line">        user[<span class="string">"age"</span>] =  $(<span class="string">"#age"</span>).val();</span><br><span class="line"> </span><br><span class="line">        $(<span class="string">"#btn-login"</span>).prop(<span class="string">"disabled"</span>, <span class="literal">true</span>);</span><br><span class="line">        </span><br><span class="line">        $.ajax(&#123;</span><br><span class="line">            type: <span class="string">"POST"</span>,</span><br><span class="line">            contentType: <span class="string">"application/json"</span>,</span><br><span class="line">            url: <span class="string">"http://localhost:8082/submit.do"</span>,</span><br><span class="line">            data: <span class="built_in">JSON</span>.stringify(user),</span><br><span class="line">            dataType: <span class="string">'json'</span>,</span><br><span class="line">            cache: <span class="literal">false</span>,</span><br><span class="line">            timeout: <span class="number">600000</span>,</span><br><span class="line">            success: <span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span><br><span class="line">                <span class="built_in">console</span>.log(<span class="string">"SUCCESS!"</span>);</span><br><span class="line">                <span class="built_in">console</span>.log(<span class="string">"data: "</span> + data);</span><br><span class="line">                <span class="comment">// var json = "&lt;h4&gt;Ajax Response&lt;/h4&gt;&lt;pre&gt;"</span></span><br><span class="line">                <span class="comment">//     + JSON.stringify(data, null, 4) + "&lt;/pre&gt;";</span></span><br><span class="line">                <span class="comment">// $('#feedback').html(json);</span></span><br><span class="line"> </span><br><span class="line">                <span class="comment">// console.log("SUCCESS : ", data);</span></span><br><span class="line">                <span class="comment">// $("#btn-login").prop("disabled", false);</span></span><br><span class="line"> </span><br><span class="line">            &#125;,</span><br><span class="line">            error: <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span><br><span class="line">                <span class="built_in">console</span>.log(<span class="string">"ERROR: "</span> + e.responseText);</span><br><span class="line">                <span class="comment">// var json = "&lt;h4&gt;Ajax Response Error&lt;/h4&gt;&lt;pre&gt;"</span></span><br><span class="line">                <span class="comment">//     + e.responseText + "&lt;/pre&gt;";</span></span><br><span class="line">                <span class="comment">// $('#feedback').html(json);</span></span><br><span class="line"> </span><br><span class="line">                <span class="comment">// console.log("ERROR : ", e);</span></span><br><span class="line">                <span class="comment">// $("#btn-login").prop("disabled", false);</span></span><br><span class="line"> </span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        </span><br><span class="line">    &#125;);</span><br><span class="line"> </span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>At last, I forward a problem-solving post from others, which help me out from <strong>CORS</strong> nightmare.</p>
+<p>Title: SpringBoot 实现前后端分离的跨域访问（CORS）</p>
+<p>Source: <a href="http://www.spring4all.com/article/177" target="_blank" rel="noopener">http://www.spring4all.com/article/177</a></p>
+<p>Among these, section 3 works for me, while I did not try others.</p>
+<blockquote>
+<blockquote>
+<p>序言：跨域资源共享向来都是热门的需求，使用CORS可以帮助我们快速实现跨域访问，只需在服务端进行授权即可，无需在前端添加额外设置，比传统的JSONP跨域更安全和便捷。</p>
+</blockquote>
+<h1 id="一、基本介绍"><a href="#一、基本介绍" class="headerlink" title="一、基本介绍"></a>一、基本介绍</h1><p>简单来说，CORS是一种访问机制，英文全称是Cross-Origin Resource Sharing，即我们常说的跨域资源共享，通过在服务器端设置响应头，把发起跨域的原始域名添加到Access-Control-Allow-Origin 即可。</p>
+<h1 id="1-CORS工作原理"><a href="#1-CORS工作原理" class="headerlink" title="1. CORS工作原理"></a>1. CORS工作原理</h1><p>CORS实现跨域访问并不是一蹴而就的，需要借助浏览器的支持，从原理题图我们可以清楚看到，简单的请求（通常指GET/POST/HEAD方式，并没有去增加额外的请求头信息）直接创建了跨域请求的XHR对象，而复杂的请求则要求先发送一个”预检”请求，待服务器批准后才能真正发起跨域访问请求。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/8069210-125e44b334468ce8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/520" alt="来自维基百科"></p>
+<p>根据官方文档<a href="https://www.w3.org/TR/cors/" target="_blank" rel="noopener">W3C规范-CORS</a> 的描述，目前CORS使用了如下头部信息：</p>
+<blockquote>
+<p>注：请求头信息由浏览器检测到跨域自动添加，无需过多干预，重点放在Response headers，它可以帮助我们在服务器进行跨域授权，例如允许哪些原始域可放行，是否需要携带Cookie信息等。</p>
+</blockquote>
+<h1 id="2-Request-Headers（请求头）"><a href="#2-Request-Headers（请求头）" class="headerlink" title="2. Request Headers（请求头）"></a>2. Request Headers（请求头）</h1><ul>
+<li><h4 id="Origin"><a href="#Origin" class="headerlink" title="Origin"></a>Origin</h4><p>表示跨域请求的原始域。</p>
+</li>
+<li><h4 id="Access-Control-Request-Method"><a href="#Access-Control-Request-Method" class="headerlink" title="Access-Control-Request-Method"></a>Access-Control-Request-Method</h4><p>表示跨域请求的方式。（如GET/POST）</p>
+</li>
+<li><h4 id="Access-Control-Request-Headers"><a href="#Access-Control-Request-Headers" class="headerlink" title="Access-Control-Request-Headers"></a>Access-Control-Request-Headers</h4><p>表示跨域请求的请求头信息。</p>
+</li>
+</ul>
+<h1 id="3-Response-headers（响应头-）"><a href="#3-Response-headers（响应头-）" class="headerlink" title="3. Response headers（响应头 ）"></a>3. Response headers（响应头 ）</h1><ul>
+<li><h4 id="Access-Control-Allow-Origin"><a href="#Access-Control-Allow-Origin" class="headerlink" title="Access-Control-Allow-Origin"></a>Access-Control-Allow-Origin</h4><p>表示允许哪些原始域进行跨域访问。（字符数组）</p>
+</li>
+<li><h4 id="Access-Control-Allow-Credentials"><a href="#Access-Control-Allow-Credentials" class="headerlink" title="Access-Control-Allow-Credentials"></a>Access-Control-Allow-Credentials</h4><p>表示是否允许客户端获取用户凭据。（布尔类型）</p>
+<p>使用场景：例如现在从浏览器发起跨域请求，并且要附带Cookie信息给服务器。则必须具备两个条件：</p>
+<p>\1. 浏览器端：</p>
+<p>发送AJAX请求前需设置通信对象XHR的withCredentials 属性为true。</p>
+</li>
+</ul>
+<p>  2.服务器端：</p>
+<p>  设置Access-Control-Allow-Credentials为true。两个条件缺一不可，否则即使服务器同意发送Cookie，浏览器也无法获取。正确姿势如下：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/8069210-9d25dd732e81a2e2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/520" alt="img"></p>
+<ul>
+<li><h4 id="Access-Control-Allow-Methods"><a href="#Access-Control-Allow-Methods" class="headerlink" title="Access-Control-Allow-Methods"></a>Access-Control-Allow-Methods</h4><p>表示跨域请求的方式的允许范围。（例如只授权GET/POST）</p>
+</li>
+<li><h4 id="Access-Control-Allow-Headers"><a href="#Access-Control-Allow-Headers" class="headerlink" title="Access-Control-Allow-Headers"></a>Access-Control-Allow-Headers</h4><p>表示跨域请求的头部的允许范围。</p>
+</li>
+<li><h4 id="Access-Control-Expose-Headers"><a href="#Access-Control-Expose-Headers" class="headerlink" title="Access-Control-Expose-Headers"></a>Access-Control-Expose-Headers</h4><p>表示暴露哪些头部信息，并提供给客户端。（因为基于安全考虑，如果没有设置额外的暴露，跨域的通信对象XMLHttpRequest只能获取标准的头部信息）</p>
+</li>
+<li><h4 id="Access-Control-Max-Age"><a href="#Access-Control-Max-Age" class="headerlink" title="Access-Control-Max-Age"></a>Access-Control-Max-Age</h4><p>表示预检请求 [</p>
+<p>Preflight Request</p>
+<p>] 的最大缓存时间。</p>
+</li>
+</ul>
+<h1 id="二、CORS实现跨域访问"><a href="#二、CORS实现跨域访问" class="headerlink" title="二、CORS实现跨域访问"></a>二、CORS实现跨域访问</h1><h1 id="授权方式"><a href="#授权方式" class="headerlink" title="授权方式"></a>授权方式</h1><ul>
+<li>方式1：返回新的CorsFilter</li>
+<li>方式2：重写WebMvcConfigurer</li>
+<li>方式3：使用注解（<a href="https://github.com/CrossOrigin" target="_blank" rel="noopener">@CrossOrigin</a>）</li>
+<li>方式4：手工设置响应头（HttpServletResponse ）</li>
+</ul>
+<blockquote>
+<p>注：CorsFilter / WebMvcConfigurer / <a href="https://github.com/CrossOrigin" target="_blank" rel="noopener">@CrossOrigin</a> 需要SpringMVC 4.2 以上的版本才支持，对应SpringBoot 1.3 版本以上都支持这些CORS特性。不过，使用SpringMVC4.2 以下版本的小伙伴也不用慌，直接使用方式4通过手工添加响应头来授权CORS跨域访问也是可以的。附：在SpringBoot 1.2.8 + SpringMVC 4.1.9 亲测成功。</p>
+<p>注：方式1和方式2属于全局CORS配置，方式3和方式4属于局部CORS配置。如果使用了局部跨域是会覆盖全局跨域的规则，所以可以通过<a href="https://github.com/CrossOrigin" target="_blank" rel="noopener">@CrossOrigin</a>注解来进行细粒度更高的跨域资源控制。</p>
+</blockquote>
+<h1 id="1-返回新的CorsFilter（全局跨域）"><a href="#1-返回新的CorsFilter（全局跨域）" class="headerlink" title="1. 返回新的CorsFilter（全局跨域）"></a>1. 返回新的CorsFilter（全局跨域）</h1><p>在任意配置类，返回一个新的CorsFilter Bean，并添加映射路径和具体的CORS配置信息。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">&gt; package com.hehe.yyweb.config;</span><br><span class="line">&gt; </span><br><span class="line">&gt; @Configuration</span><br><span class="line">&gt; public class GlobalCorsConfig &#123;</span><br><span class="line">&gt;     @Bean</span><br><span class="line">&gt;     public CorsFilter corsFilter() &#123;</span><br><span class="line">&gt;         //1.添加CORS配置信息</span><br><span class="line">&gt;         CorsConfiguration config = new CorsConfiguration();</span><br><span class="line">&gt;           //放行哪些原始域</span><br><span class="line">&gt;           config.addAllowedOrigin(&quot;*&quot;);</span><br><span class="line">&gt;           //是否发送Cookie信息</span><br><span class="line">&gt;           config.setAllowCredentials(true);</span><br><span class="line">&gt;           //放行哪些原始域(请求方式)</span><br><span class="line">&gt;           config.addAllowedMethod(&quot;*&quot;);</span><br><span class="line">&gt;           //放行哪些原始域(头部信息)</span><br><span class="line">&gt;           config.addAllowedHeader(&quot;*&quot;);</span><br><span class="line">&gt;           //暴露哪些头部信息（因为跨域访问默认不能获取全部头部信息）</span><br><span class="line">&gt;           config.addExposedHeader(&quot;*&quot;);</span><br><span class="line">&gt; </span><br><span class="line">&gt;         //2.添加映射路径</span><br><span class="line">&gt;         UrlBasedCorsConfigurationSource configSource = new UrlBasedCorsConfigurationSource();</span><br><span class="line">&gt;         configSource.registerCorsConfiguration(&quot;/**&quot;, config);</span><br><span class="line">&gt; </span><br><span class="line">&gt;         //3.返回新的CorsFilter.</span><br><span class="line">&gt;         return new CorsFilter(configSource);</span><br><span class="line">&gt;     &#125;</span><br><span class="line">&gt; &#125;</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<h1 id="2-重写WebMvcConfigurer（全局跨域）"><a href="#2-重写WebMvcConfigurer（全局跨域）" class="headerlink" title="2. 重写WebMvcConfigurer（全局跨域）"></a>2. 重写WebMvcConfigurer（全局跨域）</h1><p>在任意配置类，返回一个新的WebMvcConfigurer Bean，并重写其提供的跨域请求处理的接口，目的是添加映射路径和具体的CORS配置信息。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">&gt; package com.hehe.yyweb.config;</span><br><span class="line">&gt; </span><br><span class="line">&gt; @Configuration</span><br><span class="line">&gt; public class GlobalCorsConfig &#123;</span><br><span class="line">&gt;     @Bean</span><br><span class="line">&gt;     public WebMvcConfigurer corsConfigurer() &#123;</span><br><span class="line">&gt;         return new WebMvcConfigurer() &#123;</span><br><span class="line">&gt;             @Override</span><br><span class="line">&gt;             //重写父类提供的跨域请求处理的接口</span><br><span class="line">&gt;             public void addCorsMappings(CorsRegistry registry) &#123;</span><br><span class="line">&gt;                 //添加映射路径</span><br><span class="line">&gt;                 registry.addMapping(&quot;/**&quot;)</span><br><span class="line">&gt;                         //放行哪些原始域</span><br><span class="line">&gt;                         .allowedOrigins(&quot;*&quot;)</span><br><span class="line">&gt;                         //是否发送Cookie信息</span><br><span class="line">&gt;                         .allowCredentials(true)</span><br><span class="line">&gt;                         //放行哪些原始域(请求方式)</span><br><span class="line">&gt;                         .allowedMethods(&quot;GET&quot;,&quot;POST&quot;, &quot;PUT&quot;, &quot;DELETE&quot;)</span><br><span class="line">&gt;                         //放行哪些原始域(头部信息)</span><br><span class="line">&gt;                         .allowedHeaders(&quot;*&quot;)</span><br><span class="line">&gt;                         //暴露哪些头部信息（因为跨域访问默认不能获取全部头部信息）</span><br><span class="line">&gt;                         .exposedHeaders(&quot;Header1&quot;, &quot;Header2&quot;);</span><br><span class="line">&gt;             &#125;</span><br><span class="line">&gt;         &#125;;</span><br><span class="line">&gt;     &#125;</span><br><span class="line">&gt; &#125;</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<h1 id="3-使用注解（局部跨域）"><a href="#3-使用注解（局部跨域）" class="headerlink" title="3. 使用注解（局部跨域）"></a>3. 使用注解（局部跨域）</h1><p>在方法上（<a href="https://github.com/RequestMapping" target="_blank" rel="noopener">@RequestMapping</a>）使用注解 <strong>@CrossOrigin</strong> ：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&gt;     @RequestMapping(&quot;/hello&quot;)</span><br><span class="line">&gt;     @ResponseBody</span><br><span class="line">&gt;     @CrossOrigin(&quot;http://localhost:8080&quot;) </span><br><span class="line">&gt;     public String index( )&#123;</span><br><span class="line">&gt;         return &quot;Hello World&quot;;</span><br><span class="line">&gt;     &#125;</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>或者在控制器（<a href="https://github.com/Controller" target="_blank" rel="noopener">@Controller</a>）上使用注解 <strong>@CrossOrigin</strong> ：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&gt; @Controller</span><br><span class="line">&gt; @CrossOrigin(origins = &quot;http://xx-domain.com&quot;, maxAge = 3600)</span><br><span class="line">&gt; public class AccountController &#123;</span><br><span class="line">&gt; </span><br><span class="line">&gt;     @RequestMapping(&quot;/hello&quot;)</span><br><span class="line">&gt;     @ResponseBody</span><br><span class="line">&gt;     public String index( )&#123;</span><br><span class="line">&gt;         return &quot;Hello World&quot;;</span><br><span class="line">&gt;     &#125;</span><br><span class="line">&gt; &#125;</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<h1 id="4-手工设置响应头（局部跨域-）"><a href="#4-手工设置响应头（局部跨域-）" class="headerlink" title="4. 手工设置响应头（局部跨域 ）"></a>4. 手工设置响应头（局部跨域 ）</h1><p>使用HttpServletResponse对象添加响应头（Access-Control-Allow-Origin）来授权原始域，这里Origin的值也可以设置为”*” ，表示全部放行。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&gt;     @RequestMapping(&quot;/hello&quot;)</span><br><span class="line">&gt;     @ResponseBody</span><br><span class="line">&gt;     public String index(HttpServletResponse response)&#123;</span><br><span class="line">&gt;         response.addHeader(&quot;Access-Control-Allow-Origin&quot;, &quot;http://localhost:8080&quot;);</span><br><span class="line">&gt;         return &quot;Hello World&quot;;</span><br><span class="line">&gt;     &#125;</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<h1 id="三、测试跨域访问"><a href="#三、测试跨域访问" class="headerlink" title="三、测试跨域访问"></a>三、测试跨域访问</h1><p>首先使用<a href="http://www.jianshu.com/p/d2b08a671e27" target="_blank" rel="noopener"> Spring Initializr </a>快速构建一个Maven工程，什么都不用改，在static目录下，添加一个页面：index.html 来模拟跨域访问。目标地址: <a href="http://localhost:8090/hello" target="_blank" rel="noopener">http://localhost:8090/hello</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">&gt; &lt;!DOCTYPE html&gt;</span><br><span class="line">&gt; &lt;html lang=&quot;en&quot;&gt;</span><br><span class="line">&gt; &lt;head&gt;</span><br><span class="line">&gt;     &lt;meta charset=&quot;UTF-8&quot;/&gt;</span><br><span class="line">&gt;     &lt;title&gt;Page Index&lt;/title&gt;</span><br><span class="line">&gt; &lt;/head&gt;</span><br><span class="line">&gt; &lt;body&gt;</span><br><span class="line">&gt; &lt;h2&gt;前台系统&lt;/h2&gt;</span><br><span class="line">&gt; &lt;p id=&quot;info&quot;&gt;&lt;/p&gt;</span><br><span class="line">&gt; &lt;/body&gt;</span><br><span class="line">&gt; &lt;script src=&quot;webjars/jquery/3.2.1/jquery.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&gt; &lt;script&gt;</span><br><span class="line">&gt;     $.ajax(&#123;</span><br><span class="line">&gt;         url: &apos;http://localhost:8090/hello&apos;,</span><br><span class="line">&gt;         type: &quot;POST&quot;,</span><br><span class="line">&gt;         success: function (data) &#123;</span><br><span class="line">&gt;             $(&quot;#info&quot;).html(&quot;跨域访问成功:&quot;+data);</span><br><span class="line">&gt;         &#125;,</span><br><span class="line">&gt;         error: function (data) &#123;</span><br><span class="line">&gt;             $(&quot;#info&quot;).html(&quot;跨域失败!!&quot;);</span><br><span class="line">&gt;         &#125;</span><br><span class="line">&gt;     &#125;)</span><br><span class="line">&gt; &lt;/script&gt;</span><br><span class="line">&gt; &lt;/html&gt;</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>然后创建另一个工程，在Root Package添加Config目录并创建配置类来开启全局CORS。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&gt; package com.hehe.yyweb.config;</span><br><span class="line">&gt; </span><br><span class="line">&gt; @Configuration</span><br><span class="line">&gt; public class GlobalCorsConfig &#123;</span><br><span class="line">&gt; </span><br><span class="line">&gt;     @Bean</span><br><span class="line">&gt;     public WebMvcConfigurer corsConfigurer() &#123;</span><br><span class="line">&gt;         return new WebMvcConfigurer() &#123;</span><br><span class="line">&gt;             @Override</span><br><span class="line">&gt;             public void addCorsMappings(CorsRegistry registry) &#123;</span><br><span class="line">&gt;                 registry.addMapping(&quot;/**&quot;);</span><br><span class="line">&gt;             &#125;</span><br><span class="line">&gt;         &#125;;</span><br><span class="line">&gt;     &#125;</span><br><span class="line">&gt; &#125;</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>接着，简单编写一个Rest接口 ，并指定应用端口为8090。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&gt; package com.hehe.yyweb;</span><br><span class="line">&gt; </span><br><span class="line">&gt; @SpringBootApplication</span><br><span class="line">&gt; @RestController</span><br><span class="line">&gt; public class YyWebApplication &#123;</span><br><span class="line">&gt; </span><br><span class="line">&gt;     @Bean</span><br><span class="line">&gt;     public TomcatServletWebServerFactory tomcat() &#123;</span><br><span class="line">&gt;         TomcatServletWebServerFactory tomcatFactory = new TomcatServletWebServerFactory();</span><br><span class="line">&gt;         tomcatFactory.setPort(8090); //默认启动8090端口</span><br><span class="line">&gt;         return tomcatFactory;</span><br><span class="line">&gt;     &#125;</span><br><span class="line">&gt; </span><br><span class="line">&gt;     @RequestMapping(&quot;/hello&quot;)</span><br><span class="line">&gt;     public String index() &#123;</span><br><span class="line">&gt;         return &quot;Hello World&quot;;</span><br><span class="line">&gt;     &#125;</span><br><span class="line">&gt; </span><br><span class="line">&gt;     public static void main(String[] args) &#123;</span><br><span class="line">&gt;         SpringApplication.run(YyWebApplication.class, args);</span><br><span class="line">&gt;     &#125;</span><br><span class="line">&gt; &#125;</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>最后分别启动两个应用，然后在浏览器访问：<a href="http://localhost:8080/index.html" target="_blank" rel="noopener">http://localhost:8080/index.html</a> ，可以正常接收JSON数据，说明跨域访问成功！！<br><img src="http://upload-images.jianshu.io/upload_images/8069210-a59ca21bb9698c81.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="img"></p>
+<p>尝试把全局CORS关闭，或者没有单独在方法或类上授权跨域，再次访问：<a href="http://localhost:8080/index.html" target="_blank" rel="noopener">http://localhost:8080/index.html</a> 时会看到跨域请求失败！！</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/8069210-e6953bfaf5795172.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/520" alt="img"></p>
+<h1 id="四、源码和文档"><a href="#四、源码和文档" class="headerlink" title="四、源码和文档"></a>四、源码和文档</h1><p>源码地址：<a href="https://github.com/yizhiwazi/springboot-socks/tree/master/springboot-cross-orgin" target="_blank" rel="noopener">SpringBoot-Cross-Orgin</a></p>
+<p>专题阅读：<a href="https://www.jianshu.com/p/964370d9374e" target="_blank" rel="noopener">《SpringBoot 布道系列》</a></p>
+<p>官方文档：<a href="https://www.w3.org/TR/cors/" target="_blank" rel="noopener">W3C规范-CORS</a></p>
+<p>传统文档：<a href="https://docs.spring.io/spring/docs/current/spring-framework-reference/web.html#mvc-cors" target="_blank" rel="noopener">SpringMVC-CORS 使用手册</a></p>
+<p>推荐阅读：<a href="http://www.ruanyifeng.com/blog/2016/04/cors.html" target="_blank" rel="noopener">跨域资源共享 CORS 详解 - 阮一峰</a></p>
+<blockquote>
+<p><strong>版权声明：</strong>转载请保留作者信息 by yizhiwazi<br><strong>原文链接：</strong><a href="http://www.jianshu.com/p/477e7eaa6c2f" target="_blank" rel="noopener">http://www.jianshu.com/p/477e7eaa6c2f</a></p>
+</blockquote>
+</blockquote>
+
+
+                
+            </div>
+
+            <!-- Comments -->
+            
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    
+
+
+                </div>
+            
+        </div>
+    </div>
+</article>
+
+    <!-- Footer -->
+    <hr>
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+
+                    
+
+                    
+                        <li>
+                            <a href="https://github.com/MikeHongweiBai" target="_blank">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    
+
+                    
+
+                    
+                        <li>
+                            <a href="mailto:bhw8412@hotmail.com" target="_blank">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-envelope-o fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    
+
+                    
+                </ul>
+                <p class="copyright text-muted">&copy; 2019 Mike Hongwei Bai<br></p>
+                <p class="copyright text-muted">Original Theme <a target="_blank" href="http://startbootstrap.com/template-overviews/clean-blog/">Clean Blog</a> from <a href="http://startbootstrap.com/" target="_blank">Start Bootstrap</a></p>
+                <p class="copyright text-muted">Adapted for <a target="_blank" href="https://hexo.io/">Hexo</a> by <a href="http://www.codeblocq.com/" target="_blank">Jonathan Klughertz</a></p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+    <!-- After footer scripts -->
+    
+<!-- jQuery -->
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+<!-- Gallery -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Disqus Comments -->
+
+
+
+</body>
+
+</html>
