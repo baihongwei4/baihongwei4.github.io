@@ -220,10 +220,10 @@
 <p>Quote:</p>
 <blockquote>
 <p>1 react 需要nodejs所以需要安装nodejs环境，到nodejs官网下载</p>
-<p><img src="https://images2017.cnblogs.com/blog/852501/201711/852501-20171120152814711-1025738877.png" alt="img"></p>
+<p><img src="/image/react_hello_q1.png" alt="img"></p>
 <p>现在默认会安装nodejs 和 npm包 和 配置环境</p>
 <p>2 检查是否安装成功，在命令行中输入</p>
-<p><img src="https://images2017.cnblogs.com/blog/852501/201711/852501-20171120153013852-988259057.png" alt="img"></p>
+<p><img src="/image/react_hello_q2.png" alt="img"></p>
 <p>显示成功则正确</p>
 <p>3 安装包管理工具 bower，推荐安装</p>
 <p>安装命令</p>
@@ -238,17 +238,15 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt; bower init</span><br><span class="line">&gt; 通过问答向导的方式在当前目录生成一个bower.json文件。</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
 </blockquote>
 <blockquote>
-<p><img src="https://images2017.cnblogs.com/blog/852501/201711/852501-20171120154426508-81413922.png" alt="img"></p>
+<p><img src="/image/react_hello_q3.png" alt="img"></p>
 <h3 id="查询包信息和版本"><a href="#查询包信息和版本" class="headerlink" title="查询包信息和版本"></a>查询包信息和版本</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; bower info 包名</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
 </blockquote>
 <blockquote>
 <h2 id="bower的使用"><a href="#bower的使用" class="headerlink" title="bower的使用"></a>bower的使用</h2><p> 使用了bower的项目都会在目录下有一个bower.json文件。在该文件同级目录下，使用如下命令即可安装相关依赖库。</p>
 <p>注：bower下载安装依赖库实际上是使用git进行下载。对于linux系统，由于默认都有安装git，所以一般没问题。但是windows系统一般没有git。在windows系统下需要确定安装了git客户端，建议使用同捆的git bash命令行来执行bower install命令。或者把git目录加入windows的环境变量中，再在命令行中执行bower install命令。</p>
-<h3 id="安装包"><a href="#安装包" class="headerlink" title="安装包"></a>安装包</h3><p><a href="javascript:void(0" target="_blank" rel="noopener"><img src="https://common.cnblogs.com/images/copycode.gif" alt="复制代码"></a>;)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&gt; bower install</span><br><span class="line">&gt; </span><br><span class="line">&gt; 安装当前目录下bower.json中的指定所有包。生产环境部署时建议使用 -p 或 --production参数，这种情况不会安装devDependencies。</span><br><span class="line">&gt; </span><br><span class="line">&gt; bower install 包名 --save</span><br><span class="line">&gt; </span><br><span class="line">&gt; 安装指定的包。</span><br><span class="line">&gt; </span><br><span class="line">&gt; 如果使用参数 -S 或 --save 则安装完后，会把包名及版本号添加到bower.json的dependecies配置项数组中(方便以后重新安装)。</span><br><span class="line">&gt; 如果使用参数 -D 或 --save-dev 则安装完后，会把包名及版本号添加到bower.json的devDependecies配置项数组中。</span><br><span class="line">&gt; 如果不使用参数，则只安装包到bower_components目录，不修改bower.json文件。</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="安装包"><a href="#安装包" class="headerlink" title="安装包"></a>安装包</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&gt; bower install</span><br><span class="line">&gt; </span><br><span class="line">&gt; 安装当前目录下bower.json中的指定所有包。生产环境部署时建议使用 -p 或 --production参数，这种情况不会安装devDependencies。</span><br><span class="line">&gt; </span><br><span class="line">&gt; bower install 包名 --save</span><br><span class="line">&gt; </span><br><span class="line">&gt; 安装指定的包。</span><br><span class="line">&gt; </span><br><span class="line">&gt; 如果使用参数 -S 或 --save 则安装完后，会把包名及版本号添加到bower.json的dependecies配置项数组中(方便以后重新安装)。</span><br><span class="line">&gt; 如果使用参数 -D 或 --save-dev 则安装完后，会把包名及版本号添加到bower.json的devDependecies配置项数组中。</span><br><span class="line">&gt; 如果不使用参数，则只安装包到bower_components目录，不修改bower.json文件。</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
 </blockquote>
 <blockquote>
-<p><a href="javascript:void(0" target="_blank" rel="noopener"><img src="https://common.cnblogs.com/images/copycode.gif" alt="复制代码"></a>;)</p>
 <h3 id="更新"><a href="#更新" class="headerlink" title="更新"></a>更新</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; bower update 包名</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
 </blockquote>
 <blockquote>
