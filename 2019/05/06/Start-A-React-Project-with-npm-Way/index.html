@@ -195,7 +195,7 @@
                         
 
 
-<a href="/tags/Server/">#Server</a> <a href="/tags/Demo/">#Demo</a> <a href="/tags/Guide/">#Guide</a> <a href="/tags/Front-end/">#Front end</a> <a href="/tags/React/">#React</a>
+<a href="/tags/Front-end/">#Front end</a> <a href="/tags/Server/">#Server</a> <a href="/tags/Demo/">#Demo</a> <a href="/tags/Guide/">#Guide</a> <a href="/tags/React/">#React</a>
 
 
                     
@@ -216,6 +216,12 @@
             <!-- Post Main Content -->
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <p>Quote From source: <a href="https://www.html.cn/archives/9710" target="_blank" rel="noopener">https://www.html.cn/archives/9710</a></p>
+<p><strong>Contents:</strong></p>
+<ul>
+<li><strong>Initialize a React project with npm command</strong></li>
+<li><strong>Quoted react tutorial</strong></li>
+<li><strong>Deployment to Tomcat server</strong></li>
+</ul>
 <h3 id="Initialize-a-React-project-with-npm-command"><a href="#Initialize-a-React-project-with-npm-command" class="headerlink" title="Initialize a React project with npm command"></a>Initialize a React project with npm command</h3><p>This instruction works:</p>
 <blockquote>
 <p>Create React App ，这是一个 React 开发环境，预先配置了构建 React 应用程序所需的一切。 它将创建一个实时开发服务器，使用 Webpack 自动编译 React，JSX 和 ES6，自动加载 CSS 文件，并使用 ESLint 测试和警告代码中的错误。</p>
@@ -565,6 +571,17 @@
 <p>如果有任何不清楚的地方，或者您希望在本文或后续文章中看到其他任何内容，欢迎留言告知我们。</p>
 </blockquote>
 <p>This is the end of quote content.</p>
+<h3 id="Deployment-on-Tomcat-server"><a href="#Deployment-on-Tomcat-server" class="headerlink" title="Deployment on Tomcat server"></a>Deployment on Tomcat server</h3><p>The tutorial above I quote is quite complete except that it does not tell us the default deploy method.</p>
+<p>Here it is:</p>
+<p>Let us start from npm build complete.</p>
+<p>I still quote the post which help me out:</p>
+<p>Source: <a href="https://blog.csdn.net/qq_34829447/article/details/81677198" target="_blank" rel="noopener">React项目部署在Tomcat中的方法</a></p>
+<blockquote>
+<p>部署方法：<br>使用npm run build将项目打包<br>把打包后的文件夹中内容放到tomcat中webapps下的Root中<br>开启服务器访问localhost:8080端口即可以看到你的项目内容<br>不放置在Root目录下的坑：<br>由于默认path.js【路径：你的react项目名\node_modules\react-scripts\config\path.js】的配置是’/’即对根目录有效，所以如果不放在root下则需要将’/’变成’./’即相对路径有效。（修改代码约在第45行） </p>
+<p><img src="\image\react_npm_deploy.png" alt="img"></p>
+<p>此时你可以通过localhost:8080/项目名 进行访问你的react项目</p>
+</blockquote>
+<p>All done! It is a good start.</p>
 
 
                 
