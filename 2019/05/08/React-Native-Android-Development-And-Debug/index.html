@@ -10,7 +10,7 @@
 
     <!--Description-->
     
-        <meta name="description" content="We have already know how to establish a react native environment and how to publish a react native Android aplication package(APK). Now it is time to enter the world of coding.">
+        <meta name="description" content="We have already know how to establish a react native environment and how to publish a react native Android application package (APK). Now it is time to enter the world of coding.">
     
 
     <!--Author-->
@@ -25,7 +25,7 @@
 
     <!--Open Graph Description-->
     
-        <meta property="og:description" content="We have already know how to establish a react native environment and how to publish a react native Android aplication package(APK). Now it is time to enter the world of coding.">
+        <meta property="og:description" content="We have already know how to establish a react native environment and how to publish a react native Android application package (APK). Now it is time to enter the world of coding.">
     
 
     <!--Open Graph Site Name-->
@@ -195,7 +195,7 @@
                         
 
 
-<a href="/tags/Android/">#Android</a> <a href="/tags/Guide/">#Guide</a> <a href="/tags/React-Native/">#React Native</a>
+<a href="/tags/Android/">#Android</a> <a href="/tags/React-Native/">#React Native</a> <a href="/tags/Guide/">#Guide</a>
 
 
                     
@@ -232,7 +232,7 @@
 <li><h4 id="Start-A-React-Hello-World"><a href="#Start-A-React-Hello-World" class="headerlink" title="Start A React Hello World"></a>Start A React Hello World</h4></li>
 </ul>
 <p>If not, and you could not follow, read them first.</p>
-<h4 id="Android-phone-physically"><a href="#Android-phone-physically" class="headerlink" title="Android phone physically."></a>Android phone physically.</h4><p>Steps:</p>
+<h3 id="Physical-Android-Device"><a href="#Physical-Android-Device" class="headerlink" title="Physical Android Device."></a>Physical Android Device.</h3><p>Steps:</p>
 <ol>
 <li><p>connect your Android device (normally a phone) with USB cable. (Type-C or others)</p>
 </li>
@@ -264,6 +264,9 @@
 <li><p>Now change your code, then reload. It works.</p>
 </li>
 </ol>
+<p>Note: </p>
+<p>You could send ADB command to simulate a menu click (or shake it :/) </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adb shell input keyevent 82</span><br></pre></td></tr></table></figure>
 <h3 id="Android-Emulator-by-Android-Studio-AVD"><a href="#Android-Emulator-by-Android-Studio-AVD" class="headerlink" title="Android Emulator by Android Studio (AVD)"></a>Android Emulator by Android Studio (AVD)</h3><ol>
 <li><p>Start a Android Emulated Device from Android Studio AVD Manager. (Menu: Tools -&gt; AVD Manager)</p>
 </li>
@@ -275,6 +278,34 @@
 </li>
 </ol>
 <p>All done. development environment is setup nicely.</p>
+<h3 id="How-to-see-console-log"><a href="#How-to-see-console-log" class="headerlink" title="How to see console.log()"></a>How to see console.log()</h3><p>Pre-requirements recap:</p>
+<p>Make sure:</p>
+<ol>
+<li>Open Android Studio or run <em>adb devices</em>.</li>
+<li>run <em>react-native run-android</em> first.</li>
+</ol>
+<p>Steps:</p>
+<ol>
+<li><p>Send <em>adb shell input keyevent 82</em>  to show debug menu and select: <em>Debug JS Remotely</em>:</p>
+<p><a href="\image\rn_debug_menu1.jpg">!rn_debug_menu1</a></p>
+</li>
+<li><p>Send <em>adb shell input keyevent 82</em> to show debug menu again and select: <em>Reload</em>.</p>
+</li>
+<li><p>Open url: <a href="http://localhost:8081/debugger-ui" target="_blank" rel="noopener">http://localhost:8081/debugger-ui</a> in your browser. I use Chrome for example.</p>
+<p><img src="\image\rn_debug3.png" alt="rn_debug3"></p>
+</li>
+<li><p>Actually you could not see log here. You should open Chrome <em>developer tools</em> use shortcut: <strong><em>Ctrl+Shift+I</em></strong> or GUI as below:</p>
+<p><img src="\image\rn_debug2.jpg" alt="rn_debug2"></p>
+</li>
+<li><p>Then you get log output on the right side:</p>
+<p><img src="\image\rn_debug4.png" alt="rn_debug4"></p>
+</li>
+<li><p>Here you could see all logs, by <em>console.log(), console.warn()</em> etc.</p>
+<p>By output by <em>console.warn()</em>, you can also observe it on your device screen:</p>
+<p><img src="\image\rn_debug5.jpg" alt="rn_debug5"></p>
+</li>
+</ol>
+<p>Reference: official site: <a href="https://facebook.github.io/react-native/docs/debugging" target="_blank" rel="noopener">React native Debugging</a></p>
 
 
                 

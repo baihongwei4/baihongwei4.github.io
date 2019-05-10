@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.8.0">
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="Being a React Native developer requires basics of HTML, CSS, Java Script, ES6 etc. Of course not all of them. While still there are several concepts and syntax are quite necessary, without which, you could not even write a simple application. In this post, I am going to introduce thoese essentials and only introduce those.">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="Mike Hongwei Bai">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="Essentials for React Native">
+    
+
+    <!--Open Graph Description-->
+    
+        <meta property="og:description" content="Being a React Native developer requires basics of HTML, CSS, Java Script, ES6 etc. Of course not all of them. While still there are several concepts and syntax are quite necessary, without which, you could not even write a simple application. In this post, I am going to introduce thoese essentials and only introduce those.">
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="Road To Full Stack">
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article">
+    
+
+    <!--Page Cover-->
+    
+
+        <meta name="twitter:card" content="summary">
+    
+
+    <!-- Title -->
+    
+    <title>Essentials for React Native - Road To Full Stack</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet">
+
+    <!-- Google Analytics -->
+    
+
+
+    <!-- favicon -->
+    
+    <link rel="icon" href="/image/favicon.gif">
+    
+
+    <!-- bhw1899 updated -->
+    <link href="//cdn.bootcss.com/mermaid/7.0.14/themes/mermaid.neutral.min.css" rel="stylesheet">
+    <script src="//cdn.bootcss.com/mermaid/7.0.14/mermaid.min.js"></script>
+    <script type="text/javascript">mermaid.initialize({startOnLoad:true});</script>
+</head>
+
+
+<body>
+
+    <!-- Menu -->
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Mike (Hongwei Bai)'s blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                
+                    <li>
+                        <a href="/">
+                            
+                                Home
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/archives">
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/tags">
+                            
+                                Tags
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/categories">
+                            
+                                Categories
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/board">
+                            
+                                board
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://github.com/MikeHongweiBai">
+                            
+                                <i class="fa fa-github fa-stack-2x"></i>
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+    <!-- Main Content -->
+    <!-- Page Header -->
+<!-- Set your background image for this header in your post front-matter: cover -->
+
+<header class="intro-header" style="background-image: url('http://www.codeblocq.com/assets/projects/hexo-theme-clean-blog/img/home-bg.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1>Essentials for React Native</h1>
+                    
+                    <span class="meta">
+                        <!-- Date and Author -->
+                        
+                        
+                            2019-05-09
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Tags and categories -->
+           
+                <div class="col-lg-4 col-lg-offset-2 col-md-5 col-md-offset-1 post-tags">
+                    
+                        
+
+
+<a href="/tags/React-Native/">#React Native</a> <a href="/tags/React/">#React</a> <a href="/tags/Java-Script/">#Java Script</a> <a href="/tags/ES6/">#ES6</a> <a href="/tags/ECMAScript/">#ECMAScript</a> <a href="/tags/Promise/">#Promise</a> <a href="/tags/Guide/">#Guide</a>
+
+
+                    
+                </div>
+                <div class="col-lg-4 col-md-5 post-categories">
+                    
+                        
+
+<a href="/categories/React-Native/">React Native</a>/ <a href="/categories/React-Native/Front-End/">Front End</a>/ <a href="/categories/React-Native/Front-End/Note/">Note</a>
+
+                    
+                </div>
+            
+
+            <!-- Gallery -->
+            
+
+            <!-- Post Main Content -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <p>Assuming you are not a experienced front-end developer, otherwise you do not need to follow this.</p>
+<p>I am an Android developer, with some basic knowledge of back-end, database, HTML, CSS, PHP, Java Script and have established my own react and react native development environment.</p>
+<p>Make sure you have a react/react native hello world project which works.</p>
+<p><em>Note: I recommend react because it runs easier on PC. Anyway the main purpose of these environment is to test languages and their syntax.</em></p>
+<p>In project root directory, run:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm start</span><br></pre></td></tr></table></figure>
+<p>It runs successfully and pop up a browser window with right content. </p>
+<h3 id="Fetch"><a href="#Fetch" class="headerlink" title="Fetch"></a>Fetch</h3><p>Fetch method is used to request from APIs on server and acquire data in form of JSON, XML and you name it.</p>
+<p>A sample code is like:</p>
+<p>In App.js</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">test() &#123;</span><br><span class="line">    console.warn(&quot;test called.&quot;);</span><br><span class="line">    return fetch(&quot;http://47.52.40.23:8080/tudictserver/dictver/1&quot;, &#123;</span><br><span class="line">      method: &quot;GET&quot;</span><br><span class="line">    &#125;)</span><br><span class="line">      .then(response =&gt; response.json())</span><br><span class="line">      .then(responseJson =&gt; &#123;</span><br><span class="line">        console.log(&quot;fetch called. responseJson.code: &quot; + responseJson.code);</span><br><span class="line">        console.log(&quot;fetch called. responseJson,msg: &quot; + responseJson.msg);</span><br><span class="line">        var data = responseJson.data;</span><br><span class="line">        var version = data.version;</span><br><span class="line">        var upgradeType = data.upgradeType;</span><br><span class="line">        console.log(&quot;fetch called. data.version: &quot; + version);</span><br><span class="line">        console.log(&quot;fetch called. data.upgradeType: &quot; + upgradeType);</span><br><span class="line">        var filelist = data.filelist;</span><br><span class="line">        for (var i = 0; i &lt; filelist.length; i++) &#123;</span><br><span class="line">          console.log(&quot;fetch called. filelist.item: &quot; + filelist[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        this.updateText(responseJson.json);</span><br><span class="line">      &#125;)</span><br><span class="line">      .catch(error =&gt; &#123;</span><br><span class="line">        console.error(error);</span><br><span class="line">      &#125;);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>Feel it yourself, I will come back to it later. </p>
+<p>If you do not understand the call chain things, read next section ‘Promise’ first, then come back.</p>
+<h3 id="Promise"><a href="#Promise" class="headerlink" title="Promise"></a>Promise</h3><p>Promise is a vital concept in ECMAScript ES6. Without understand it, you could not claim that you are a qualified front-end developer. So it is the first thing to solve.</p>
+<p>I post two posts by others, which I have read and think they are clear and helpful. So recommend to others. (They are in Simplified Chinese)</p>
+<ul>
+<li><p><a href="https://www.jianshu.com/p/61a5fdbc9b35" target="_blank" rel="noopener">React Native 相关JS和React基础</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/063f7e490e9a" target="_blank" rel="noopener">Javascript 中的神器——Promise</a></p>
+</li>
+</ul>
+<p>I recommend you paste this code to your VSCode and carefully check their brackets.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">var promise = new Promise(function(resolve, reject) &#123;</span><br><span class="line"> if (true/* async operation succeed. */)&#123;</span><br><span class="line"> resolve(value);</span><br><span class="line"> &#125; else &#123;</span><br><span class="line"> reject(error);</span><br><span class="line"> &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">promise.then(function(value) &#123;</span><br><span class="line"> // success</span><br><span class="line">&#125;, function(value) &#123;</span><br><span class="line"> // failure</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>Caution:</p>
+<ul>
+<li><p>As a Java/Android developer, the most confusing thing is to get used to the IDE, which are huge difference from <em>Android Studio/IntelliJ IDEA</em>, it does not have the same input assistant. </p>
+<p>For example, in the code section in last section about fetch:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">return fetch(&quot;http://47.52.40.23:8080/tudictserver/dictver/1&quot;, &#123;</span><br><span class="line">      method: &quot;GET&quot;</span><br><span class="line">    &#125;)</span><br><span class="line">      .then(response =&gt; response.json())</span><br><span class="line">      .then(responseJson =&gt; &#123;</span><br><span class="line">        console.log(&quot;fetch called. responseJson.code: &quot; + responseJson.code);</span><br><span class="line">        console.log(&quot;fetch called. responseJson,msg: &quot; + responseJson.msg);</span><br><span class="line">        ....</span><br><span class="line">      &#125;);</span><br></pre></td></tr></table></figure>
+<p>When you input <em>responseJson</em> and dot, you could not find suggestion like “<em>code</em>“ or “<em>msg</em>“. You have to know it yourself and type it, which is different to IntelliJ Idea and Android Studio. Just be aware of that, it is not a problem.</p>
+</li>
+</ul>
+<h3 id="Mixed-Languages-Protocols"><a href="#Mixed-Languages-Protocols" class="headerlink" title="Mixed Languages/Protocols"></a>Mixed Languages/Protocols</h3><p>Another confusing stuff is that there are more than one languages or protocols mixed in one document.</p>
+<p>For instance, <em>JSX, ES6, Java Script, HTML, CSS</em> and so on.</p>
+<p>You have to carefully tell one from others, otherwise you may confused and apply wrong syntax.</p>
+<p>So learn a bit more how function/or method, class, object are defined in <em>ES6</em>, in <em>Java Script</em> is necessary.</p>
+<p>Then you should have a clear sight about the code itself.</p>
+<h3 id="Try-some-basic-components"><a href="#Try-some-basic-components" class="headerlink" title="Try some basic components"></a>Try some basic components</h3><h4 id="Image"><a href="#Image" class="headerlink" title="Image"></a>Image</h4><p>it is easy, just try this code in your <em>App.js</em>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">import React, &#123; Component &#125; from &quot;react&quot;;</span><br><span class="line">import &#123;</span><br><span class="line">  Image,</span><br><span class="line">&#125; from &quot;react-native&quot;;</span><br><span class="line"></span><br><span class="line">export default class App extends Component &#123;</span><br><span class="line">    render() &#123;</span><br><span class="line">        return (</span><br><span class="line">            &lt;View style=&#123;styles.mainStyle&#125;&gt;</span><br><span class="line">              &lt;Image source=&#123;require(&quot;./images/cctv2.jpg&quot;)&#125; /&gt;</span><br><span class="line">            &lt;/View&gt;</span><br><span class="line">            );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="Buttons"><a href="#Buttons" class="headerlink" title="Buttons"></a>Buttons</h4><p>I does not use word ‘<em>Button</em>‘ because I do not recommend the exact <em>Button</em> component here, normally developers use others which is more powerful and bugless. :-(</p>
+<p>Try <em>TouchableOpacity</em>. It is a transparent area cover any other components (Text in below example) to respond click/press events.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">import React, &#123; Component &#125; from &quot;react&quot;;</span><br><span class="line">import &#123;</span><br><span class="line">  Text,</span><br><span class="line">  TouchableOpacity,</span><br><span class="line">&#125; from &quot;react-native&quot;;</span><br><span class="line"></span><br><span class="line">export default class App extends Component &#123;</span><br><span class="line">    test() &#123;</span><br><span class="line">        console.log(&quot;test called.&quot;);</span><br><span class="line">        console.warn(&quot;I am a warn log.&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">    </span><br><span class="line">    render() &#123;</span><br><span class="line">        return (</span><br><span class="line">            &lt;TouchableOpacity onPress=&#123;() =&gt; this.test()&#125;&gt;</span><br><span class="line">          		&lt;Text&gt;Click Me&lt;/Text&gt;</span><br><span class="line">       	 	&lt;/TouchableOpacity&gt;</span><br><span class="line">            );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="Waterfall-layout"><a href="#Waterfall-layout" class="headerlink" title="Waterfall layout"></a>Waterfall layout</h4><p>Now try something more amazing.</p>
+
+
+                
+            </div>
+
+            <!-- Comments -->
+            
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    
+
+
+                </div>
+            
+        </div>
+    </div>
+</article>
+
+    <!-- Footer -->
+    <hr>
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+
+                    
+
+                    
+                        <li>
+                            <a href="https://github.com/MikeHongweiBai" target="_blank">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    
+
+                    
+
+                    
+                        <li>
+                            <a href="mailto:bhw8412@hotmail.com" target="_blank">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-envelope-o fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    
+
+                    
+                </ul>
+                <p class="copyright text-muted">&copy; 2019 Mike Hongwei Bai<br></p>
+                <p class="copyright text-muted">Original Theme <a target="_blank" href="http://startbootstrap.com/template-overviews/clean-blog/">Clean Blog</a> from <a href="http://startbootstrap.com/" target="_blank">Start Bootstrap</a></p>
+                <p class="copyright text-muted">Adapted for <a target="_blank" href="https://hexo.io/">Hexo</a> by <a href="http://www.codeblocq.com/" target="_blank">Jonathan Klughertz</a></p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+    <!-- After footer scripts -->
+    
+<!-- jQuery -->
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+<!-- Gallery -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Disqus Comments -->
+
+
+
+</body>
+
+</html>
