@@ -215,7 +215,7 @@
 
             <!-- Post Main Content -->
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <h3 id="Contents"><a href="#Contents" class="headerlink" title="Contents"></a>Contents</h3><h5 id="Npm-Install-Failure"><a href="#Npm-Install-Failure" class="headerlink" title="- Npm Install Failure"></a>- Npm Install Failure</h5><h3 id="Npm-Install-Failure-1"><a href="#Npm-Install-Failure-1" class="headerlink" title="Npm Install Failure"></a>Npm Install Failure</h3><p><strong>While run:</strong> npm install in project root directory</p>
+                <h3 id="Contents"><a href="#Contents" class="headerlink" title="Contents"></a>Contents</h3><h5 id="Npm-Install-Failure"><a href="#Npm-Install-Failure" class="headerlink" title="- Npm Install Failure"></a>- Npm Install Failure</h5><h5 id="SDK-location-not-found-while-run-react-native-run-android"><a href="#SDK-location-not-found-while-run-react-native-run-android" class="headerlink" title="- SDK location not found while run:  react-native run-android"></a>- SDK location not found while run:  react-native run-android</h5><h3 id="Npm-Install-Failure-1"><a href="#Npm-Install-Failure-1" class="headerlink" title="Npm Install Failure"></a>Npm Install Failure</h3><p><strong>While run:</strong> npm install in project root directory</p>
 <p><strong>OS:</strong> Windows 10</p>
 <p><strong>Error:</strong> </p>
 <p><img src="\image\rn_problem_solving_1.png" alt="rn_problem_solving_1"></p>
@@ -230,6 +230,17 @@
 <p>So Google it, I found its github page,</p>
 <p>and dependency import document, which indicating that 1.2.1 is the latest version.</p>
 <p>So change it and try again.</p>
+<h3 id="SDK-location-not-found-while-run-react-native-run-android-1"><a href="#SDK-location-not-found-while-run-react-native-run-android-1" class="headerlink" title="SDK location not found while run:  react-native run-android"></a>SDK location not found while run:  react-native run-android</h3><p><strong>While run:</strong> <em>react-native run-android</em> in project root.</p>
+<p><strong>OS:</strong> Windows 10</p>
+<p><strong>Error:</strong> </p>
+<blockquote>
+<p>SDK location not found. Define location with sdk.dir in the local.properties file or with an ANDROID_HOME environment variable.</p>
+</blockquote>
+<p><strong>Conclusion</strong>:</p>
+<p>added Windows Environment Variables:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">name: ANDROID_HOME</span><br><span class="line">value: /Users/&lt;USERNAME&gt;/Library/Android/sdk</span><br></pre></td></tr></table></figure>
+<p>Replace your \&lt;USERNAME>  with your own in Windows OS.</p>
+<p>And If you run application in Android Studio, it may not raise this error.</p>
 
 
                 
