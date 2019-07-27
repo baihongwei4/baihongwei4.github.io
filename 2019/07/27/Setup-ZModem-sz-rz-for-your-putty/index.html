@@ -10,6 +10,8 @@
 
     <!--Description-->
     
+        <meta name="description" content="Putty is a popular terminal on Windows 10 OS, but using ZModem on Putty is always a problem, LuPutty has ZModem integration, while connecting to ALiCloud server require Diffie-Hellman group exchange key, which is not inclued in LePutty. putty-nd is a alternative. Let&#39;s find out.">
+    
 
     <!--Author-->
     
@@ -18,10 +20,12 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="Road To Full Stack">
+        <meta property="og:title" content="Setup ZModem(sz/rz) for your putty">
     
 
     <!--Open Graph Description-->
+    
+        <meta property="og:description" content="Putty is a popular terminal on Windows 10 OS, but using ZModem on Putty is always a problem, LuPutty has ZModem integration, while connecting to ALiCloud server require Diffie-Hellman group exchange key, which is not inclued in LePutty. putty-nd is a alternative. Let&#39;s find out.">
     
 
     <!--Open Graph Site Name-->
@@ -29,7 +33,7 @@
 
     <!--Type page-->
     
-        <meta property="og:type" content="website">
+        <meta property="og:type" content="article">
     
 
     <!--Page Cover-->
@@ -40,7 +44,7 @@
 
     <!-- Title -->
     
-    <title>page - Archives - Road To Full Stack</title>
+    <title>Setup ZModem(sz/rz) for your putty - Road To Full Stack</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
@@ -156,170 +160,89 @@
 </nav>
 
     <!-- Main Content -->
-    
+    <!-- Page Header -->
+<!-- Set your background image for this header in your post front-matter: cover -->
 
-<!-- Page Header -->
-<!-- Set your background image for this header in the theme's configuration: index_cover -->
 <header class="intro-header" style="background-image: url('http://www.codeblocq.com/assets/projects/hexo-theme-clean-blog/img/home-bg.jpg')">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <div class="site-heading">
-                    <h1>Archives</h1>
+                <div class="post-heading">
+                    <h1>Setup ZModem(sz/rz) for your putty</h1>
+                    
+                    <span class="meta">
+                        <!-- Date and Author -->
+                        
+                        
+                            2019-07-27
+                        
+                    </span>
                 </div>
             </div>
         </div>
     </div>
 </header>
 
-<!-- Main Content -->
-<div class="container">
-    <div class="row">
-        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Tags and categories -->
+           
+                <div class="col-lg-4 col-lg-offset-2 col-md-5 col-md-offset-1 post-tags">
+                    
+                        
+
+
+<a href="/tags/Windows-10/">#Windows 10</a> <a href="/tags/Putty/">#Putty</a> <a href="/tags/Terminal/">#Terminal</a> <a href="/tags/SSH/">#SSH</a> <a href="/tags/ZModem/">#ZModem</a> <a href="/tags/sz/">#sz</a> <a href="/tags/rz/">#rz</a> <a href="/tags/putty-nd/">#putty-nd</a>
+
+
+                    
+                </div>
+                <div class="col-lg-4 col-md-5 post-categories">
+                    
+                        
+
+<a href="/categories/Demo/">Demo</a>
+
+                    
+                </div>
             
-                <div class="post-preview">
-    <a href="/2019/05/04/Front-End-Study-Submit-Form/">
-        <h1 class="post-title archive">
-            Front-End Study Submit Form
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2019-05-04
-    </p>
-</div>
+
+            <!-- Gallery -->
             
-                <div class="post-preview">
-    <a href="/2019/05/04/Learn-AJAX-Basics/">
-        <h1 class="post-title archive">
-            Learn AJAX Basics
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2019-05-04
-    </p>
-</div>
+
+            <!-- Post Main Content -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <h3 id="Step-1-Download-putty-nd"><a href="#Step-1-Download-putty-nd" class="headerlink" title="Step 1 - Download putty-nd"></a>Step 1 - Download putty-nd</h3><p>Get putty-nd from <a href="https://sourceforge.net/projects/putty-nd/" target="_blank" rel="noopener">sourceforge</a></p>
+<p>or Google it.</p>
+<p>unzip your compress package and run <code>putty.exe</code></p>
+<h3 id="Step-2-Install-lrzsz-on-your-CentOS-server"><a href="#Step-2-Install-lrzsz-on-your-CentOS-server" class="headerlink" title="Step 2 - Install lrzsz on your CentOS server"></a>Step 2 - Install <code>lrzsz</code> on your CentOS server</h3><p>Then you need to Install <code>lrzsz</code> on your CentOS server,</p>
+<p>run:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y install lrzsz</span><br></pre></td></tr></table></figure>
+<p>Then you can use </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rz</span><br></pre></td></tr></table></figure>
+<p>and</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sz</span><br></pre></td></tr></table></figure>
+<p>happily.</p>
+<p>– END –</p>
+
+
+                
+            </div>
+
+            <!-- Comments -->
             
-                <div class="post-preview">
-    <a href="/2019/05/03/Forward-Manage-MySQL-by-JPA-on-Spring-Boot/">
-        <h1 class="post-title archive">
-            Forward: Manage MySQL by JPA on Spring Boot
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2019-05-03
-    </p>
-</div>
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    
+
+
+                </div>
             
-                <div class="post-preview">
-    <a href="/2019/05/03/Install-MySQL-5-7-on-CentOS-7/">
-        <h1 class="post-title archive">
-            【FORWARD】 Install MySQL 5.7 on CentOS 7 (简体中文)
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2019-05-03
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/2019/04/29/Spring-Boot-Deployment-Guide/">
-        <h1 class="post-title archive">
-            Spring Boot Deployment Guide
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2019-04-29
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/2019/04/28/Setup-Guide-for-NGINX-Tomcat-on-CentOS-7/">
-        <h1 class="post-title archive">
-            Setup Guide for NGINX-Tomcat on CentOS 7
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2019-04-28
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/2019/04/28/Setup-Guide-for-Tomcat-on-CentOS-7/">
-        <h1 class="post-title archive">
-            Setup Guide for Tomcat on CentOS 7
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2019-04-28
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/2019/04/28/Setup-FTP-Server-on-CentOS-7/">
-        <h1 class="post-title archive">
-            Setup Guide FTP Server on CentOS 7 (简体中文)
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2019-04-28
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/2019/04/22/Maybe-The-Simplest-Way-to-Help-You-Really-Understand-Dagger-Android-Chapter-1-MVVM/">
-        <h1 class="post-title archive">
-            Maybe The Simplest Way to Help You Really Understand Dagger Android (Chapter 1 MVVM)
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2019-04-22
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/2019/04/22/Problem-Solving-Migrating-to-AndroidX-raise-error-Manifest-merger-failed/">
-        <h1 class="post-title archive">
-            Problem Solving - Migrating to AndroidX raise error: Manifest merger failed
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2019-04-22
-    </p>
-</div>
-            
-            <div class="archive-before-pagination"></div>
-            <ul class="pager">
-    
-        <li class="previous"><a href="/archives/">&larr;  Newer Posts</a></li>
-    
-    
-        <li class="next"><a href="/archives/page/3/">Older Posts  &rarr;</a></li>
-    
-</ul>
         </div>
     </div>
-</div>
-
+</article>
 
     <!-- Footer -->
     <hr>
