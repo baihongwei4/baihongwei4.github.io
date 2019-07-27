@@ -10,7 +10,7 @@
 
     <!--Description-->
     
-        <meta name="description" content="Setup Tomcat on CentOS 7 (Alibaba Cloud) including change tomcat webapps root directory.">
+        <meta name="description" content="Install Tomcat on CentOS 7 (Alibaba Cloud) from scratch, This is a supplyment guide for one of my old post, please find it below.">
     
 
     <!--Author-->
@@ -20,12 +20,12 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="Setup Guide for Tomcat on CentOS 7">
+        <meta property="og:title" content="Install Tomcat 8 on CentOS 7">
     
 
     <!--Open Graph Description-->
     
-        <meta property="og:description" content="Setup Tomcat on CentOS 7 (Alibaba Cloud) including change tomcat webapps root directory.">
+        <meta property="og:description" content="Install Tomcat on CentOS 7 (Alibaba Cloud) from scratch, This is a supplyment guide for one of my old post, please find it below.">
     
 
     <!--Open Graph Site Name-->
@@ -44,7 +44,7 @@
 
     <!-- Title -->
     
-    <title>Setup Guide for Tomcat on CentOS 7 - Road To Full Stack</title>
+    <title>Install Tomcat 8 on CentOS 7 - Road To Full Stack</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
@@ -168,13 +168,13 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <div class="post-heading">
-                    <h1>Setup Guide for Tomcat on CentOS 7</h1>
+                    <h1>Install Tomcat 8 on CentOS 7</h1>
                     
                     <span class="meta">
                         <!-- Date and Author -->
                         
                         
-                            2019-04-28
+                            2019-07-27
                         
                     </span>
                 </div>
@@ -215,26 +215,52 @@
 
             <!-- Post Main Content -->
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <p>Before I write this post, I have already setup my tomcat. So From now on, the tutorial is mainly about how to change root webapps directory to a new location, which is for my study of Tomcat+Nginx framework server.</p>
-<p>I will come back later to supplement tomcat install and config part later.</p>
-<h3 id="Change-tomcat-default-webApps-root"><a href="#Change-tomcat-default-webApps-root" class="headerlink" title="Change tomcat default webApps root:"></a>Change tomcat default webApps root:</h3><ol>
-<li><p>Find tomcat dir first.</p>
-</li>
-<li><p>Find &lt;Hosts>  ……&lt;/Hosts> in server.xml</p>
-</li>
-<li><p>Add one line:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;Context path=&quot;&quot; docBase=&quot;/usr/mike/myserver/webapps&quot; debug=&quot;0&quot; reloadable=&quot;true&quot;/&gt;</span><br></pre></td></tr></table></figure>
-<p>above &lt;/Hosts>.</p>
-</li>
-<li><p>Restart tomcat.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/&lt;tomcat-dir&gt;/bin/shutdown.sh</span><br><span class="line">/&lt;tomcat-dir&gt;/bin/startup.sh</span><br></pre></td></tr></table></figure>
-</li>
+                <p>I have just migrate my system to a new server, which give me a chance to install Tomcat 8 on CentOS 7 ever again. This is a supplement guide for one of my old post: <a href="https://mikehongweibai.github.io/2019/04/28/Setup-Guide-for-Tomcat-on-CentOS-7/">Setup Guide for Tomcat on CentOS 7</a>. </p>
+<p>Now we begin:</p>
+<p>I will add comments while necessary .</p>
+<blockquote>
+<p>Reference: <a href="https://segmentfault.com/a/1190000015391470" target="_blank" rel="noopener">CentOS安装Tomcat</a></p>
+<p>为了方便快捷的搭建linux环境，于是有了这几篇文字</p>
+<ol>
+<li>CentOS使用yum安装jdk</li>
+<li>CentOS安装tomcat</li>
+<li>CentOS安装Nginx</li>
+<li>CentOS安装MySql</li>
 </ol>
-<p><img src="\image\tomcat_chdir.png" alt="tomcat_chdir"></p>
-<h3 id="Another-way-to-change-webApps-root"><a href="#Another-way-to-change-webApps-root" class="headerlink" title="Another way to change webApps root:"></a>Another way to change webApps root:</h3><p>The method above could only enable a index page for tomcat.  </p>
-<p>If you want to deploy more than one web application and the management page, there is a better way.</p>
-<p>Change value of appBase under tag Host will do, as below.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;Host name=&quot;localhost&quot;  appBase=&quot;/usr/mike/myserver/webapps&quot;</span><br><span class="line">         unpackWARs=&quot;true&quot; autoDeploy=&quot;true&quot;&gt;</span><br><span class="line"></span><br><span class="line">     &lt;!-- SingleSignOn valve, share authentication between web applications</span><br><span class="line">          Documentation at: /docs/config/valve.html --&gt;</span><br><span class="line">     &lt;!--</span><br><span class="line">     &lt;Valve className=&quot;org.apache.catalina.authenticator.SingleSignOn&quot; /&gt;</span><br><span class="line">     --&gt;</span><br><span class="line"></span><br><span class="line">     &lt;!-- Access log processes all example.</span><br><span class="line">          Documentation at: /docs/config/valve.html</span><br><span class="line">          Note: The pattern used is equivalent to using pattern=&quot;common&quot; --&gt;</span><br><span class="line">     &lt;Valve className=&quot;org.apache.catalina.valves.AccessLogValve&quot; directory=&quot;logs&quot;</span><br><span class="line">            prefix=&quot;localhost_access_log&quot; suffix=&quot;.txt&quot;</span><br><span class="line">            pattern=&quot;%h %l %u %t &amp;quot;%r&amp;quot; %s %b&quot; /&gt;</span><br><span class="line"></span><br><span class="line">   &lt;/Host&gt;</span><br></pre></td></tr></table></figure>
+<p>1.安装tomcat前，需要安装JDK，请参考博主另外一篇文章<a href="https://segmentfault.com/a/1190000015389941" target="_blank" rel="noopener">CentOS使用yum安装jdk</a></p>
+<p>2.本次安装tomcat，使用wget下载命令安装，需要先安装wget命令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; yum -y install wget</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>3.下载tomcat</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="built_in">cd</span> /usr/<span class="built_in">local</span>/(进入<span class="built_in">local</span>文件夹)</span><br><span class="line">&gt; wget http://mirrors.hust.edu.cn/apache/tomcat/tomcat-8/v8.5.31/bin/apache-tomcat-8.5.31.tar.gz</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p>In this step, you are probably encounter problem because the Tomcat link is not available any more.</p>
+<p>In this way, you need to find a new link, I will guide you.</p>
+<p>The error you get after you input step 3 command is quite like:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@iZ8vbawiwg4x97uqzkj04wZ <span class="built_in">local</span>]<span class="comment"># wget http://mirrors.hust.edu.cn/apache/tomcat/tomcat-8/v8.5.31/bin/apache-tomcat-8.5.31.tar.gz</span></span><br><span class="line">--2019-07-27 16:42:14--  http://mirrors.hust.edu.cn/apache/tomcat/tomcat-8/v8.5.31/bin/apache-tomcat-8.5.31.tar.gz</span><br><span class="line">Resolving mirrors.hust.edu.cn (mirrors.hust.edu.cn)... 202.114.18.160</span><br><span class="line">Connecting to mirrors.hust.edu.cn (mirrors.hust.edu.cn)|202.114.18.160|:80... connected.</span><br><span class="line">HTTP request sent, awaiting response... 404 Not Found</span><br><span class="line">2019-07-27 16:42:14 ERROR 404: Not Found.</span><br></pre></td></tr></table></figure>
+<p>The best way is to find a link on Tomcat ‘s official site:</p>
+<p>Google: Tomcat download</p>
+<p>or just goto: <a href="https://tomcat.apache.org/" target="_blank" rel="noopener">https://tomcat.apache.org/</a></p>
+<p>find <a href="https://tomcat.apache.org/download-80.cgi" target="_blank" rel="noopener">download/Tomcat 8</a> on navigation sidebar on left side.</p>
+<p>Then <a href="http://mirror.intergrid.com.au/apache/tomcat/tomcat-8/" target="_blank" rel="noopener">Quick Navigation/Browse</a></p>
+<p><img src="\image\install_tomcat_main.png" alt="install_tomcat_main"></p>
+<p>Then find the latest version of tomcat, then bin path, as snapshot as below:</p>
+<p>Click “copy link address”</p>
+<p><img src="\image\install_tomcat_tar.png" alt="install_tomcat_tar"></p>
+<p>At last, paste this path after command <code>wget</code></p>
+<p>e.g.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget http://apache.mirror.digitalpacific.com.au/tomcat/tomcat-8/v8.5.41/bin/apache-tomcat-8.5.41.tar.gz</span><br></pre></td></tr></table></figure>
+<p>Here we go.</p>
+<blockquote>
+<p>4.解压tomcat</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt; tar -zxvf apache-tomcat-8.5.31.tar.gz</span><br><span class="line">&gt; mv apache-tomcat-8.5.31 tomcat(修改名称)</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>5.tomcat常用命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt; /usr/local/tomcat/bin/startup.sh(启动命令)</span><br><span class="line">&gt; /usr/local/tomcat/bin/shutdown.sh(关闭命令)</span><br><span class="line">&gt; ps -ef|grep java(查看tomcat进程)</span><br><span class="line">&gt; kill -9 进程号(杀死经常)</span><br><span class="line">&gt; tail -f /usr/local/tomcat/logs/catalina.out(查看tomcat日志)</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p>Now tomcat has already installed on your server, to start config, go to my old post: <a href="https://mikehongweibai.github.io/2019/04/28/Setup-Guide-for-Tomcat-on-CentOS-7/">Setup Guide for Tomcat on CentOS 7</a>. </p>
 
 
                 
