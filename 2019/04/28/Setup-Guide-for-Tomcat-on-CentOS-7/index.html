@@ -195,7 +195,7 @@
                         
 
 
-<a href="/tags/Guide/">#Guide</a> <a href="/tags/Server/">#Server</a> <a href="/tags/Demo/">#Demo</a> <a href="/tags/Tomcat/">#Tomcat</a> <a href="/tags/CentOS/">#CentOS"</a>
+<a href="/tags/Tomcat/">#Tomcat</a> <a href="/tags/Server/">#Server</a> <a href="/tags/CentOS/">#CentOS"</a> <a href="/tags/Demo/">#Demo</a> <a href="/tags/Guide/">#Guide</a>
 
 
                     
@@ -233,6 +233,12 @@
 </li>
 </ol>
 <p><img src="\image\tomcat_chdir.png" alt="tomcat_chdir"></p>
+<p>Note that, when you has changed Tomcat default WebApps root, you probably get 404 error when you visit your ip:8080 port.</p>
+<p>You need to copy your WebApps dir to your customized path:</p>
+<p>go to path: <code>/usr</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">...usr]<span class="comment"># cp -r local/tomcat/webapps/ mike/myserver/webapps</span></span><br></pre></td></tr></table></figure>
+<p>In your web browser, type url: <code>http://&lt;your ip addr&gt;:8080/ROOT/</code></p>
+<p>Note that here is not <ip>:8080/, but with an additional <code>ROOT</code> instead because the default Tomcat path is actually: <code>webapps/ROOT/</code>.</ip></p>
 <h3 id="Another-way-to-change-webApps-root"><a href="#Another-way-to-change-webApps-root" class="headerlink" title="Another way to change webApps root:"></a>Another way to change webApps root:</h3><p>The method above could only enable a index page for tomcat.  </p>
 <p>If you want to deploy more than one web application and the management page, there is a better way.</p>
 <p>Change value of appBase under tag Host will do, as below.</p>
