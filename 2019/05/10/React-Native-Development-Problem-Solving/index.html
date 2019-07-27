@@ -215,7 +215,8 @@
 
             <!-- Post Main Content -->
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <h3 id="Contents"><a href="#Contents" class="headerlink" title="Contents"></a>Contents</h3><h5 id="Npm-Install-Failure"><a href="#Npm-Install-Failure" class="headerlink" title="- Npm Install Failure"></a>- Npm Install Failure</h5><h5 id="SDK-location-not-found-while-run-react-native-run-android"><a href="#SDK-location-not-found-while-run-react-native-run-android" class="headerlink" title="- SDK location not found while run:  react-native run-android"></a>- SDK location not found while run:  react-native run-android</h5><h3 id="Npm-Install-Failure-1"><a href="#Npm-Install-Failure-1" class="headerlink" title="Npm Install Failure"></a>Npm Install Failure</h3><p><strong>While run:</strong> npm install in project root directory</p>
+                <h3 id="Contents"><a href="#Contents" class="headerlink" title="Contents"></a>Contents</h3><h5 id="Npm-Install-Failure"><a href="#Npm-Install-Failure" class="headerlink" title="- Npm Install Failure"></a>- Npm Install Failure</h5><h5 id="SDK-location-not-found-while-run-react-native-run-android"><a href="#SDK-location-not-found-while-run-react-native-run-android" class="headerlink" title="- SDK location not found while run:  react-native run-android"></a>- SDK location not found while run:  react-native run-android</h5><h5 id="Invariant-Violation-View-config-not-found-for-name-div-Make-sure-to-start-component-names-with-a-capital-letter"><a href="#Invariant-Violation-View-config-not-found-for-name-div-Make-sure-to-start-component-names-with-a-capital-letter" class="headerlink" title="- Invariant Violation: View config not found for name div. Make sure to start component names with a capital letter."></a>- Invariant Violation: View config not found for name div. Make sure to start component names with a capital letter.</h5><p>##### </p>
+<h3 id="Npm-Install-Failure-1"><a href="#Npm-Install-Failure-1" class="headerlink" title="Npm Install Failure"></a>Npm Install Failure</h3><p><strong>While run:</strong> npm install in project root directory</p>
 <p><strong>OS:</strong> Windows 10</p>
 <p><strong>Error:</strong> </p>
 <p><img src="\image\rn_problem_solving_1.png" alt="rn_problem_solving_1"></p>
@@ -241,6 +242,15 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">name: ANDROID_HOME</span><br><span class="line">value: /Users/&lt;USERNAME&gt;/Library/Android/sdk</span><br></pre></td></tr></table></figure>
 <p>Replace your \&lt;USERNAME>  with your own in Windows OS.</p>
 <p>And If you run application in Android Studio, it may not raise this error.</p>
+<h3 id="Invariant-Violation-View-config-not-found-for-name-div-Make-sure-to-start-component-names-with-a-capital-letter-1"><a href="#Invariant-Violation-View-config-not-found-for-name-div-Make-sure-to-start-component-names-with-a-capital-letter-1" class="headerlink" title="Invariant Violation: View config not found for name div. Make sure to start component names with a capital letter."></a>Invariant Violation: View config not found for name div. Make sure to start component names with a capital letter.</h3><p><strong>While compile React-Native project.</strong></p>
+<p><strong>OS:</strong> Windows 10</p>
+<p><strong>Error:</strong> </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Invariant Violation: View config not found for name div. Make sure to start component names with a capital letter.</span><br><span class="line"></span><br><span class="line">This error is located at:</span><br><span class="line">    in div (at Game.js:21)</span><br><span class="line">    in div (at Game.js:20)</span><br><span class="line">    in div (at Game.js:16)</span><br><span class="line">    in Game (at App.js:29)</span><br><span class="line">    in App (at renderApplication.js:35)</span><br><span class="line">    in RCTView (at View.js:45)</span><br><span class="line">    in View (at AppContainer.js:98)</span><br><span class="line">    in RCTView (at View.js:45)</span><br><span class="line">    in View (at AppContainer.js:115)</span><br><span class="line">    in AppContainer (at renderApplication.js:34)</span><br></pre></td></tr></table></figure>
+<p><strong>Conclusion</strong>:</p>
+<p>HTML tags such as: div, ol etc. could not be used in React-Native while it runs on a mobile device. (It could run on a web)  </p>
+<ul>
+<li>use <em>View</em> instead of <em>div</em>;</li>
+</ul>
 
 
                 
