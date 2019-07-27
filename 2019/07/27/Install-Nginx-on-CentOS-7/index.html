@@ -10,7 +10,7 @@
 
     <!--Description-->
     
-        <meta name="description" content="Setup Tomcat on CentOS 7 (Alibaba Cloud) including change tomcat webapps root directory.">
+        <meta name="description" content="Install guide for NGINX on CentOS 7">
     
 
     <!--Author-->
@@ -20,12 +20,12 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="Setup Guide for Tomcat on CentOS 7">
+        <meta property="og:title" content="Install Nginx on CentOS 7">
     
 
     <!--Open Graph Description-->
     
-        <meta property="og:description" content="Setup Tomcat on CentOS 7 (Alibaba Cloud) including change tomcat webapps root directory.">
+        <meta property="og:description" content="Install guide for NGINX on CentOS 7">
     
 
     <!--Open Graph Site Name-->
@@ -44,7 +44,7 @@
 
     <!-- Title -->
     
-    <title>Setup Guide for Tomcat on CentOS 7 - Road To Full Stack</title>
+    <title>Install Nginx on CentOS 7 - Road To Full Stack</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
@@ -168,13 +168,13 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <div class="post-heading">
-                    <h1>Setup Guide for Tomcat on CentOS 7</h1>
+                    <h1>Install Nginx on CentOS 7</h1>
                     
                     <span class="meta">
                         <!-- Date and Author -->
                         
                         
-                            2019-04-28
+                            2019-07-27
                         
                     </span>
                 </div>
@@ -195,7 +195,7 @@
                         
 
 
-<a href="/tags/Guide/">#Guide</a> <a href="/tags/Server/">#Server</a> <a href="/tags/Demo/">#Demo</a> <a href="/tags/Tomcat/">#Tomcat</a> <a href="/tags/CentOS/">#CentOS"</a>
+<a href="/tags/Guide/">#Guide</a> <a href="/tags/Server/">#Server</a> <a href="/tags/CentOS/">#CentOS</a> <a href="/tags/Demo/">#Demo</a> <a href="/tags/NGINX/">#NGINX</a>
 
 
                     
@@ -215,34 +215,47 @@
 
             <!-- Post Main Content -->
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <p>Before I write this post, I have already setup my tomcat. So From now on, the tutorial is mainly about how to change root webapps directory to a new location, which is for my study of Tomcat+Nginx framework server.</p>
-<p>I will come back later to supplement tomcat install and config part later.</p>
-<p>Now it is done, if you need guide for install (copy) Tomcat on your server, please go to my post:</p>
-<p><a href="https://mikehongweibai.github.io/2019/07/27/Install-Tomcat-8-on-CentOS-7/">Install Tomcat 8 on CentOS 7</a></p>
-<h3 id="Change-tomcat-default-webApps-root"><a href="#Change-tomcat-default-webApps-root" class="headerlink" title="Change tomcat default webApps root:"></a>Change tomcat default webApps root:</h3><ol>
-<li><p>Find tomcat dir first.</p>
-</li>
-<li><p>Find &lt;Hosts>  ……&lt;/Hosts> in server.xml</p>
-</li>
-<li><p>Add one line:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;Context path=&quot;&quot; docBase=&quot;/usr/mike/myserver/webapps&quot; debug=&quot;0&quot; reloadable=&quot;true&quot;/&gt;</span><br></pre></td></tr></table></figure>
-<p>above &lt;/Hosts>.</p>
-</li>
-<li><p>Restart tomcat.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/&lt;tomcat-dir&gt;/bin/shutdown.sh</span><br><span class="line">/&lt;tomcat-dir&gt;/bin/startup.sh</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p><img src="\image\tomcat_chdir.png" alt="tomcat_chdir"></p>
-<p>Note that, when you has changed Tomcat default WebApps root, you probably get 404 error when you visit your ip:8080 port.</p>
-<p>You need to copy your WebApps dir to your customized path:</p>
-<p>go to path: <code>/usr</code></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">...usr]<span class="comment"># cp -r local/tomcat/webapps/ mike/myserver/webapps</span></span><br></pre></td></tr></table></figure>
-<p>In your web browser, type url: <code>http://&lt;your ip addr&gt;:8080/ROOT/</code></p>
-<p>Note that here is not <ip>:8080/, but with an additional <code>ROOT</code> instead because the default Tomcat path is actually: <code>webapps/ROOT/</code>.</ip></p>
-<h3 id="Another-way-to-change-webApps-root"><a href="#Another-way-to-change-webApps-root" class="headerlink" title="Another way to change webApps root:"></a>Another way to change webApps root:</h3><p>The method above could only enable a index page for tomcat.  </p>
-<p>If you want to deploy more than one web application and the management page, there is a better way.</p>
-<p>Change value of appBase under tag Host will do, as below.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;Host name=&quot;localhost&quot;  appBase=&quot;/usr/mike/myserver/webapps&quot;</span><br><span class="line">         unpackWARs=&quot;true&quot; autoDeploy=&quot;true&quot;&gt;</span><br><span class="line"></span><br><span class="line">     &lt;!-- SingleSignOn valve, share authentication between web applications</span><br><span class="line">          Documentation at: /docs/config/valve.html --&gt;</span><br><span class="line">     &lt;!--</span><br><span class="line">     &lt;Valve className=&quot;org.apache.catalina.authenticator.SingleSignOn&quot; /&gt;</span><br><span class="line">     --&gt;</span><br><span class="line"></span><br><span class="line">     &lt;!-- Access log processes all example.</span><br><span class="line">          Documentation at: /docs/config/valve.html</span><br><span class="line">          Note: The pattern used is equivalent to using pattern=&quot;common&quot; --&gt;</span><br><span class="line">     &lt;Valve className=&quot;org.apache.catalina.valves.AccessLogValve&quot; directory=&quot;logs&quot;</span><br><span class="line">            prefix=&quot;localhost_access_log&quot; suffix=&quot;.txt&quot;</span><br><span class="line">            pattern=&quot;%h %l %u %t &amp;quot;%r&amp;quot; %s %b&quot; /&gt;</span><br><span class="line"></span><br><span class="line">   &lt;/Host&gt;</span><br></pre></td></tr></table></figure>
+                <p>Install NGINX is quite simple, I quote a few steps in this post: <a href="https://qizhanming.com/blog/2018/08/06/how-to-install-nginx-on-centos-7" target="_blank" rel="noopener">CentOS 7 下 yum 安装和配置 Nginx</a> to introduce this process.</p>
+<blockquote>
+<h3 id="步骤-1-添加-yum-源"><a href="#步骤-1-添加-yum-源" class="headerlink" title="步骤 1: 添加 yum 源"></a>步骤 1: 添加 yum 源</h3><p>Nginx 不在默认的 yum 源中，可以使用 epel 或者官网的 yum 源，本例使用官网的 yum 源。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; $ sudo rpm -ivh http://nginx.org/packages/centos/7/noarch/RPMS/nginx-release-centos-7-0.el7.ngx.noarch.rpm</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>安装完 yum 源之后，可以查看一下。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&gt; $ sudo yum repolist</span><br><span class="line">&gt; Loaded plugins: fastestmirror, langpacks</span><br><span class="line">&gt; Loading mirror speeds from cached hostfile</span><br><span class="line">&gt;  * base: mirrors.aliyun.com</span><br><span class="line">&gt;  * extras: mirrors.aliyun.com</span><br><span class="line">&gt;  * updates: mirrors.aliyun.com</span><br><span class="line">&gt; repo id                          repo name                          status</span><br><span class="line">&gt; base/7/x86_64                    CentOS-7 - Base                    9,911</span><br><span class="line">&gt; extras/7/x86_64                  CentOS-7 - Extras                    368</span><br><span class="line">&gt; nginx/x86_64                     nginx repo                           108</span><br><span class="line">&gt; updates/7/x86_64                 CentOS-7 - Updates                 1,041</span><br><span class="line">&gt; repolist: 11,428</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>可以发现 <code>nginx repo</code> 已经安装到本机了。</p>
+<h3 id="步骤-2-安装"><a href="#步骤-2-安装" class="headerlink" title="步骤 2: 安装"></a>步骤 2: 安装</h3><p>yum 安装 Nginx，非常简单，一条命令。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; $ sudo yum install nginx</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<h3 id="步骤-3-配置-Nginx-服务"><a href="#步骤-3-配置-Nginx-服务" class="headerlink" title="步骤 3: 配置 Nginx 服务"></a>步骤 3: 配置 Nginx 服务</h3><p>设置开机启动</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; $ sudo systemctl enable nginx</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>启动服务</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; $ sudo systemctl start nginx</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>停止服务</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; $ sudo systemctl restart nginx</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>重新加载，因为一般重新配置之后，不希望重启服务，这时可以使用重新加载。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; $ sudo systemctl reload nginx</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<h3 id="反向代理"><a href="#反向代理" class="headerlink" title="反向代理"></a>反向代理</h3><p>Nginx 是一个很方便的反向代理，配置反向代理可以参考 <a href="http://nginx.org/en/docs/http/ngx_http_proxy_module.html" target="_blank" rel="noopener">Module ngx_http_proxy_module</a> 。本文不做累述。</p>
+<p>需要指出的是 CentOS 7 的 SELinux，使用反向代理需要打开网络访问权限。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; $ sudo setsebool httpd_can_network_connect 1 </span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p>Okay. All good!</p>
+<p>Default port for NGINX is 80, so if you type url: <code>&lt;your ip addr&gt;</code> directly, you should see this page:</p>
+<p><img src="\image\nginx_main.png" alt="nginx_main"></p>
+<p>Now if you need to config NGINX working together with your Tomcat, please go to my another post:</p>
+<p><a href="https://mikehongweibai.github.io/2019/04/28/Setup-Guide-for-NGINX-Tomcat-on-CentOS-7/">Setup Guide for NGINX-Tomcat on CentOS 7</a></p>
+<p>– END –</p>
 
 
                 
