@@ -10,6 +10,8 @@
 
     <!--Description-->
     
+        <meta name="description" content="This is my personal iOS learn memo.">
+    
 
     <!--Author-->
     
@@ -18,10 +20,12 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="Road To Full Stack">
+        <meta property="og:title" content="iOS and Swift Learn Memo Season 2 Hello World">
     
 
     <!--Open Graph Description-->
+    
+        <meta property="og:description" content="This is my personal iOS learn memo.">
     
 
     <!--Open Graph Site Name-->
@@ -29,7 +33,7 @@
 
     <!--Type page-->
     
-        <meta property="og:type" content="website">
+        <meta property="og:type" content="article">
     
 
     <!--Page Cover-->
@@ -40,7 +44,7 @@
 
     <!-- Title -->
     
-    <title>page - Archives - Road To Full Stack</title>
+    <title>iOS and Swift Learn Memo Season 2 Hello World - Road To Full Stack</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
@@ -156,170 +160,92 @@
 </nav>
 
     <!-- Main Content -->
-    
+    <!-- Page Header -->
+<!-- Set your background image for this header in your post front-matter: cover -->
 
-<!-- Page Header -->
-<!-- Set your background image for this header in the theme's configuration: index_cover -->
 <header class="intro-header" style="background-image: url('http://www.codeblocq.com/assets/projects/hexo-theme-clean-blog/img/home-bg.jpg')">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <div class="site-heading">
-                    <h1>Archives</h1>
+                <div class="post-heading">
+                    <h1>iOS and Swift Learn Memo Season 2 Hello World</h1>
+                    
+                    <span class="meta">
+                        <!-- Date and Author -->
+                        
+                        
+                            2019-07-28
+                        
+                    </span>
                 </div>
             </div>
         </div>
     </div>
 </header>
 
-<!-- Main Content -->
-<div class="container">
-    <div class="row">
-        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Tags and categories -->
+           
+                <div class="col-lg-4 col-lg-offset-2 col-md-5 col-md-offset-1 post-tags">
+                    
+                        
+
+
+<a href="/tags/iOS/">#iOS</a> <a href="/tags/xCode/">#xCode</a> <a href="/tags/Memo/">#Memo</a> <a href="/tags/Swift-3-0/">#Swift 3.0</a>
+
+
+                    
+                </div>
+                <div class="col-lg-4 col-md-5 post-categories">
+                    
+                        
+
+<a href="/categories/iOS/">iOS</a>
+
+                    
+                </div>
             
-                <div class="post-preview">
-    <a href="/2019/04/22/Maybe-The-Simplest-Way-to-Help-You-Really-Understand-Dagger-Android-Chapter-1-MVVM/">
-        <h1 class="post-title archive">
-            Maybe The Simplest Way to Help You Really Understand Dagger Android (Chapter 1 MVVM)
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2019-04-22
-    </p>
-</div>
+
+            <!-- Gallery -->
             
-                <div class="post-preview">
-    <a href="/2019/04/22/Problem-Solving-Migrating-to-AndroidX-raise-error-Manifest-merger-failed/">
-        <h1 class="post-title archive">
-            Problem Solving - Migrating to AndroidX raise error: Manifest merger failed
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2019-04-22
-    </p>
-</div>
+
+            <!-- Post Main Content -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <p>From season 2 of this tutorial from YouTube:</p>
+<p>S2E1 <a href="https://www.youtube.com/watch?v=ZfJhQKdZG-k&amp;list=PLE1bYOKXhgTcIzqE-NRKuP_Ago0pXq_cA&amp;index=10" target="_blank" rel="noopener">iOS10 实战开发 Swift3.0 S2E1 应用开发计算器– 基础UI</a></p>
+<p>S2E2 <a href="https://www.youtube.com/watch?v=aYw-SlO2fMo&amp;list=PLE1bYOKXhgTcIzqE-NRKuP_Ago0pXq_cA&amp;index=11" target="_blank" rel="noopener">iOS10 实战开发 Swift3.0 S2E1 应用开发计算器– 功能实现</a></p>
+<p>It starts to taught how to use xCode storyboard to build a UI and how to bind UI to your ViewController code implementation.</p>
+<p>I only memo several important points here.</p>
+<h4 id="Bind-UI-component-to-ViewController"><a href="#Bind-UI-component-to-ViewController" class="headerlink" title="Bind UI component to ViewController"></a>Bind UI component to ViewController</h4><p>If you add a Label or a UIImage to your storyboard, now you would like to use them in your ViewController.swift code implementation. What should you do? </p>
+<p>You should right click your mouse or tap touchpad with your two fingers simutenously on the UI component, and then draw a link to your ViewController code blank area, then you get a code like this:</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@IBOutlet</span> <span class="keyword">weak</span> <span class="keyword">var</span> yourComponentName: <span class="type">UILabel!</span></span><br></pre></td></tr></table></figure>
+<p>Here we go, then you can use this variable <code>yourComponentName</code> to manipulate UI component, for example, change text of this label:</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yourComponentName.text = <span class="string">"new string!"</span></span><br></pre></td></tr></table></figure>
+<h4 id="Bind-Button-onClick-listener-to-your-UIButton-component"><a href="#Bind-Button-onClick-listener-to-your-UIButton-component" class="headerlink" title="Bind Button onClick listener to your UIButton component"></a>Bind Button onClick listener to your UIButton component</h4><p>Now we go to input,</p>
+<p>If you have already add a UIButton on your storyboard, </p>
+<p>The next step is to add a code block like this:</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@IBAction</span> <span class="function"><span class="keyword">func</span> <span class="title">yourButtonOnClickListenerFunction</span><span class="params">(sender: UIButton)</span></span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// You can use this tag (which is Int type) and print it on console.</span></span><br><span class="line">    <span class="built_in">print</span>(sender.tag)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Or you can update a label text when you clicking this button.</span></span><br><span class="line">    yourComponentName.text = <span class="string">"Hello Hongwei! tag is "</span> + <span class="type">String</span>(sender.tag)</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>– END –</p>
+
+
+                
+            </div>
+
+            <!-- Comments -->
             
-                <div class="post-preview">
-    <a href="/2019/04/22/Quick-Setup-Hexo-After-Re-install-your-Windows-10-System/">
-        <h1 class="post-title archive">
-            Quick Setup Hexo After Re-install your Windows 10 System
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2019-04-22
-    </p>
-</div>
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    
+
+
+                </div>
             
-                <div class="post-preview">
-    <a href="/2019/04/21/Methodology-applied-for-PC-DIY/">
-        <h1 class="post-title archive">
-            Methodology applied for PC DIY
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2019-04-21
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/2018/07/01/Introduce-OOM-Analyze-Through-An-Example-en/">
-        <h1 class="post-title archive">
-            Introduce OOM Analysis Through a Simple Example
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2018-07-01
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/2018/07/01/Android-Java-Memory-Analysis-Basics-en/">
-        <h1 class="post-title archive">
-            Android/Java Memory Analysis Basics
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2018-07-01
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/2018/06/18/Android-Java-Memory-Analysis-Basics/">
-        <h1 class="post-title archive">
-            Android OOM分析之基础
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2018-06-18
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/2018/06/17/Remember-how-to-publish-a-new-passage/">
-        <h1 class="post-title archive">
-            Remember how to publish a new passage
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2018-06-17
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/2018/06/17/Introduce-OOM-Analyze-Through-An-Example/">
-        <h1 class="post-title archive">
-            通过一个实例简单介绍下内存泄漏（或OOM）的分析方法（之一）
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2018-06-17
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/2017/12/16/This-pointer-in-Java/">
-        <h1 class="post-title archive">
-            This pointer in Java
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2017-12-16
-    </p>
-</div>
-            
-            <div class="archive-before-pagination"></div>
-            <ul class="pager">
-    
-        <li class="previous"><a href="/archives/page/2/">&larr;  Newer Posts</a></li>
-    
-    
-        <li class="next"><a href="/archives/page/4/">Older Posts  &rarr;</a></li>
-    
-</ul>
         </div>
     </div>
-</div>
-
+</article>
 
     <!-- Footer -->
     <hr>
