@@ -2,7 +2,7 @@
 <html lang="en">
 
 <!-- Head tag -->
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -219,15 +219,17 @@
 <h3 id="Npm-Install-Failure-1"><a href="#Npm-Install-Failure-1" class="headerlink" title="Npm Install Failure"></a>Npm Install Failure</h3><p><strong>While run:</strong> npm install in project root directory</p>
 <p><strong>OS:</strong> Windows 10</p>
 <p><strong>Error:</strong> </p>
-<p><img src="\image\rn_problem_solving_1.png" alt="rn_problem_solving_1"></p>
+<p><img src="%5Cimage%5Crn_problem_solving_1.png" alt="rn_problem_solving_1"></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">npm ERR! code ETARGET</span><br><span class="line">npm ERR! notarget No matching version found <span class="keyword">for</span> conventional-changelog@1.2.0</span><br><span class="line">npm ERR! notarget In most cases you or one of your dependencies are requesting</span><br><span class="line">npm ERR! notarget a package version that doesn<span class="string">'t exist.</span></span><br><span class="line"><span class="string">npm ERR! notarget</span></span><br><span class="line"><span class="string">npm ERR! notarget It was specified as a dependency of '</span>anthem<span class="string">'</span></span><br><span class="line"><span class="string">npm ERR! notarget</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">npm ERR! A complete log of this run can be found in:</span></span><br><span class="line"><span class="string">npm ERR!     C:\Users\Administrator\AppData\Roaming\npm-cache\_logs\2019-05-10T05_27_24_753Z-debug.log</span></span><br><span class="line"><span class="string">PS E:\code_frontend\samples\Anthem&gt; npm install</span></span><br></pre></td></tr></table></figure>
+
 <p><strong>Conclusion:</strong></p>
 <p>modify <strong><em>package.json</em></strong> file, change the version of <em>conventional-changelog</em> to a valid one. (@1.2.1 in this case)</p>
 <p>Then  run <em>npm install</em> again.</p>
 <p>Also, I added Windows Environment Variables, but not sure it helped:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">name: NODE_ENV</span><br><span class="line">value: cross-env development</span><br></pre></td></tr></table></figure>
+
 <p><strong>Analysis:</strong></p>
-<p>Literally it said that npm could not find this dependency: <a href="mailto:*conventional-changelog@1.2.0" target="_blank" rel="noopener">*conventional-changelog@1.2.0</a>*</p>
+<p>Literally it said that npm could not find this dependency: <em><a href="mailto:conventional-changelog@1.2.0" target="_blank" rel="noopener">conventional-changelog@1.2.0</a></em></p>
 <p>So Google it, I found its github page,</p>
 <p>and dependency import document, which indicating that 1.2.1 is the latest version.</p>
 <p>So change it and try again.</p>
@@ -240,12 +242,14 @@
 <p><strong>Conclusion</strong>:</p>
 <p>added Windows Environment Variables:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">name: ANDROID_HOME</span><br><span class="line">value: /Users/&lt;USERNAME&gt;/Library/Android/sdk</span><br></pre></td></tr></table></figure>
-<p>Replace your \&lt;USERNAME>  with your own in Windows OS.</p>
+
+<p>Replace your &lt;USERNAME&gt;  with your own in Windows OS.</p>
 <p>And If you run application in Android Studio, it may not raise this error.</p>
 <h3 id="Invariant-Violation-View-config-not-found-for-name-div-Make-sure-to-start-component-names-with-a-capital-letter-1"><a href="#Invariant-Violation-View-config-not-found-for-name-div-Make-sure-to-start-component-names-with-a-capital-letter-1" class="headerlink" title="Invariant Violation: View config not found for name div. Make sure to start component names with a capital letter."></a>Invariant Violation: View config not found for name div. Make sure to start component names with a capital letter.</h3><p><strong>While compile React-Native project.</strong></p>
 <p><strong>OS:</strong> Windows 10</p>
 <p><strong>Error:</strong> </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Invariant Violation: View config not found for name div. Make sure to start component names with a capital letter.</span><br><span class="line"></span><br><span class="line">This error is located at:</span><br><span class="line">    in div (at Game.js:21)</span><br><span class="line">    in div (at Game.js:20)</span><br><span class="line">    in div (at Game.js:16)</span><br><span class="line">    in Game (at App.js:29)</span><br><span class="line">    in App (at renderApplication.js:35)</span><br><span class="line">    in RCTView (at View.js:45)</span><br><span class="line">    in View (at AppContainer.js:98)</span><br><span class="line">    in RCTView (at View.js:45)</span><br><span class="line">    in View (at AppContainer.js:115)</span><br><span class="line">    in AppContainer (at renderApplication.js:34)</span><br></pre></td></tr></table></figure>
+
 <p><strong>Conclusion</strong>:</p>
 <p>HTML tags such as: div, ol etc. could not be used in React-Native while it runs on a mobile device. (It could run on a web)  </p>
 <ul>
@@ -269,7 +273,7 @@
 </article>
 
     <!-- Footer -->
-    <hr>
+    <hr />
 
 <!-- Footer -->
 <footer>

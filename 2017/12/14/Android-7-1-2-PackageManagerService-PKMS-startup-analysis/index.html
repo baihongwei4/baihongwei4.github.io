@@ -2,7 +2,7 @@
 <html lang="en">
 
 <!-- Head tag -->
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -217,14 +217,21 @@
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <p>This is an introduction section for PKMS, one of the most important service in Android system. I am going to explore how PKMS start and our analysis process begins from SystemServer.run().</p>
 <p>In ApplicationPackageManager.java</p>
-<p>mPM -&gt;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">private final IPackageManager mPM;</span><br></pre></td></tr></table></figure></p>
-<p>Assignment:<br>No main(), systemMain() or init(), so go to constructor:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ApplicationPackageManager(ContextImpl context, IPackageManager pm) &#123;</span><br><span class="line">    mContext = context;</span><br><span class="line">    mPM = pm;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>mPM -&gt;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">private final IPackageManager mPM;</span><br></pre></td></tr></table></figure>
+
+<p>Assignment:<br>No main(), systemMain() or init(), so go to constructor:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ApplicationPackageManager(ContextImpl context, IPackageManager pm) &#123;</span><br><span class="line">    mContext = context;</span><br><span class="line">    mPM = pm;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>mPM is passed in from outside.</p>
 <p>Go to systemServer.java again to find out.<br>In run()<br>-&gt;startBootstrapServices()</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">// Start the package manager.</span><br><span class="line">traceBeginAndSlog(&quot;StartPackageManagerService&quot;);</span><br><span class="line">mPackageManagerService = PackageManagerService.main(mSystemContext, installer,</span><br><span class="line">	mFactoryTestMode != FactoryTest.FACTORY_TEST_OFF, mOnlyCore);</span><br><span class="line">mFirstBoot = mPackageManagerService.isFirstBoot();</span><br><span class="line">mPackageManager = mSystemContext.getPackageManager();</span><br></pre></td></tr></table></figure>
-<p>public static PackageManagerService main(Context context, Installer installer,<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">PackageManagerService m = new PackageManagerService(context, installer, factoryTest, onlyCore);</span><br><span class="line">	Constructor:</span><br><span class="line">		mSettings = new Settings(mPackages);</span><br><span class="line">		mSettings.addSharedUserLPw(&quot;android.uid.system&quot;, Process.SYSTEM_UID,</span><br><span class="line">			                ApplicationInfo.FLAG_SYSTEM, ApplicationInfo.PRIVATE_FLAG_PRIVILEGED);</span><br><span class="line"></span><br><span class="line">		mPackageDexOptimizer = new PackageDexOptimizer(installer, mInstallLock, context,</span><br><span class="line">		                &quot;*dexopt*&quot;);</span><br><span class="line"></span><br><span class="line">		mHandlerThread = new ServiceThread(TAG,</span><br><span class="line">		                    Process.THREAD_PRIORITY_BACKGROUND, true /*allowIo*/);</span><br><span class="line">		mHandlerThread.start();</span><br><span class="line">		…</span><br><span class="line">		Runtime.getRuntime().gc();</span><br><span class="line"></span><br><span class="line">		// Expose private service for system components to use.</span><br><span class="line">		LocalServices.addService(PackageManagerInternal.class, new PackageManagerInternalImpl());</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">m.enableSystemUserPackages();</span><br><span class="line">ServiceManager.addService(&quot;package&quot;, m);</span><br></pre></td></tr></table></figure></p>
-<p><div id="container"></div></p>
-<p><link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css"></p>
+
+<p>public static PackageManagerService main(Context context, Installer installer,</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">PackageManagerService m = new PackageManagerService(context, installer, factoryTest, onlyCore);</span><br><span class="line">	Constructor:</span><br><span class="line">		mSettings = new Settings(mPackages);</span><br><span class="line">		mSettings.addSharedUserLPw(&quot;android.uid.system&quot;, Process.SYSTEM_UID,</span><br><span class="line">			                ApplicationInfo.FLAG_SYSTEM, ApplicationInfo.PRIVATE_FLAG_PRIVILEGED);</span><br><span class="line"></span><br><span class="line">		mPackageDexOptimizer = new PackageDexOptimizer(installer, mInstallLock, context,</span><br><span class="line">		                &quot;*dexopt*&quot;);</span><br><span class="line"></span><br><span class="line">		mHandlerThread = new ServiceThread(TAG,</span><br><span class="line">		                    Process.THREAD_PRIORITY_BACKGROUND, true /*allowIo*/);</span><br><span class="line">		mHandlerThread.start();</span><br><span class="line">		…</span><br><span class="line">		Runtime.getRuntime().gc();</span><br><span class="line"></span><br><span class="line">		// Expose private service for system components to use.</span><br><span class="line">		LocalServices.addService(PackageManagerInternal.class, new PackageManagerInternalImpl());</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">m.enableSystemUserPackages();</span><br><span class="line">ServiceManager.addService(&quot;package&quot;, m);</span><br></pre></td></tr></table></figure>
+
+<div id="container"></div>
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
 <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
 <script>
 var gitment = new Gitment({
@@ -255,7 +262,7 @@ gitment.render('container')
 </article>
 
     <!-- Footer -->
-    <hr>
+    <hr />
 
 <!-- Footer -->
 <footer>

@@ -2,7 +2,7 @@
 <html lang="en">
 
 <!-- Head tag -->
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -229,7 +229,7 @@
 <p>Obviously memory leaks.</p>
 <h3 id="Quantitative-Analysis"><a href="#Quantitative-Analysis" class="headerlink" title="Quantitative Analysis"></a>Quantitative Analysis</h3><p>Here we are going to have the aid of Android Device Monitor and Memory Analyzer Tool(MAT), which are merely one of many tool kits. By learning the nature and principle of Out Of Memory(OOM) analysis, you can use whatever tools you like.<br>Open ‘/Tools/Android/Android Device Monitor’ in Android Studio menu.<br><img src="https://raw.githubusercontent.com/hongweibai/hongweibai.github.io/master/image/mat/5.png" alt></p>
 <p>Launch App, then click ‘Update Heap’ in red frame in figure below when your Android device has connected to your computer. This ‘Update Heap’ button can update the latest heap information and show them on the right panel.<br><img src="https://raw.githubusercontent.com/hongweibai/hongweibai.github.io/master/image/mat/6.png" alt></p>
-<p>Another two frequently-used buttons are used for dump hprof files and cause Garbage Collection(GC) manually, as shown below.<br>Hprof is a heap dump image file, containing all information saved at a certain point of time in JVM heap in memory.<br>什么是GC请自行搜索“Java垃圾回收”，同样推荐直接看<a href="https://www.baidu.com/s?wd=java%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%AC%AC%E4%BA%8C%E7%89%88&amp;rsv_spt=1&amp;rsv_iqid=0xb8b0b70300008ea7&amp;issp=1&amp;f=8&amp;rsv_bp=1&amp;rsv_idx=2&amp;ie=utf-8&amp;rqlang=cn&amp;tn=baiduhome_pg&amp;rsv_enter=1&amp;oq=git%2520%25E4%25BB%2593%25E5%25BA%2593%2520respo&amp;rsv_t=2bb1ADpnSrzXwxmAgAkHVgPhcIsWrxLgeAUL0tZUNgY%2Bx7b6NhVU8lY%2FschbyNYMFnKD&amp;inputT=4946&amp;rsv_pq=eeab0cfb0000dc12&amp;rsv_sug3=63&amp;rsv_sug1=44&amp;rsv_sug7=100&amp;rsv_sug2=0&amp;rsv_sug4=5546" target="_blank" rel="noopener">《Java虚拟机（第二版）》</a>。<br><img src="https://raw.githubusercontent.com/hongweibai/hongweibai.github.io/master/image/mat/7.png" alt></p>
+<p>Another two frequently-used buttons are used for dump hprof files and cause Garbage Collection(GC) manually, as shown below.<br>Hprof is a heap dump image file, containing all information saved at a certain point of time in JVM heap in memory.<br>什么是GC请自行搜索“Java垃圾回收”，同样推荐直接看<a href="https://www.baidu.com/s?wd=java%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%AC%AC%E4%BA%8C%E7%89%88&rsv_spt=1&rsv_iqid=0xb8b0b70300008ea7&issp=1&f=8&rsv_bp=1&rsv_idx=2&ie=utf-8&rqlang=cn&tn=baiduhome_pg&rsv_enter=1&oq=git%2520%25E4%25BB%2593%25E5%25BA%2593%2520respo&rsv_t=2bb1ADpnSrzXwxmAgAkHVgPhcIsWrxLgeAUL0tZUNgY%2Bx7b6NhVU8lY%2FschbyNYMFnKD&inputT=4946&rsv_pq=eeab0cfb0000dc12&rsv_sug3=63&rsv_sug1=44&rsv_sug7=100&rsv_sug2=0&rsv_sug4=5546" target="_blank" rel="noopener">《Java虚拟机（第二版）》</a>。<br><img src="https://raw.githubusercontent.com/hongweibai/hongweibai.github.io/master/image/mat/7.png" alt></p>
 <p>之后就是要选取一些合适的dump时机，好做对比分析。比如这个而例子中，我们预期在页面2跳回页面1时，占用的内存应该和每次跳回页面1相同或至少相似，否则就应有泄露。</p>
 <p>所以我们选区了2个时机，第一个是1-2-1（第一次跳回首页时），手动触发一次GC，然后dump hprof。</p>
 <p>第二个时机时再跳一次第二页，然后返回首页，即1-2-1-2-1。同样手动GC一下，然后dump。</p>
@@ -243,10 +243,10 @@
 <p>两个都加完这样，<br><img src="https://raw.githubusercontent.com/hongweibai/hongweibai.github.io/master/image/mat/10.png" alt></p>
 <p>点击上图右上角的感叹号，<br><img src="https://raw.githubusercontent.com/hongweibai/hongweibai.github.io/master/image/mat/11.png" alt></p>
 <p>解释：<br>Objects：实例个数<br>Shallow Heap：所占内存大小<br>Retained Heap：释放后能回收多少内存</p>
-<p>上图，看最主要的，第一个byte[]，两次dump差了17M。其他区别不大。重点看这个。<br>通过右键菜单可以查看GC Root路径，这个不知道什么意思的话同样自行搜索“Java GC”或者推荐直接看<a href="https://www.baidu.com/s?wd=java%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%AC%AC%E4%BA%8C%E7%89%88&amp;rsv_spt=1&amp;rsv_iqid=0xb8b0b70300008ea7&amp;issp=1&amp;f=8&amp;rsv_bp=1&amp;rsv_idx=2&amp;ie=utf-8&amp;rqlang=cn&amp;tn=baiduhome_pg&amp;rsv_enter=1&amp;oq=git%2520%25E4%25BB%2593%25E5%25BA%2593%2520respo&amp;rsv_t=2bb1ADpnSrzXwxmAgAkHVgPhcIsWrxLgeAUL0tZUNgY%2Bx7b6NhVU8lY%2FschbyNYMFnKD&amp;inputT=4946&amp;rsv_pq=eeab0cfb0000dc12&amp;rsv_sug3=63&amp;rsv_sug1=44&amp;rsv_sug7=100&amp;rsv_sug2=0&amp;rsv_sug4=5546" target="_blank" rel="noopener">《Java虚拟机（第二版）》</a>。可以根据实际情况过滤掉弱引用和软引用，排除一些干扰。<br><img src="https://raw.githubusercontent.com/hongweibai/hongweibai.github.io/master/image/mat/12.png" alt></p>
+<p>上图，看最主要的，第一个byte[]，两次dump差了17M。其他区别不大。重点看这个。<br>通过右键菜单可以查看GC Root路径，这个不知道什么意思的话同样自行搜索“Java GC”或者推荐直接看<a href="https://www.baidu.com/s?wd=java%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%AC%AC%E4%BA%8C%E7%89%88&rsv_spt=1&rsv_iqid=0xb8b0b70300008ea7&issp=1&f=8&rsv_bp=1&rsv_idx=2&ie=utf-8&rqlang=cn&tn=baiduhome_pg&rsv_enter=1&oq=git%2520%25E4%25BB%2593%25E5%25BA%2593%2520respo&rsv_t=2bb1ADpnSrzXwxmAgAkHVgPhcIsWrxLgeAUL0tZUNgY%2Bx7b6NhVU8lY%2FschbyNYMFnKD&inputT=4946&rsv_pq=eeab0cfb0000dc12&rsv_sug3=63&rsv_sug1=44&rsv_sug7=100&rsv_sug2=0&rsv_sug4=5546" target="_blank" rel="noopener">《Java虚拟机（第二版）》</a>。可以根据实际情况过滤掉弱引用和软引用，排除一些干扰。<br><img src="https://raw.githubusercontent.com/hongweibai/hongweibai.github.io/master/image/mat/12.png" alt></p>
 <p>最终，找到怀疑点，然后通过引用链排查到具体的类，再去代码确认。<br>如下图，<br><code>Retained Heap: Retained heap of X is the sum of shallow sizes of all objects in the retained set of X, i.e. memory kept alive by X.</code><br>意为回收该对象能释放多少内存，左边一列Ref. Shallow Heap指对象所占内存，因此我们要找的是Ref. Shallow Heap很大，而Retained Heap很小的对象，再根据对象的内容和引用关系进一步确认是否是泄露点。<br>不一定所有符合Ref. Shallow Heap很大、Retained Heap很小的都是泄露，要根据具体情况确认。<br>在这个例子中，红框所圈出的对象byte[]指图片对象，最内层的<code>bannerDefaultImage</code>和<code>imageViews</code>可以初步确认为泄露点。当再去代码中确认细节时发现，imageViews为banner一第三方库中的<code>List&lt;View&gt;</code>，持有视图列表的强引用，当banner本身不被释放时，所有被它持有的View都不能被回收。<br><img src="https://raw.githubusercontent.com/hongweibai/hongweibai.github.io/master/image/mat/13.png" alt></p>
-<p><div id="container"></div></p>
-<p><link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css"></p>
+<div id="container"></div>
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
 <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
 <script>
 var gitment = new Gitment({
@@ -277,7 +277,7 @@ gitment.render('container')
 </article>
 
     <!-- Footer -->
-    <hr>
+    <hr />
 
 <!-- Footer -->
 <footer>

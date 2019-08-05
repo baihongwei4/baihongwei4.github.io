@@ -2,7 +2,7 @@
 <html lang="en">
 
 <!-- Head tag -->
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -256,16 +256,11 @@
 </li>
 <li><p>BaseDexClassLoader</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">public BaseDexClassLoader(String dexPath, File optimizedDirectory,</span><br><span class="line">            String librarySearchPath, ClassLoader parent)</span><br></pre></td></tr></table></figure>
+
 </li>
 </ol>
-<p>Four parameters：</p>
-<pre><code>- dexPath：目标类所在的APK或jar文件的路径
-    路径之间必须使用特定的分割符分隔System.getProperty(“path.separtor”)
-    &quot;支持加载APK、DEX和JAR，也可以从SD卡进行加载&quot;指的就是这个路径
-- optimizedDirectory: &lt;ODEX优化&gt;
-- librarySearchPath: 目标类中所使用的C/C++库存放的路径
-- parent
-</code></pre><ol>
+<p>Four parameters：<br>    - dexPath：目标类所在的APK或jar文件的路径<br>        路径之间必须使用特定的分割符分隔System.getProperty(“path.separtor”)<br>        “支持加载APK、DEX和JAR，也可以从SD卡进行加载”指的就是这个路径<br>    - optimizedDirectory: &lt;ODEX优化&gt;<br>    - librarySearchPath: 目标类中所使用的C/C++库存放的路径<br>    - parent</p>
+<ol>
 <li>DexClassLoader</li>
 </ol>
 <h1 id="How-to-load-dex"><a href="#How-to-load-dex" class="headerlink" title="How to load dex?"></a>How to load dex?</h1><p>生成dex文件：</p>
@@ -295,14 +290,15 @@
 </ol>
 <p>双亲委托机制：<br>作用：</p>
 <ol>
-<li>共享：一个ClassLoader类分支上加载的类可以缓存，不用重复加载</li>
+<li><p>共享：一个ClassLoader类分支上加载的类可以缓存，不用重复加载</p>
+</li>
 <li><p>隔离：不同继承路线上的ClassLoader加载的类肯定不是同一个类，这样的限制避免了用户自己的代码冒充核心类库的类访问核心类库包可见成员的情况。</p>
 <p> 一些具体解释：<br> 假如我们自己写了一个java.lang.String的类，我们是否可以替换调JDK本身的类？<br> 答案是否定的。我们不能实现。为什么呢？我看很多网上解释是说双亲委托机制解决这个问题，其实不是非常的准确。因为双亲委托机制是可以打破的，你完全可以自己写一个classLoader来加载自己写的java.lang.String类，但是你会发现也不会加载成功，具体就是因为针对java.*开头的类，jvm的实现中已经保证了必须由bootstrp来加载。</p>
 </li>
 </ol>
 <p>Ref[1] <a href="http://www.jianshu.com/p/a620e368389a" target="_blank" rel="noopener">Android动态加载之ClassLoader详解</a></p>
-<p><div id="container"></div></p>
-<p><link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css"></p>
+<div id="container"></div>
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
 <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
 <script>
 var gitment = new Gitment({
@@ -333,7 +329,7 @@ gitment.render('container')
 </article>
 
     <!-- Footer -->
-    <hr>
+    <hr />
 
 <!-- Footer -->
 <footer>

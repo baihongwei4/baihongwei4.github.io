@@ -2,7 +2,7 @@
 <html lang="en">
 
 <!-- Head tag -->
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -215,17 +215,22 @@
 
             <!-- Post Main Content -->
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <p>We construct two class:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">public class BaseClass &#123;</span><br><span class="line">    public void printThis() &#123;</span><br><span class="line">        Log.d(&quot;printThis = &quot; + this);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public BaseClass returnThis() &#123;</span><br><span class="line">        return this;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+                <p>We construct two class:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">public class BaseClass &#123;</span><br><span class="line">    public void printThis() &#123;</span><br><span class="line">        Log.d(&quot;printThis = &quot; + this);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public BaseClass returnThis() &#123;</span><br><span class="line">        return this;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">public class Derived2 extends BaseClass &#123;</span><br><span class="line">    public void test() &#123;</span><br><span class="line">        Log.d(&quot;Derived2.this = &quot; + this);</span><br><span class="line">        printThis();</span><br><span class="line">        BaseClass class1 = returnThis();</span><br><span class="line">        Log.d(&quot;class1 = &quot; + class1);</span><br><span class="line">        Log.d(&quot;class2 = &quot; + returnThis());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>Then we test them:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">public static void main(String[] args) &#123;</span><br><span class="line">    Derived2 derived2 = new Derived2();</span><br><span class="line">    derived2.test();</span><br><span class="line"></span><br><span class="line">    BaseClass baseClass = new BaseClass();</span><br><span class="line">    baseClass.printThis();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+<p>Then we test them:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">public static void main(String[] args) &#123;</span><br><span class="line">    Derived2 derived2 = new Derived2();</span><br><span class="line">    derived2.test();</span><br><span class="line"></span><br><span class="line">    BaseClass baseClass = new BaseClass();</span><br><span class="line">    baseClass.printThis();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>We can see the results are shown below:</p>
 <blockquote>
 <p>Derived2.this = mytest.inhertit.Derived2@15db9742<br>printThis = mytest.inhertit.Derived2@15db9742<br>class1 = mytest.inhertit.Derived2@15db9742<br>class2 = mytest.inhertit.Derived2@15db9742</p>
 <p>printThis = mytest.inhertit.BaseClass@6d06d69c</p>
 </blockquote>
 <p>In conclusion, when the instance is a derived class, both ‘this’ pointers in base class and in derived class would return derived class instance.</p>
-<p><div id="container"></div></p>
-<p><link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css"></p>
+<div id="container"></div>
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
 <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
 <script>
 var gitment = new Gitment({
@@ -256,7 +261,7 @@ gitment.render('container')
 </article>
 
     <!-- Footer -->
-    <hr>
+    <hr />
 
 <!-- Footer -->
 <footer>

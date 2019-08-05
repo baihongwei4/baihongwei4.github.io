@@ -2,7 +2,7 @@
 <html lang="en">
 
 <!-- Head tag -->
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -217,8 +217,10 @@
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <p>Q: I got build failure message: </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Manifest merger failed : Attribute application@appComponentFactory value=(androidx.core.app.CoreComponentFactory) from [androidx.core:core:1.1.0-alpha05] AndroidManifest.xml:22:18-86</span><br><span class="line">	is also present at [com.android.support:support-compat:28.0.0] AndroidManifest.xml:22:18-91 value=(android.support.v4.app.CoreComponentFactory).</span><br><span class="line">	Suggestion: add &apos;tools:replace=&quot;android:appComponentFactory&quot;&apos; to &lt;application&gt; element at AndroidManifest.xml:5:5-20:19 to override.</span><br></pre></td></tr></table></figure>
+
 <p>A: Set the following two flags to <code>true</code> in your<a href="https://developer.android.com/studio/build/#properties-files" target="_blank" rel="noopener"><code>gradle.properties</code> file</a> is the easiest to forget.</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">android.useAndroidX=true</span><br><span class="line">android.enableJetifier=true</span><br></pre></td></tr></table></figure>
+
 <p>from Google’s official document: <a href="https://developer.android.com/jetpack/androidx/migrate" target="_blank" rel="noopener">Migrating to AndroidX</a></p>
 
 
@@ -238,7 +240,7 @@
 </article>
 
     <!-- Footer -->
-    <hr>
+    <hr />
 
 <!-- Footer -->
 <footer>

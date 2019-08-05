@@ -2,7 +2,7 @@
 <html lang="en">
 
 <!-- Head tag -->
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -218,18 +218,34 @@
                 <p>I have dealt with a series of trouble in my blog setting-up process. I hope this article could provide some useful tips and solutions for you guys.</p>
 <p>Good luck!</p>
 <p><strong>My PC Environment:</strong><br>OS: Windows 10 x64 bit<br>git version 2.15.0<br>hexo 3.4.1</p>
-<p><strong>Q:ssh authentication fail?</strong><br><code>Permission denied (publickey).</code><br><strong>A:</strong>Here is a general debug method for this problem, which enable you to find out the reason yourself:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ssh -vT git@github.com</span><br></pre></td></tr></table></figure></p>
+<p><strong>Q:ssh authentication fail?</strong><br><code>Permission denied (publickey).</code><br><strong>A:</strong>Here is a general debug method for this problem, which enable you to find out the reason yourself:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ssh -vT git@github.com</span><br></pre></td></tr></table></figure>
+
 <p>Then you can read the debug log and find out the exact reason why your publickey authentication has failed.</p>
-<p><strong>Q:Not attached to a ssh session yet?</strong><br><code>Could not open a connection to your authentication agent.</code><br><strong>A:</strong>just attach to one:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ssh-agent bash</span><br></pre></td></tr></table></figure></p>
-<p><strong>Q:How to list my available private key?</strong><br><strong>A:</strong>list all private keys:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ssh-add -l</span><br></pre></td></tr></table></figure></p>
-<p><strong>Q:How to add my private key to this ssh session?</strong><br><strong>A:</strong>add privatekey filename to your session:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ssh-add &lt;your_private_key_file_name&gt;</span><br></pre></td></tr></table></figure></p>
-<p><strong>Q:What are the steps to deploy hexo at bash?</strong><br><strong>A:</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ hexo init</span><br><span class="line">$ npm install hexo-deployer-git --save</span><br><span class="line">$ hexo g</span><br><span class="line">$ hexo d</span><br></pre></td></tr></table></figure></p>
+<p><strong>Q:Not attached to a ssh session yet?</strong><br><code>Could not open a connection to your authentication agent.</code><br><strong>A:</strong>just attach to one:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ssh-agent bash</span><br></pre></td></tr></table></figure>
+
+<p><strong>Q:How to list my available private key?</strong><br><strong>A:</strong>list all private keys:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ssh-add -l</span><br></pre></td></tr></table></figure>
+
+<p><strong>Q:How to add my private key to this ssh session?</strong><br><strong>A:</strong>add privatekey filename to your session:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ssh-add &lt;your_private_key_file_name&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>Q:What are the steps to deploy hexo at bash?</strong><br><strong>A:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ hexo init</span><br><span class="line">$ npm install hexo-deployer-git --save</span><br><span class="line">$ hexo g</span><br><span class="line">$ hexo d</span><br></pre></td></tr></table></figure>
+
 <p><strong>Q:How to add gitment?</strong><br><strong>A:</strong>refer to this page: <a href="http://radiationstu.cn/2017/08/01/%E7%A7%91%E6%8A%80/%E7%BB%99Hexo%E6%B7%BB%E5%8A%A0%E7%95%99%E8%A8%80%E6%9D%BF/" target="_blank" rel="noopener">http://radiationstu.cn/2017/08/01/%E7%A7%91%E6%8A%80/%E7%BB%99Hexo%E6%B7%BB%E5%8A%A0%E7%95%99%E8%A8%80%E6%9D%BF/</a></p>
-<p><strong>Q:How to add gitment to different blog entry?</strong><br><strong>A:</strong>set different value for ‘id’ in gitment html code section, which is copied from link of last question.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var gitment = new Gitment(&#123;</span><br><span class="line">  id: &apos;github_pages_hexo_setting_up_QA&apos;,</span><br><span class="line">  owner: &apos;hongweibai&apos;,</span><br><span class="line">  repo: &apos;blog_comments&apos;,</span><br><span class="line">  oauth: &#123;</span><br><span class="line">    client_id: &apos;********************&apos;,</span><br><span class="line">    client_secret: &apos;&apos;********************&apos;,&apos;,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
-<p><strong>Q:How to add tags index and categories index page?</strong><br><strong>A:</strong>First add page in bash<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new page tags</span><br></pre></td></tr></table></figure></p>
-<p>Then edit the new md file:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: Tags</span><br><span class="line">date: 2017-11-22 20:52:20</span><br><span class="line">type: &quot;tags&quot;</span><br><span class="line">---</span><br></pre></td></tr></table></figure></p>
-<p><div id="container"></div></p>
-<p><link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css"></p>
+<p><strong>Q:How to add gitment to different blog entry?</strong><br><strong>A:</strong>set different value for ‘id’ in gitment html code section, which is copied from link of last question.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var gitment = new Gitment(&#123;</span><br><span class="line">  id: &apos;github_pages_hexo_setting_up_QA&apos;,</span><br><span class="line">  owner: &apos;hongweibai&apos;,</span><br><span class="line">  repo: &apos;blog_comments&apos;,</span><br><span class="line">  oauth: &#123;</span><br><span class="line">    client_id: &apos;********************&apos;,</span><br><span class="line">    client_secret: &apos;&apos;********************&apos;,&apos;,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p><strong>Q:How to add tags index and categories index page?</strong><br><strong>A:</strong>First add page in bash</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new page tags</span><br></pre></td></tr></table></figure>
+
+<p>Then edit the new md file:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: Tags</span><br><span class="line">date: 2017-11-22 20:52:20</span><br><span class="line">type: &quot;tags&quot;</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+
+<div id="container"></div>
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
 <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
 <script>
 var gitment = new Gitment({
@@ -260,7 +276,7 @@ gitment.render('container')
 </article>
 
     <!-- Footer -->
-    <hr>
+    <hr />
 
 <!-- Footer -->
 <footer>

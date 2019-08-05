@@ -2,7 +2,7 @@
 <html lang="en">
 
 <!-- Head tag -->
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -238,11 +238,13 @@
 </li>
 <li><p>Open PowerShell (Windows) or terminal (MacOS or Unix), run</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adb devices</span><br></pre></td></tr></table></figure>
+
 <p>ensure that your device are available on your PC.</p>
 <p>If not, please Google to search a solution.</p>
 </li>
 <li><p>Go to your project root, and execute:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">react-native run-android</span><br></pre></td></tr></table></figure>
+
 <p>It will automatically install and launch react native application on your phone.</p>
 </li>
 <li><p>The next step is to modify some code on your project, and see the changes on your phone.</p>
@@ -254,7 +256,7 @@
 <p>Press it and wait…</p>
 <p>Normally you may got error and not what you expected. No worry.</p>
 <p>I have the same problem, as shown below:</p>
-<p> <img src="\image\rn_debug_1.jpg" alt="rn_debug_1"></p>
+<p> <img src="%5Cimage%5Crn_debug_1.jpg" alt="rn_debug_1"></p>
 </li>
 </ol>
 <ol start="6">
@@ -267,6 +269,9 @@
 <p>Note: </p>
 <p>You could send ADB command to simulate a menu click (or shake it :/) </p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adb shell input keyevent 82</span><br></pre></td></tr></table></figure>
+
+
+
 <h3 id="Android-Emulator-by-Android-Studio-AVD"><a href="#Android-Emulator-by-Android-Studio-AVD" class="headerlink" title="Android Emulator by Android Studio (AVD)"></a>Android Emulator by Android Studio (AVD)</h3><ol>
 <li><p>Start a Android Emulated Device from Android Studio AVD Manager. (Menu: Tools -&gt; AVD Manager)</p>
 </li>
@@ -275,6 +280,7 @@
 <li><p>Because you could not shake it :D, use menu button instead to call debug menu.</p>
 <p>Keyboard shortcut is: </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Ctrl + M</span><br></pre></td></tr></table></figure>
+
 </li>
 </ol>
 <p>All done. development environment is setup nicely.</p>
@@ -287,22 +293,22 @@
 <p>Steps:</p>
 <ol>
 <li><p>Send <em>adb shell input keyevent 82</em>  to show debug menu and select: <em>Debug JS Remotely</em>:</p>
-<p><img src="\image\rn_debug_menu1.jpg" alt="rn_debug_menu1"></p>
+<p><img src="%5Cimage%5Crn_debug_menu1.jpg" alt="rn_debug_menu1"></p>
 </li>
 <li><p>Send <em>adb shell input keyevent 82</em> to show debug menu again and select: <em>Reload</em>.</p>
 </li>
 <li><p>Open url: <a href="http://localhost:8081/debugger-ui" target="_blank" rel="noopener">http://localhost:8081/debugger-ui</a> in your browser. I use Chrome for example.</p>
-<p><img src="\image\rn_debug3.png" alt="rn_debug3"></p>
+<p><img src="%5Cimage%5Crn_debug3.png" alt="rn_debug3"></p>
 </li>
 <li><p>Actually you could not see log here. You should open Chrome <em>developer tools</em> use shortcut: <strong><em>Ctrl+Shift+I</em></strong> or GUI as below:</p>
-<p><img src="\image\rn_debug2.jpg" alt="rn_debug2"></p>
+<p><img src="%5Cimage%5Crn_debug2.jpg" alt="rn_debug2"></p>
 </li>
 <li><p>Then you get log output on the right side:</p>
-<p><img src="\image\rn_debug4.png" alt="rn_debug4"></p>
+<p><img src="%5Cimage%5Crn_debug4.png" alt="rn_debug4"></p>
 </li>
 <li><p>Here you could see all logs, by <em>console.log(), console.warn()</em> etc.</p>
 <p>By output by <em>console.warn()</em>, you can also observe it on your device screen:</p>
-<p><img src="\image\rn_debug5.jpg" alt="rn_debug5"></p>
+<p><img src="%5Cimage%5Crn_debug5.jpg" alt="rn_debug5"></p>
 </li>
 </ol>
 <p>Reference: official site: <a href="https://facebook.github.io/react-native/docs/debugging" target="_blank" rel="noopener">React native Debugging</a></p>
@@ -324,7 +330,7 @@
 </article>
 
     <!-- Footer -->
-    <hr>
+    <hr />
 
 <!-- Footer -->
 <footer>

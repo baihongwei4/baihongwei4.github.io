@@ -2,7 +2,7 @@
 <html lang="en">
 
 <!-- Head tag -->
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -222,8 +222,10 @@
 </li>
 <li><p>Configure mermaid in your theme:<br>In directory: </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/themes/your_theme_folder/layout/partial/head.jade (or head.ejs etc.)</span><br><span class="line">HINT: maybe any extension names.</span><br></pre></td></tr></table></figure>
+
 <p> add:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;link href=&quot;//cdn.bootcss.com/mermaid/7.0.14/themes/mermaid.neutral.min.css&quot; rel=&quot;stylesheet&quot;&gt;</span><br><span class="line">&lt;script src=&quot;//cdn.bootcss.com/mermaid/7.0.14/mermaid.min.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;script type=&quot;text/javascript&quot;&gt;mermaid.initialize(&#123;startOnLoad:true&#125;);&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
 <p> You could visit bootcss website to pick proper style and version:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://www.bootcdn.cn/mermaid/</span><br></pre></td></tr></table></figure>
 </li>
@@ -232,6 +234,7 @@
 </li>
 <li><p>Finally, Test mermaid diagram in Haroopad, use syntex:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">```mermaid</span><br><span class="line">	&#123;mermaid code&#125;</span><br><span class="line">```</span><br></pre></td></tr></table></figure>
+
 </li>
 </ol>
 <h1 id="Examples"><a href="#Examples" class="headerlink" title="Examples:"></a>Examples:</h1><p>Try something fun myself!</p>
@@ -247,6 +250,7 @@
     Alice->John: Yes... John, how are you?
 </div>
 
+
 <h2 id="Flowcharts"><a href="#Flowcharts" class="headerlink" title="Flowcharts"></a>Flowcharts</h2><div class="mermaid">
   graph LR
     A --- D
@@ -260,6 +264,7 @@
     Q ==> R
     S == text ==> T
 </div>
+
 
 <h1 id="Flowcharts-graph-TD"><a href="#Flowcharts-graph-TD" class="headerlink" title="Flowcharts graph TD"></a>Flowcharts graph TD</h1><div class="mermaid">
   graph TD
@@ -275,8 +280,9 @@
     S == text ==> T
 </div>
 
-<p><div id="container"></div></p>
-<p><link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css"></p>
+
+<div id="container"></div>
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
 <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
 <script>
 var gitment = new Gitment({
@@ -307,7 +313,7 @@ gitment.render('container')
 </article>
 
     <!-- Footer -->
-    <hr>
+    <hr />
 
 <!-- Footer -->
 <footer>

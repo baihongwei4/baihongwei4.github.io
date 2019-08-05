@@ -2,7 +2,7 @@
 <html lang="en">
 
 <!-- Head tag -->
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -228,6 +228,7 @@
 </blockquote>
 <p>Below is a template I found on: <a href="https://www.jianshu.com/p/f63344d49f85" target="_blank" rel="noopener">https://www.jianshu.com/p/f63344d49f85</a></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">user  nobody;</span><br><span class="line">#==worker进程数，一般设置为CPU个数===</span><br><span class="line">worker_processes  1;</span><br><span class="line">events &#123;</span><br><span class="line">    worker_connections  1024;</span><br><span class="line">&#125;</span><br><span class="line">http &#123;</span><br><span class="line">    server &#123;</span><br><span class="line">        #============监听的Nginx端口========</span><br><span class="line">        listen 127.0.0.1:80;</span><br><span class="line">        server_name  127.0.0.1;</span><br><span class="line">        access_log  logs/host.access.log  combined;</span><br><span class="line">        #============对不同请求的处理=============</span><br><span class="line">        location ~ \.(jsp|jspx|do|action)?$ </span><br><span class="line">        &#123;   </span><br><span class="line">            #=============tomcat的资源位置============</span><br><span class="line">            root /usr/local/tomcatnginx/www;</span><br><span class="line">            index index.jsp index.jspx index.do;</span><br><span class="line">            #==========Nginx提供的代理============</span><br><span class="line">            proxy_set_header X-Forwarded-Host $host;</span><br><span class="line">            proxy_set_header X-Forwarded-Server $host;</span><br><span class="line">            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;</span><br><span class="line">            #=== 如果遇到.jsp .jspx .do .action 的请求就进入该服务器(tomcat)===</span><br><span class="line">            proxy_pass http://127.0.0.1:8080;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>You should create your own based on it.</p>
 <p>Hers is how I do: I backup the original conf file: </p>
 <blockquote>
@@ -293,16 +294,18 @@ location ~ \.(jsp|jspx|do|action)?$
     #location ~ /\.ht {
     #    deny  all;
     #}
-}
-</code></pre><p>The following bold lines are emphasized because it plays a vital role:</p>
+}</code></pre><p>The following bold lines are emphasized because it plays a vital role:</p>
 <p>location / {<br>    <strong>root   /usr/mike/myserver/ROOT;</strong> // This is for changing the NGINX static web root directory.<br>    index  index.html index.htm;<br>}</p>
 <p><strong>location ~ .(jsp|jspx|do|action)?$</strong><br>    <strong>{</strong><br>        <strong>#=============tomcat…..============</strong><br>        <strong>root /usr/mike/myserver/webapps;</strong> // This is for changing the Tomcat webapp root directory.<br>        <strong>index index.jsp index.jspx index.do;</strong> // This is for redirection condiftions<br>        <strong>#==========Nginx…..============</strong><br>        <strong>proxy_set_header X-Forwarded-Host $host;</strong><br>        <strong>proxy_set_header X-Forwarded-Server $host;</strong><br>        <strong>proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;</strong><br>        <strong>#=== …..jsp .jspx .do .action ……….(tomcat)===</strong><br>        <strong>proxy_pass <a href="http://127.0.0.1:8080" target="_blank" rel="noopener">http://127.0.0.1:8080</a>; // This is for redirection destination. a.k.a. Tomcat server.</strong><br>    }**</p>
 <p>Check config file:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$nginx -t</span><br></pre></td></tr></table></figure>
+
 <p>Force kill NGINX:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$killall -9 nginx</span><br></pre></td></tr></table></figure>
+
 <p>Then start again:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$nginx</span><br></pre></td></tr></table></figure>
+
 <h3 id="How-To-Test"><a href="#How-To-Test" class="headerlink" title="How To Test?"></a>How To Test?</h3><p>Now assuming that your:</p>
 <ul>
 <li>Tomcat root: usr/mike/myserver/webapps. Port is <strong>8080</strong>.</li>
@@ -312,13 +315,16 @@ location ~ \.(jsp|jspx|do|action)?$
 <p>and put index.html(as C), index.jsp(as D) into ROOT</p>
 <p>Then you can test it on Chrome web browser’s address bar:</p>
 <ul>
-<li>http://<ip>:8080, You get <strong><em>A</em></strong>.</ip></li>
-<li>http://<ip>:80, You get NGINX default index page.</ip></li>
+<li><p>http://<ip>:8080, You get <strong><em>A</em></strong>.</ip></p>
+</li>
+<li><p>http://<ip>:80, You get NGINX default index page.</ip></p>
+</li>
 <li><p>http://<ip>/index, You get <strong><em>C</em></strong>.</ip></p>
 </li>
 <li><p>http://<ip>/index.jsp, You get 404 error. Because .jsp is redirected to Tomcat dir, where no index.jsp exists.</ip></p>
 </li>
-<li>http://<ip>/a.jsp, You get <strong><em>B</em></strong></ip></li>
+<li><p>http://<ip>/a.jsp, You get <strong><em>B</em></strong></ip></p>
+</li>
 </ul>
 <h3 id="API-Redirect-Config"><a href="#API-Redirect-Config" class="headerlink" title="API Redirect Config"></a>API Redirect Config</h3><p>Server API may not end with .jsp. For example:</p>
 <blockquote>
@@ -327,6 +333,7 @@ location ~ \.(jsp|jspx|do|action)?$
 <p>NGINX could also filter keywords in url:</p>
 <p>like:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">location ~ /api/ &#123;</span><br><span class="line">    proxy_pass  http://127.0.0.1:8080;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>This setting could support either:</p>
 <blockquote>
 <p>http://<ip>/app/apixxx</ip></p>
@@ -338,10 +345,10 @@ location ~ \.(jsp|jspx|do|action)?$
 <h3 id="Load-Balance"><a href="#Load-Balance" class="headerlink" title="Load Balance"></a>Load Balance</h3><p>I found this article quite useful to understand how it works: <a href="https://blog.csdn.net/qq_32784303/article/details/81207916" target="_blank" rel="noopener">https://blog.csdn.net/qq_32784303/article/details/81207916</a></p>
 <p>I did not try that because I only have one Tomcat server.</p>
 <p>I quote some vital things: </p>
-<p><img src="\image\nginx_load_balance_conf.png" alt="nginx_load_balance_conf"></p>
+<p><img src="%5Cimage%5Cnginx_load_balance_conf.png" alt="nginx_load_balance_conf"></p>
 <p>While config and restart are done, web browser visit should switch between these two Tomcat servers.</p>
-<p><img src="\image\nginx_load_balance_t1.png" alt="nginx_load_balance_t1"></p>
-<p><img src="\image\nginx_load_balance_t2.png" alt="nginx_load_balance_t2"></p>
+<p><img src="%5Cimage%5Cnginx_load_balance_t1.png" alt="nginx_load_balance_t1"></p>
+<p><img src="%5Cimage%5Cnginx_load_balance_t2.png" alt="nginx_load_balance_t2"></p>
 
 
                 
@@ -360,7 +367,7 @@ location ~ \.(jsp|jspx|do|action)?$
 </article>
 
     <!-- Footer -->
-    <hr>
+    <hr />
 
 <!-- Footer -->
 <footer>

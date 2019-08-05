@@ -2,7 +2,7 @@
 <html lang="en">
 
 <!-- Head tag -->
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -215,75 +215,139 @@
 
             <!-- Post Main Content -->
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <p>Sender：<br>Note that there are some more procedures before this point, needing to be added in the future…<br>We start from ActivityServiceManager，<br>ActivityServiceManager.java<br>startProcessLocked()<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">if (entryPoint == null) entryPoint = &quot;android.app.ActivityThread&quot;;</span><br></pre></td></tr></table></figure></p>
+                <p>Sender：<br>Note that there are some more procedures before this point, needing to be added in the future…<br>We start from ActivityServiceManager，<br>ActivityServiceManager.java<br>startProcessLocked()</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">if (entryPoint == null) entryPoint = &quot;android.app.ActivityThread&quot;;</span><br></pre></td></tr></table></figure>
+
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Process.ProcessStartResult startResult = Process.start(entryPoint, ...</span><br></pre></td></tr></table></figure>
-<p>Process.java<br>-&gt;start()<br>-&gt;startViaZygote()<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">zygoteSendArgsAndGetResult(openZygoteSocketIfNeeded(abi), argsForZygote);</span><br></pre></td></tr></table></figure></p>
+
+<p>Process.java<br>-&gt;start()<br>-&gt;startViaZygote()</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">zygoteSendArgsAndGetResult(openZygoteSocketIfNeeded(abi), argsForZygote);</span><br></pre></td></tr></table></figure>
+
 <p>Now we look at receiver：<br>ZygoteInit.java<br>runSelectLoop()<br>We use this method as entry. If you do not know how zygote came here, please refer to my recent article: <a href="https://hongweibai.github.io/2017/12/07/Zygote-startup-source-code-analysis-Note/" target="_blank" rel="noopener">Zygote startup analysis</a></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Os.poll(pollFds, -1);</span><br></pre></td></tr></table></figure>
+
 <p>The 2nd para is -1, so poll() is blocked, more knowledge about select，poll，epoll, please refer to my another independent topic<a href="https://hongweibai.github.io/2017/12/03/New-topic-to-do/" target="_blank" rel="noopener">linkto:select，poll，epoll</a></p>
-<p>In this for loop:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">for (int i = pollFds.length - 1; i &gt;= 0; --i) &#123;</span><br><span class="line">    if ((pollFds[i].revents &amp; POLLIN) == 0) &#123;</span><br><span class="line">        continue;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
-<p>If no dat to read, continue;<br>So if there something to read from, go to<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">if (i == 0) &#123;</span><br><span class="line">    ZygoteConnection newPeer = acceptCommandPeer(abiList);</span><br><span class="line">    peers.add(newPeer);</span><br><span class="line">    fds.add(newPeer.getFileDesciptor());</span><br><span class="line">&#125; else &#123;</span><br><span class="line">    boolean done = peers.get(i).runOnce();</span><br><span class="line">    if (done) &#123;</span><br><span class="line">        peers.remove(i);</span><br><span class="line">        fds.remove(i);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>In this for loop:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">for (int i = pollFds.length - 1; i &gt;= 0; --i) &#123;</span><br><span class="line">    if ((pollFds[i].revents &amp; POLLIN) == 0) &#123;</span><br><span class="line">        continue;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>If no dat to read, continue;<br>So if there something to read from, go to </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">if (i == 0) &#123;</span><br><span class="line">    ZygoteConnection newPeer = acceptCommandPeer(abiList);</span><br><span class="line">    peers.add(newPeer);</span><br><span class="line">    fds.add(newPeer.getFileDesciptor());</span><br><span class="line">&#125; else &#123;</span><br><span class="line">    boolean done = peers.get(i).runOnce();</span><br><span class="line">    if (done) &#123;</span><br><span class="line">        peers.remove(i);</span><br><span class="line">        fds.remove(i);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>0 is server socket, so if I is not zero, invoke runOnce();</p>
-<p>ZygoteConnection.java<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">runOnce()</span><br></pre></td></tr></table></figure></p>
+<p>ZygoteConnection.java</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">runOnce()</span><br></pre></td></tr></table></figure>
+
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">pid = Zygote.forkAndSpecialize(parsedArgs.uid, parsedArgs.gid, parsedArgs.gids,</span><br><span class="line">        parsedArgs.debugFlags, rlimits, parsedArgs.mountExternal, parsedArgs.seInfo,</span><br><span class="line">        parsedArgs.niceName, fdsToClose, parsedArgs.instructionSet,</span><br><span class="line">        parsedArgs.appDataDir);</span><br></pre></td></tr></table></figure>
+
 <p>nativeForkAndSpecialize</p>
-<p>com_android_internal_os_Zygote.cpp<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">static jint com_android_internal_os_Zygote_nativeForkAndSpecialize(</span><br></pre></td></tr></table></figure></p>
+<p>com_android_internal_os_Zygote.cpp</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">static jint com_android_internal_os_Zygote_nativeForkAndSpecialize(</span><br></pre></td></tr></table></figure>
+
 <p>-&gt;ForkAndSpecializeCommon</p>
 <p>This method ForkAndSpecializeCommon has been analysed in <a href="https://hongweibai.github.io/2017/12/07/Zygote-startup-source-code-analysis-Note/" target="_blank" rel="noopener">linkto:Zygote startup analysis</a></p>
 <p>Go back to runOnce()<br>After fork process,</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">if (pid == 0) &#123;</span><br><span class="line">    // in child</span><br><span class="line">    IoUtils.closeQuietly(serverPipeFd);</span><br><span class="line">    serverPipeFd = null;</span><br><span class="line">    handleChildProc(parsedArgs, descriptors, childPipeFd, newStderr);</span><br><span class="line"></span><br><span class="line">    // should never get here, the child is expected to either</span><br><span class="line">    // throw ZygoteInit.MethodAndArgsCaller or exec().</span><br><span class="line">    return true;</span><br><span class="line">&#125; else &#123;</span><br><span class="line">    // in parent...pid of &lt; 0 means failure</span><br><span class="line">    IoUtils.closeQuietly(childPipeFd);</span><br><span class="line">    childPipeFd = null;</span><br><span class="line">    return handleParentProc(pid, descriptors, serverPipeFd, parsedArgs);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>pid==0 indicates that this is the new app created just now.</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">handleChildProc(parsedArgs, descriptors, childPipeFd, newStderr);</span><br></pre></td></tr></table></figure>
-<p>In handleChildProc (in same file)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Process.setArgV0(parsedArgs.niceName);</span><br></pre></td></tr></table></figure></p>
+
+<p>In handleChildProc (in same file)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Process.setArgV0(parsedArgs.niceName);</span><br></pre></td></tr></table></figure>
+
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">if (parsedArgs.invokeWith != null) &#123;</span><br></pre></td></tr></table></figure>
-<p>Here again, go else<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">else &#123;</span><br><span class="line">    RuntimeInit.zygoteInit(parsedArgs.targetSdkVersion,</span><br><span class="line">            parsedArgs.remainingArgs, null /* classLoader */);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>What is the content of parsedArgs.remainingArgs?<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">private static void applicationInit(int targetSdkVersion, String[] argv, ClassLoader classLoader)</span><br><span class="line">    // Remaining arguments are passed to the start class&apos;s static main</span><br><span class="line">    invokeStaticMain(args.startClass, args.startArgs, classLoader);</span><br></pre></td></tr></table></figure></p>
-<p>In inner class Arguments in file ZygoteConnection.java,<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">private void parseArgs(String args[])</span><br></pre></td></tr></table></figure></p>
+
+<p>Here again, go else</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">else &#123;</span><br><span class="line">    RuntimeInit.zygoteInit(parsedArgs.targetSdkVersion,</span><br><span class="line">            parsedArgs.remainingArgs, null /* classLoader */);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>What is the content of parsedArgs.remainingArgs?</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">private static void applicationInit(int targetSdkVersion, String[] argv, ClassLoader classLoader)</span><br><span class="line">    // Remaining arguments are passed to the start class&apos;s static main</span><br><span class="line">    invokeStaticMain(args.startClass, args.startArgs, classLoader);</span><br></pre></td></tr></table></figure>
+
+<p>In inner class Arguments in file ZygoteConnection.java,</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">private void parseArgs(String args[])</span><br></pre></td></tr></table></figure>
+
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">else if (arg.startsWith(&quot;--instruction-set=&quot;)) &#123;</span><br><span class="line">        instructionSet = arg.substring(arg.indexOf(&apos;=&apos;) + 1);</span><br><span class="line">    &#125; else if (arg.startsWith(&quot;--app-data-dir=&quot;)) &#123;</span><br><span class="line">        appDataDir = arg.substring(arg.indexOf(&apos;=&apos;) + 1);</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        break;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<p>Then, we see,<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">remainingArgs = new String[args.length - curArg];</span><br><span class="line">System.arraycopy(args, curArg, remainingArgs, 0, remainingArgs.length);</span><br></pre></td></tr></table></figure></p>
-<p>So, with this knowledge, we go back to see AMS process:<br>In Process.java::startViaZygote()<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">if (appDataDir != null) &#123;</span><br><span class="line">    argsForZygote.add(&quot;--app-data-dir=&quot; + appDataDir);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">argsForZygote.add(processClass);</span><br><span class="line"></span><br><span class="line">if (extraArgs != null) &#123;</span><br><span class="line">    for (String arg : extraArgs) &#123;</span><br><span class="line">        argsForZygote.add(arg);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+<p>Then, we see,</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">remainingArgs = new String[args.length - curArg];</span><br><span class="line">System.arraycopy(args, curArg, remainingArgs, 0, remainingArgs.length);</span><br></pre></td></tr></table></figure>
+
+<p>So, with this knowledge, we go back to see AMS process:<br>In Process.java::startViaZygote()</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">if (appDataDir != null) &#123;</span><br><span class="line">    argsForZygote.add(&quot;--app-data-dir=&quot; + appDataDir);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">argsForZygote.add(processClass);</span><br><span class="line"></span><br><span class="line">if (extraArgs != null) &#123;</span><br><span class="line">    for (String arg : extraArgs) &#123;</span><br><span class="line">        argsForZygote.add(arg);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>We found that variable processClass is what we are looking for.</p>
-<p>It is the 1st para in method:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">private static ProcessStartResult startViaZygote(final String processClass,</span><br></pre></td></tr></table></figure></p>
+<p>It is the 1st para in method:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">private static ProcessStartResult startViaZygote(final String processClass,</span><br></pre></td></tr></table></figure>
+
 <p>Go back two level up, we found,</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">if (entryPoint == null) entryPoint = &quot;android.app.ActivityThread&quot;;</span><br><span class="line">Trace.traceBegin(Trace.TRACE_TAG_ACTIVITY_MANAGER, &quot;Start proc: &quot; +</span><br><span class="line">        app.processName);</span><br><span class="line">checkTime(startTime, &quot;startProcess: asking zygote to start proc&quot;);</span><br><span class="line">Process.ProcessStartResult startResult = Process.start(entryPoint,</span><br><span class="line">        app.processName, uid, uid, gids, debugFlags, mountExternal,</span><br><span class="line">        app.info.targetSdkVersion, app.info.seinfo, requiredAbi, instructionSet,</span><br><span class="line">        app.info.dataDir, entryPointArgs);</span><br></pre></td></tr></table></figure>
+
 <p>Finally, actually zygote starts a process whose name is “android.app.ActivityThread”.</p>
 <p>Until here, we can go back to zygote again.</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">RuntimeInit.zygoteInit(parsedArgs.targetSdkVersion,</span><br><span class="line">        parsedArgs.remainingArgs, null /* classLoader */);</span><br></pre></td></tr></table></figure>
-<p>In this method,<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">public static final void zygoteInit(int targetSdkVersion, String[] argv, ClassLoader classLoader)</span><br><span class="line">        throws ZygoteInit.MethodAndArgsCaller &#123;</span><br></pre></td></tr></table></figure></p>
-<p>Three methods are called,<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">commonInit();</span><br><span class="line">nativeZygoteInit();</span><br><span class="line">applicationInit(targetSdkVersion, argv, classLoader);</span><br></pre></td></tr></table></figure></p>
+
+<p>In this method,</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">public static final void zygoteInit(int targetSdkVersion, String[] argv, ClassLoader classLoader)</span><br><span class="line">        throws ZygoteInit.MethodAndArgsCaller &#123;</span><br></pre></td></tr></table></figure>
+
+<p>Three methods are called,</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">commonInit();</span><br><span class="line">nativeZygoteInit();</span><br><span class="line">applicationInit(targetSdkVersion, argv, classLoader);</span><br></pre></td></tr></table></figure>
+
 <p>nativeZygoteInit() invokes native method and fork a new process.</p>
-<p>In applicationInit(targetSdkVersion, argv, classLoader):<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// Remaining arguments are passed to the start class&apos;s static main</span><br><span class="line">invokeStaticMain(args.startClass, args.startArgs, classLoader);</span><br></pre></td></tr></table></figure></p>
+<p>In applicationInit(targetSdkVersion, argv, classLoader):</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// Remaining arguments are passed to the start class&apos;s static main</span><br><span class="line">invokeStaticMain(args.startClass, args.startArgs, classLoader);</span><br></pre></td></tr></table></figure>
+
 <p>It calls ActivityThread’s main method.</p>
-<h2 id="Now-go-to-ActivityThread-main"><a href="#Now-go-to-ActivityThread-main" class="headerlink" title="Now go to ActivityThread::main()"></a>Now go to ActivityThread::main()</h2><p>Skip some sentences we do not care.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Looper.prepareMainLooper();</span><br></pre></td></tr></table></figure></p>
+<h2 id="Now-go-to-ActivityThread-main"><a href="#Now-go-to-ActivityThread-main" class="headerlink" title="Now go to ActivityThread::main()"></a>Now go to ActivityThread::main()</h2><p>Skip some sentences we do not care.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Looper.prepareMainLooper();</span><br></pre></td></tr></table></figure>
+
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ActivityThread thread = new ActivityThread();</span><br><span class="line">thread.attach(false);</span><br></pre></td></tr></table></figure>
+
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">if (sMainThreadHandler == null) &#123;</span><br><span class="line">    sMainThreadHandler = thread.getHandler();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Looper.loop();</span><br></pre></td></tr></table></figure>
+
 <p>In these methods, obviously thread.attach(false) is the one we need to analysis.</p>
-<p>go in to that method:<br>ActivityThread.java::attach()<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">private void attach(boolean system) &#123;</span><br><span class="line">    sCurrentActivityThread = this;</span><br><span class="line">    mSystemThread = system;</span><br><span class="line">    if (!system) &#123;</span><br><span class="line">		ViewRootImpl.addFirstDrawHandler(new Runnable() &#123;</span><br><span class="line">        ...</span><br><span class="line">        RuntimeInit.setApplicationObject(mAppThread.asBinder());</span><br></pre></td></tr></table></figure></p>
-<p>In<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RuntimeInit.setApplicationObject(mAppThread.asBinder());</span><br></pre></td></tr></table></figure></p>
-<p>next sentence is,<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">final IActivityManager mgr = ActivityManagerNative.getDefault();</span><br></pre></td></tr></table></figure></p>
+<p>go in to that method:<br>ActivityThread.java::attach()</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">private void attach(boolean system) &#123;</span><br><span class="line">    sCurrentActivityThread = this;</span><br><span class="line">    mSystemThread = system;</span><br><span class="line">    if (!system) &#123;</span><br><span class="line">		ViewRootImpl.addFirstDrawHandler(new Runnable() &#123;</span><br><span class="line">        ...</span><br><span class="line">        RuntimeInit.setApplicationObject(mAppThread.asBinder());</span><br></pre></td></tr></table></figure>
+
+<p>In</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RuntimeInit.setApplicationObject(mAppThread.asBinder());</span><br></pre></td></tr></table></figure>
+
+<p>next sentence is,</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">final IActivityManager mgr = ActivityManagerNative.getDefault();</span><br></pre></td></tr></table></figure>
+
 <p>mgr is new ActivityManagerProxy(ServiceManager.getService(“activity”)),</p>
-<p>In ActivityManagerService::setSystemProcess()<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public static final String ACTIVITY_SERVICE = &quot;activity&quot;;</span><br><span class="line"></span><br><span class="line">ServiceManager.addService(Context.ACTIVITY_SERVICE, this, true);</span><br></pre></td></tr></table></figure></p>
-<p>Then,<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mgr.attachApplication(mAppThread);</span><br></pre></td></tr></table></figure></p>
+<p>In ActivityManagerService::setSystemProcess()</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public static final String ACTIVITY_SERVICE = &quot;activity&quot;;</span><br><span class="line"></span><br><span class="line">ServiceManager.addService(Context.ACTIVITY_SERVICE, this, true);</span><br></pre></td></tr></table></figure>
+
+<p>Then,</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mgr.attachApplication(mAppThread);</span><br></pre></td></tr></table></figure>
+
 <p>go to the other side,<br>ActivityManagerService::attachApplication()</p>
 <p>Note that, in this process, actually ActivityThread side(user app) invokes ActivityManagerProxy.attachApplication()<br>-&gt;ActivityManagerProxy.transact()</p>
 <p>Then on the other side a.k.a systemServer onTransit is called by looper.<br>Then it invokes ActivityManagerService.attachApplication() then.</p>
 <p>But it seems that user app side calls attachApplication() throughout two different processes.</p>
 <p>Another interesting point is how the parameter mAppThread transit to systemServer side?<br>Let’s look into it here,</p>
-<p>In file ActivityManagerNative.java file,<br>class ActivityManagerProxy::attachApplication()<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public void attachApplication(IApplicationThread app) throws RemoteException</span><br><span class="line">...</span><br><span class="line">data.writeStrongBinder(app.asBinder());</span><br></pre></td></tr></table></figure></p>
-<p>app.asBinder() is ApplicationThread.asBinder()<br>There is no method asBinder() in ApplicationThread,<br>so look at its base class:ApplicationThreadNative<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">public IBinder asBinder()</span><br><span class="line">&#123;</span><br><span class="line">    return this;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>In file ActivityManagerNative.java file,<br>class ActivityManagerProxy::attachApplication()</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public void attachApplication(IApplicationThread app) throws RemoteException</span><br><span class="line">...</span><br><span class="line">data.writeStrongBinder(app.asBinder());</span><br></pre></td></tr></table></figure>
+
+<p>app.asBinder() is ApplicationThread.asBinder()<br>There is no method asBinder() in ApplicationThread,<br>so look at its base class:ApplicationThreadNative</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">public IBinder asBinder()</span><br><span class="line">&#123;</span><br><span class="line">    return this;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>If you have doubt about this, see my another article:<br><a href="https://hongweibai.github.io/2017/12/16/This-pointer-in-Java/" target="_blank" rel="noopener">This pointer in Java</a></p>
-<p>So we know that app.asBinder() is ApplicationThread instance.<br>In ActivityManagerNative::onTransact()<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">case ATTACH_APPLICATION_TRANSACTION: &#123;</span><br><span class="line">    IApplicationThread app = ApplicationThreadNative.asInterface(</span><br><span class="line">            data.readStrongBinder());</span><br><span class="line">    attachApplication(app);</span><br></pre></td></tr></table></figure></p>
+<p>So we know that app.asBinder() is ApplicationThread instance.<br>In ActivityManagerNative::onTransact()</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">case ATTACH_APPLICATION_TRANSACTION: &#123;</span><br><span class="line">    IApplicationThread app = ApplicationThreadNative.asInterface(</span><br><span class="line">            data.readStrongBinder());</span><br><span class="line">    attachApplication(app);</span><br></pre></td></tr></table></figure>
+
 <p>it is new ApplicationThreadProxy(obj);<br>From knowledge of native binder,<br>we know obj is a bpBinder.</p>
 <p>So until here,<br>we know how userApp and AMS communicate to each other.</p>
 <h2 id="There-are-two-one-way-binder-connection"><a href="#There-are-two-one-way-binder-connection" class="headerlink" title="There are two one-way binder connection:"></a>There are two one-way binder connection:</h2><ol>
 <li>IApplicationThread, userApp holds its server and AMS holds its proxy(client).</li>
 <li>IActivityManager, AMS holds its server and userApps hold its proxy.</li>
 </ol>
-<p>Go back, it calls,<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">attachApplicationLocked(thread, callingPid);</span><br></pre></td></tr></table></figure></p>
+<p>Go back, it calls,</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">attachApplicationLocked(thread, callingPid);</span><br></pre></td></tr></table></figure>
+
 <p>This article ends up here.</p>
-<h2 id="To-be-continued"><a href="#To-be-continued" class="headerlink" title="To be continued."></a>To be continued.</h2><p><div id="container"></div></p>
-<p><link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css"></p>
+<h2 id="To-be-continued"><a href="#To-be-continued" class="headerlink" title="To be continued."></a>To be continued.</h2><div id="container"></div>
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
 <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
 <script>
 var gitment = new Gitment({
@@ -314,7 +378,7 @@ gitment.render('container')
 </article>
 
     <!-- Footer -->
-    <hr>
+    <hr />
 
 <!-- Footer -->
 <footer>

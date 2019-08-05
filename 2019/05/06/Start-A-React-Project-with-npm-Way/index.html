@@ -2,7 +2,7 @@
 <html lang="en">
 
 <!-- Head tag -->
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -275,7 +275,7 @@
 <p>想要了解更多的设置和安装方法，可以查看 React 中文文档 <a href="http://react.css88.com/docs/create-a-new-react-app.html" target="_blank" rel="noopener">创建一个新的 React APP</a> 和 <a href="http://react.css88.com/docs/add-react-to-a-website.html" target="_blank" rel="noopener">将 React 添加到网站</a> 中介绍。</p>
 <h3 id="React-开发人员工具"><a href="#React-开发人员工具" class="headerlink" title="React 开发人员工具"></a>React 开发人员工具</h3><p>React Developer Tools 扩展可以让您在使用 React 时更轻松。 下载<a href="https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi" target="_blank" rel="noopener">适用于 Chrome 的React DevTools</a> 或您喜欢的任何浏览器。</p>
 <p>安装后，当您打开开发人员工具时，您将看到 React 的选项卡。 单击它，您将能够在编写组件时对其进行检查。 您仍然可以转到 Elements 选项卡以查看实际的 DOM 输出。 现在看起来似乎不太合适，但随着应用程序变得越来越复杂，使用它将变得越来越必要。</p>
-<p><img src="\image\react_npm_1.png" alt="React Developer Tools 扩展"></p>
+<p><img src="%5Cimage%5Creact_npm_1.png" alt="React Developer Tools 扩展"></p>
 <p>现在我们拥有了实际开始使用 React 所需的所有工具和设置了。</p>
 <h2 id="JSX-JavaScript-XML"><a href="#JSX-JavaScript-XML" class="headerlink" title="JSX: JavaScript + XML"></a>JSX: JavaScript + XML</h2><p>正如您所见，我们一直在 React 代码中使用类似于 HTML 的东西，但它不是 HTML 。 这是 <strong>JSX</strong>，代表JavaScript XML。</p>
 <p>使用JSX，我们可以编写看起来像HTML的内容，也可以创建和使用我们自己的类似xml的标记。下面是分配给变量的JSX。</p>
@@ -330,7 +330,7 @@
 </blockquote>
 <blockquote>
 <p>如果您重新在浏览器中查看，则会看到 <code>Table</code> 已经被加载进来了。</p>
-<p><img src="\image\react_npm_2.png" alt="Table组件已经被加载进来了"></p>
+<p><img src="%5Cimage%5Creact_npm_2.png" alt="Table组件已经被加载进来了"></p>
 <p>现在我们已经看到了自定义类组件是什么。我们可以一遍又一遍地重用这个组件。但是，由于数据是硬编码的，因此目前不太好用。</p>
 <h2 id="函数式组件（Functional-Components）"><a href="#函数式组件（Functional-Components）" class="headerlink" title="函数式组件（Functional Components）"></a>函数式组件（Functional Components）</h2><p>注：原文中的叫法是 <strong>简单组件（Simple Components）</strong>，翻译的时候用了官方的叫法 <strong>functional components</strong> ，也就是函数式组件。可以查看官方文档《<a href="http://react.css88.com/docs/components-and-props.html" target="_blank" rel="noopener">组件(Components) 和 属性(Props)</a>》 中关于 <strong>函数式组件和类组件</strong> 的描述。</p>
 <p>React 中的另一种组件是 <strong>functional components</strong>（函数式组件），它是一个函数。这种组件不使用 <code>class</code> 关键字。 让我们为 <code>Table</code> 组件制作两个函数式组件 – table header(表头) 和 table body(表体) 。</p>
@@ -388,7 +388,7 @@
 </blockquote>
 <blockquote>
 <p>如果打开 React DevTools 并检查 <code>Table</code> 组件，您将在属性中看到数据数组。这里存储的数据称为 <strong>virtual DOM</strong>(虚拟DOM) ，这是一种快速有效的方法，可以将数据与实际 DOM 同步。</p>
-<p><img src="\image\react_npm_3.png" alt="virtual DOM(虚拟DOM) "></p>
+<p><img src="%5Cimage%5Creact_npm_3.png" alt="virtual DOM(虚拟DOM) "></p>
 <p>但是，这些数据还没有被渲染到实际的 DOM 中。 在 <code>Table</code> 中，我们可以通过 <code>this.props</code> 访问所有 props(属性)。 我们通过 <code>characterData</code> 只传递了一个 props(属性)，所以我们将使用 <code>this.props.characterData</code> 来读取该数据。</p>
 <p>我将使用 ES6 属性简写的方式来创建包含 <code>this.props.characterData</code> 的变量。</p>
 <p>JavaScript 代码:</p>
@@ -460,7 +460,7 @@
 <p><code>onClick</code> 函数必须通过一个返回 <code>removeCharacter()</code> 方法的函数，否则它将尝试自动运行。</p>
 </blockquote>
 <p>真棒。现在我们已经有了删除按钮，我们可以通过删除一个 character(人物) 来修改我们的 state(状态) 。</p>
-<p><img src="\image\react_npm_4.png" alt="删除按钮"></p>
+<p><img src="%5Cimage%5Creact_npm_4.png" alt="删除按钮"></p>
 <p>我删除了 Mac 。</p>
 <p>现在您应该了解 state(状态) 是如何初始化的，以及如何修改 state(状态) 。</p>
 <h2 id="提交表格数据"><a href="#提交表格数据" class="headerlink" title="提交表格数据"></a>提交表格数据</h2><p>现在我们将数据存储在 state(状态) 中，我们可以从 state(状态) 中删除任何数据项。 但是，如果我们希望能够向 state(状态) 添加新数据呢？ 在现实的应用程序中，您更可能从空 state(状态) 开始，并将数据添加到 state(状态) 中，例如使用待办事项列表( to-do list) 或购物车。</p>
@@ -514,11 +514,11 @@
 </blockquote>
 <blockquote>
 <p>就是这样！ 该应用程序已完成。 我们可以在表格中创建，添加和删除用户。 由于 <code>Table</code> 和 <code>TableBody</code> 已经从 state(状态) 获取数据，它将正确显示。</p>
-<p><img src="\image\react_npm_6.png" alt="应用程序已完成"></p>
+<p><img src="%5Cimage%5Creact_npm_6.png" alt="应用程序已完成"></p>
 <p>更多关于 state(状态) 的信息请阅读 React 中文文档中的《<a href="http://react.css88.com/docs/state-and-lifecycle.html" target="_blank" rel="noopener">状态(State) 和 生命周期</a>》</p>
 <p>如果您在学习过程中有点迷茫或者混乱，可以在 <a href="https://github.com/taniarascia/react-tutorial" target="_blank" rel="noopener">GitHub上查看完整的源代码</a>。</p>
 <h2 id="引入API数据"><a href="#引入API数据" class="headerlink" title="引入API数据"></a>引入API数据</h2><p>React 应用开发过程中一个非常常见的用法是从 API 中获取数据。如果您不熟悉 API 是什么或者如何连接到 API ，我建议您阅读<a href="https://www.taniarascia.com/how-to-connect-to-an-api-with-javascript/" target="_blank" rel="noopener">如何使用JavaScript连接到API</a>，它将引导您了解 API 以及如何将它们与原生的 JavaScript 一起使用。</p>
-<p>作为一个小测试，我们可以创建一个 <code>Api.js</code> 文件，并在那里创建一个新的<code>App</code>。我们可以测试的公共 API 是 <a href="https://en.wikipedia.org/w/api.php" target="_blank" rel="noopener">Wikipedia API</a> ，我在这里有一个 <a href="https://en.wikipedia.org/w/api.php?action=opensearch&amp;search=Seona+Dancing&amp;format=json&amp;origin=*" target="_blank" rel="noopener">URL终端</a> 用于 random(随机)*搜索。您可以转到该链接查看 API ，并确保在浏览器上安装了 <a href="https://chrome.google.com/webstore/detail/jsonview/chklaanhfefbnpoihckbnefhakgolnmc" target="_blank" rel="noopener">JSONView</a> 。</p>
+<p>作为一个小测试，我们可以创建一个 <code>Api.js</code> 文件，并在那里创建一个新的<code>App</code>。我们可以测试的公共 API 是 <a href="https://en.wikipedia.org/w/api.php" target="_blank" rel="noopener">Wikipedia API</a> ，我在这里有一个 <a href="https://en.wikipedia.org/w/api.php?action=opensearch&search=Seona+Dancing&format=json&origin=*" target="_blank" rel="noopener">URL终端</a> 用于 random(随机)*搜索。您可以转到该链接查看 API ，并确保在浏览器上安装了 <a href="https://chrome.google.com/webstore/detail/jsonview/chklaanhfefbnpoihckbnefhakgolnmc" target="_blank" rel="noopener">JSONView</a> 。</p>
 <p>我们将使用 <a href="https://www.taniarascia.com/how-to-use-the-javascript-fetch-api-to-get-json-data/" target="_blank" rel="noopener">JavaScript 中内置的 Fetch</a> 从该 URL 终端收集数据并显示它。您可以通过更改 <code>index.js</code> 中的URL，来切换我们创建的应用程序和此测试文件 – <code>import App from &#39;./Api&#39;;</code>。</p>
 <p>我不会逐行解释这个代码，因为我们已经学会了创建组件，渲染和映射 state(状态) 数组。此代码的新方面是 <code>componentDidMount()</code>，一个 React 生命周期方法。<strong>Lifecycle(生命周期)</strong> 是 React 中调用方法的顺序。<strong>Mounting(装载)</strong> 到DOM中的项。</p>
 <p>当我们引入API数据时，我们希望使用 <code>componentDidMount</code> ，因为我们希望在引入数据之前确保组件已渲染到了 DOM 中。在下面的代码片段中，您将看到我们如何从Wikipedia API引入数据，并将其显示在页面上</p>
@@ -578,7 +578,7 @@
 <p>Source: <a href="https://blog.csdn.net/qq_34829447/article/details/81677198" target="_blank" rel="noopener">React项目部署在Tomcat中的方法</a></p>
 <blockquote>
 <p>部署方法：<br>使用npm run build将项目打包<br>把打包后的文件夹中内容放到tomcat中webapps下的Root中<br>开启服务器访问localhost:8080端口即可以看到你的项目内容<br>不放置在Root目录下的坑：<br>由于默认path.js【路径：你的react项目名\node_modules\react-scripts\config\path.js】的配置是’/’即对根目录有效，所以如果不放在root下则需要将’/’变成’./’即相对路径有效。（修改代码约在第45行） </p>
-<p><img src="\image\react_npm_deploy.png" alt="img"></p>
+<p><img src="%5Cimage%5Creact_npm_deploy.png" alt="img"></p>
 <p>此时你可以通过localhost:8080/项目名 进行访问你的react项目</p>
 </blockquote>
 <p>All done! It is a good start.</p>
@@ -600,7 +600,7 @@
 </article>
 
     <!-- Footer -->
-    <hr>
+    <hr />
 
 <!-- Footer -->
 <footer>

@@ -2,7 +2,7 @@
 <html lang="en">
 
 <!-- Head tag -->
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -220,10 +220,10 @@
 <p>Quote:</p>
 <blockquote>
 <p>1 react 需要nodejs所以需要安装nodejs环境，到nodejs官网下载</p>
-<p><img src="\image\react_hello_q1.png" alt="img"></p>
+<p><img src="%5Cimage%5Creact_hello_q1.png" alt="img"></p>
 <p>现在默认会安装nodejs 和 npm包 和 配置环境</p>
 <p>2 检查是否安装成功，在命令行中输入</p>
-<p><img src="\image\react_hello_q2.png" alt="img"></p>
+<p><img src="%5Cimage%5Creact_hello_q2.png" alt="img"></p>
 <p>显示成功则正确</p>
 <p>3 安装包管理工具 bower，推荐安装</p>
 <p>安装命令</p>
@@ -238,7 +238,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt; bower init</span><br><span class="line">&gt; 通过问答向导的方式在当前目录生成一个bower.json文件。</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
 </blockquote>
 <blockquote>
-<p><img src="\image\react_hello_q3.png" alt="img"></p>
+<p><img src="%5Cimage%5Creact_hello_q3.png" alt="img"></p>
 <h3 id="查询包信息和版本"><a href="#查询包信息和版本" class="headerlink" title="查询包信息和版本"></a>查询包信息和版本</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; bower info 包名</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
 </blockquote>
 <blockquote>
@@ -283,9 +283,11 @@
 <p>I have no idea why many of its official pages report 404 error. However, it is still the best way to follow.</p>
 <p>Put this code below in your index.html</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">  &lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;UTF-8&quot; /&gt;</span><br><span class="line">    &lt;title&gt;Hello World&lt;/title&gt;</span><br><span class="line">    &lt;script src=&quot;https://unpkg.com/react@16/umd/react.development.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">    &lt;script src=&quot;https://unpkg.com/react-dom@16/umd/react-dom.development.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">    </span><br><span class="line">    &lt;!-- Don&apos;t use this in production: --&gt;</span><br><span class="line">    &lt;script src=&quot;https://unpkg.com/babel-standalone@6.15.0/babel.min.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">  &lt;/head&gt;</span><br><span class="line">  &lt;body&gt;</span><br><span class="line">    &lt;div id=&quot;root&quot;&gt;&lt;/div&gt;</span><br><span class="line">    &lt;script type=&quot;text/babel&quot;&gt;</span><br><span class="line"></span><br><span class="line">      ReactDOM.render(</span><br><span class="line">        &lt;h1&gt;Hello, world!&lt;/h1&gt;,</span><br><span class="line">        document.getElementById(&apos;root&apos;)</span><br><span class="line">      );</span><br><span class="line"></span><br><span class="line">    &lt;/script&gt;</span><br><span class="line">    &lt;!--</span><br><span class="line">      Note: this page is a great way to try React but it&apos;s not suitable for production.</span><br><span class="line">      It slowly compiles JSX with Babel in the browser and uses a large development build of React.</span><br><span class="line"></span><br><span class="line">      Read this section for a production-ready setup with JSX:</span><br><span class="line">      https://reactjs.org/docs/add-react-to-a-website.html#add-jsx-to-a-project</span><br><span class="line"></span><br><span class="line">      In a larger project, you can use an integrated toolchain that includes JSX instead:</span><br><span class="line">      https://reactjs.org/docs/create-a-new-react-app.html</span><br><span class="line"></span><br><span class="line">      You can also use React without JSX, in which case you can remove Babel:</span><br><span class="line">      https://reactjs.org/docs/react-without-jsx.html</span><br><span class="line">    --&gt;</span><br><span class="line">  &lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
 <p>I tried more than five samples, this one finally works for me.</p>
 <p>The tricky part is </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src=&quot;https://unpkg.com/react@16/umd/react.development.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;script src=&quot;https://unpkg.com/react-dom@16/umd/react-dom.development.js&quot;&gt;&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- Don&apos;t use this in production: --&gt;</span><br><span class="line">&lt;script src=&quot;https://unpkg.com/babel-standalone@6.15.0/babel.min.js&quot;&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
 <p>because this import code varies with time and version evolution.</p>
 <p>If your code does not work, try to google other samples and replace these import lines. It will make it work.</p>
 <p>Do not waste time on other parts e.g. code inside script, which is simple and changeless. I nearly tried to replace each line of code to find problem, I hope you do not repeat that.</p>
@@ -294,6 +296,7 @@
 <p>Look at these code below:</p>
 <p>Source: <a href="https://www.html.cn/archives/9710" target="_blank" rel="noopener">https://www.html.cn/archives/9710</a></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;script type=&quot;text/babel&quot;&gt;</span><br><span class="line">        class App extends React.Component &#123; </span><br><span class="line">            render() &#123; </span><br><span class="line">                return (</span><br><span class="line">                    &lt;h1&gt;Hello world!&lt;/h1&gt;</span><br><span class="line">                ); </span><br><span class="line">            &#125; </span><br><span class="line">        &#125; </span><br><span class="line"> </span><br><span class="line">        ReactDOM.render(&lt;App /&gt;, document.getElementById(&apos;root&apos;));</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
 <p>Now all you need to do is to replace the code inside script tag.</p>
 <p>This tutorial is just enough for a beginner. Not too complex.</p>
 <p>It has the same function as code above in previous section. But it used a new way: component.</p>
@@ -301,6 +304,7 @@
 <p>It contains everything we need to understand component. It is a perfect example.</p>
 <p>Note: Do not fuse command like:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm start</span><br></pre></td></tr></table></figure>
+
 <p>together with this sample.</p>
 <p>They are completely two different way to create a react application.</p>
 
@@ -321,7 +325,7 @@
 </article>
 
     <!-- Footer -->
-    <hr>
+    <hr />
 
 <!-- Footer -->
 <footer>

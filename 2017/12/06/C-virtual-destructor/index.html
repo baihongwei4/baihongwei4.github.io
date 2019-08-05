@@ -2,7 +2,7 @@
 <html lang="en">
 
 <!-- Head tag -->
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -216,16 +216,17 @@
             <!-- Post Main Content -->
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <h1 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">class CBase</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">    CBase() &#123; m_pArray = new int[20]; &#125;</span><br><span class="line">    ~CBase() &#123; delete [] m_pArray; &#125;</span><br><span class="line">private:</span><br><span class="line">    int* m_pArray;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">class CDerived : public CBase</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">    CDerived() &#123; m_pBuffer = new char[20]; &#125;</span><br><span class="line">    ~CDerived() &#123; delete [] m_pBuffer; &#125;</span><br><span class="line">private:</span><br><span class="line">    char* m_pBuffer;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    CBase* pBase = new CDerived;</span><br><span class="line">    delete pBase; // pBase-&gt;~CBase()</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>delete会触发类的析构函数，一定程度上，我们可以把它当做调用类的析构函数。那么delete pBase就相当于pBase-&gt;~CBase()，此时调用的是CBase::~CBase()，而CDerived::~CDerived()未被调用，这造成了m_pBuffer的内存泄漏。</p>
-<p>为了解决这个问题，我们可以设置CBase的析构函数为虚函数。由于虚函数的多态性，pBase-&gt;~CBase()实际调用的就会是CDerived::~CDerived()，而CDerived::~CDerived()又会调用CBase::~CBase()。所有的析构函数都被调用了，就不再有内存泄漏发生了。</p>
+
+<p>delete会触发类的析构函数，一定程度上，我们可以把它当做调用类的析构函数。那么delete pBase就相当于pBase-&gt;<del>CBase()，此时调用的是CBase::</del>CBase()，而CDerived::~CDerived()未被调用，这造成了m_pBuffer的内存泄漏。</p>
+<p>为了解决这个问题，我们可以设置CBase的析构函数为虚函数。由于虚函数的多态性，pBase-&gt;<del>CBase()实际调用的就会是CDerived::</del>CDerived()，而CDerived::<del>CDerived()又会调用CBase::</del>CBase()。所有的析构函数都被调用了，就不再有内存泄漏发生了。</p>
 <p>解决因delete基类指针导致的资源泄漏，这就是虚析构函数的作用所在；而具有虚函数性质的析构函数，这就是虚析构函数的真相所在。</p>
 <h2 id="准则："><a href="#准则：" class="headerlink" title="准则："></a>准则：</h2><p>基类中有虚函数，那就必须为基类声明虚析构函数。 （你玩多态，必然有基类指针指向new 的子类，子类想正确被释放，则基类必须虚析构函数）</p>
 <p>一个类若不做基类，或者不具备多态性质，则没有必要声明虚析构函数。</p>
 <p>Effiective C++ 3rd edition.Item 7:<br>Declare destructors virtual in polymorphic base classes.</p>
 <p>C++ Coding Standards: 101 Rules, Guidelines, and Best PracticesItem 50:<br>Make base class destructors public and virtual, or protected and nonvirtual.</p>
 <p>Ref[1] <a href="http://www.jianshu.com/p/0df34f868898" target="_blank" rel="noopener">真正理解虚析构函数</a><br>Ref[2] <a href="https://www.cnblogs.com/jushuai/p/6589153.html" target="_blank" rel="noopener">今天我内存泄漏了……C++ 中的虚析构函数以及内存泄漏的调试方法</a><br>Ref[3] <a href="https://www.zhihu.com/question/41538182/answer/91385502" target="_blank" rel="noopener">C++ 究竟什么时候该用虚析构函数(virtual destructor)?</a></p>
-<p><div id="container"></div></p>
-<p><link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css"></p>
+<div id="container"></div>
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
 <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
 <script>
 var gitment = new Gitment({
@@ -257,7 +258,7 @@ gitment.render('container')
 </article>
 
     <!-- Footer -->
-    <hr>
+    <hr />
 
 <!-- Footer -->
 <footer>

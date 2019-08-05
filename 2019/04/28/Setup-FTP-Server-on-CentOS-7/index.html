@@ -2,7 +2,7 @@
 <html lang="en">
 
 <!-- Head tag -->
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -225,34 +225,64 @@
 </blockquote>
 <h3 id="Here-is-my-combined-version"><a href="#Here-is-my-combined-version" class="headerlink" title="Here is my combined version:"></a>Here is my combined version:</h3><p>1）首先linux上是否装上了ftp服务，命令：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpm -qa | grep vsftpd</span><br></pre></td></tr></table></figure>
+
 <p>若没有安装则进行第二步安装</p>
 <p>2)安装ftp服务，命令：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y install ftp vsftpd</span><br></pre></td></tr></table></figure>
+
+
+
 <p>3)由于是默认安装，我们查看一下配置文件路径，命令：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpm -qc vsftpd</span><br></pre></td></tr></table></figure>
+
+
+
 <p>4）备份配置文件：命令：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp vsftp.config vsftpd.conf.origin</span><br></pre></td></tr></table></figure>
+
+
+
 <p>5)vi可以修改配置文件，进行授权等，这里先不改它</p>
 <p>6）安装ftp，命令：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y install ftp</span><br></pre></td></tr></table></figure>
+
 <p>​      a.发现已安装，先不管他；</p>
 <p>​      b.测试一下本机是否可以访问ftp，命令：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ftp localhost</span><br></pre></td></tr></table></figure>
+
 <p>，发现也是成功的，也不管了</p>
 <p>​      c.退出ftp，命令：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">exit</span><br></pre></td></tr></table></figure>
+
+
+
 <p>7)查看一下防火墙状态，命令：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl status vsftpd.service</span><br></pre></td></tr></table></figure>
+
+
+
 <p>若开启了防火墙则关闭，命令：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl stop vsftpd.service</span><br></pre></td></tr></table></figure>
+
+
+
 <p>或者这里也可以设置防火墙放开改服务，大家自行百度了</p>
 <p>8）建立一个ftp用户，并设密码，命令：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adduser ftpuser;passwd ftpuser</span><br></pre></td></tr></table></figure>
+
+
+
 <p>在 vsftpd.conf 文件中查找并配置：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># 禁止匿名访问</span><br><span class="line"></span><br><span class="line">anonymous_enable=NO</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line"># 允许本地用户登录FTP</span><br><span class="line"></span><br><span class="line">local_enable=YES</span><br></pre></td></tr></table></figure>
+
 <p><strong>4.</strong> <strong>启动</strong> <strong>FTP</strong> <strong>服务</strong></p>
 <p>启动服务：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"># service vsftpd stop：停止服务</span><br><span class="line"></span><br><span class="line"># service vsftpd restart：重启服务</span><br><span class="line"></span><br><span class="line">service vsftpd start</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line"># 设置开机启动 FTP 服务</span><br><span class="line"></span><br><span class="line">chkconfig vsftpd on</span><br></pre></td></tr></table></figure>
+
+
+
+
+
 <p>FAQ：</p>
 <p>使用Filezilla连接路由器内的计算机搭建的ftp服务器时常会出现如下错误：</p>
 <blockquote>
@@ -290,9 +320,11 @@
 <p>Quote source: <a href="https://blog.csdn.net/yifansj/article/details/72855484" target="_blank" rel="noopener">https://blog.csdn.net/yifansj/article/details/72855484</a></p>
 <h3 id="Permission-settings-for-FTP-directory"><a href="#Permission-settings-for-FTP-directory" class="headerlink" title="Permission settings for FTP directory:"></a>Permission settings for FTP directory:</h3><p>For root directory, it has to be:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod a-w &lt;root&gt;</span><br></pre></td></tr></table></figure>
+
 <p>Otherwise, ftp connection could not be setup.</p>
 <p>For content directory, it has to be:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod 777 &lt;content&gt;</span><br></pre></td></tr></table></figure>
+
 <p>Otherwise, user could not upload/modify files.</p>
 
 
@@ -312,7 +344,7 @@
 </article>
 
     <!-- Footer -->
-    <hr>
+    <hr />
 
 <!-- Footer -->
 <footer>

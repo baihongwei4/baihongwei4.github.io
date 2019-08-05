@@ -2,7 +2,7 @@
 <html lang="en">
 
 <!-- Head tag -->
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -216,19 +216,22 @@
             <!-- Post Main Content -->
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <p>From season 2 of this tutorial from YouTube:</p>
-<p>S2E1 <a href="https://www.youtube.com/watch?v=ZfJhQKdZG-k&amp;list=PLE1bYOKXhgTcIzqE-NRKuP_Ago0pXq_cA&amp;index=10" target="_blank" rel="noopener">iOS10 实战开发 Swift3.0 S2E1 应用开发计算器– 基础UI</a></p>
-<p>S2E2 <a href="https://www.youtube.com/watch?v=aYw-SlO2fMo&amp;list=PLE1bYOKXhgTcIzqE-NRKuP_Ago0pXq_cA&amp;index=11" target="_blank" rel="noopener">iOS10 实战开发 Swift3.0 S2E1 应用开发计算器– 功能实现</a></p>
+<p>S2E1 <a href="https://www.youtube.com/watch?v=ZfJhQKdZG-k&list=PLE1bYOKXhgTcIzqE-NRKuP_Ago0pXq_cA&index=10" target="_blank" rel="noopener">iOS10 实战开发 Swift3.0 S2E1 应用开发计算器– 基础UI</a></p>
+<p>S2E2 <a href="https://www.youtube.com/watch?v=aYw-SlO2fMo&list=PLE1bYOKXhgTcIzqE-NRKuP_Ago0pXq_cA&index=11" target="_blank" rel="noopener">iOS10 实战开发 Swift3.0 S2E1 应用开发计算器– 功能实现</a></p>
 <p>It starts to taught how to use xCode storyboard to build a UI and how to bind UI to your ViewController code implementation.</p>
 <p>I only memo several important points here.</p>
 <h4 id="Bind-UI-component-to-ViewController"><a href="#Bind-UI-component-to-ViewController" class="headerlink" title="Bind UI component to ViewController"></a>Bind UI component to ViewController</h4><p>If you add a Label or a UIImage to your storyboard, now you would like to use them in your ViewController.swift code implementation. What should you do? </p>
 <p>You should right click your mouse or tap touchpad with your two fingers simutenously on the UI component, and then draw a link to your ViewController code blank area, then you get a code like this:</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@IBOutlet</span> <span class="keyword">weak</span> <span class="keyword">var</span> yourComponentName: <span class="type">UILabel!</span></span><br></pre></td></tr></table></figure>
+
 <p>Here we go, then you can use this variable <code>yourComponentName</code> to manipulate UI component, for example, change text of this label:</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yourComponentName.text = <span class="string">"new string!"</span></span><br></pre></td></tr></table></figure>
+
 <h4 id="Bind-Button-onClick-listener-to-your-UIButton-component"><a href="#Bind-Button-onClick-listener-to-your-UIButton-component" class="headerlink" title="Bind Button onClick listener to your UIButton component"></a>Bind Button onClick listener to your UIButton component</h4><p>Now we go to input,</p>
 <p>If you have already add a UIButton on your storyboard, </p>
 <p>The next step is to add a code block like this:</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@IBAction</span> <span class="function"><span class="keyword">func</span> <span class="title">yourButtonOnClickListenerFunction</span><span class="params">(sender: UIButton)</span></span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// You can use this tag (which is Int type) and print it on console.</span></span><br><span class="line">    <span class="built_in">print</span>(sender.tag)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Or you can update a label text when you clicking this button.</span></span><br><span class="line">    yourComponentName.text = <span class="string">"Hello Hongwei! tag is "</span> + <span class="type">String</span>(sender.tag)</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>– END –</p>
 
 
@@ -248,7 +251,7 @@
 </article>
 
     <!-- Footer -->
-    <hr>
+    <hr />
 
 <!-- Footer -->
 <footer>

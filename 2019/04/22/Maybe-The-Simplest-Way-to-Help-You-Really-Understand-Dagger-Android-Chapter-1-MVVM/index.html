@@ -2,7 +2,7 @@
 <html lang="en">
 
 <!-- Head tag -->
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -236,7 +236,8 @@
 <blockquote>
 <p>XCube (Java)</p>
 </blockquote>
-<p><br></p>
+<br>
+
 <h3 id="A-Glance-of-dagger-sample"><a href="#A-Glance-of-dagger-sample" class="headerlink" title="A Glance of dagger sample"></a>A Glance of dagger sample</h3><p>There are several essential elements in Dagger framework:</p>
 <ol>
 <li>Component</li>
@@ -254,8 +255,7 @@
 <th>members</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>Component</td>
 <td>Interface</td>
 <td>@Component</td>
@@ -273,28 +273,27 @@
 <td>@Component.Builder</td>
 <td>build() which return its component type<br>Anything it want to bind, annotated by @BindsInstance<br></td>
 </tr>
-</tbody>
-</table>
+</tbody></table>
 <p>In general, I would describe their relationship as below:</p>
 <ol>
 <li><p>If you want to inject an Application instance, you need:</p>
 <ul>
-<li style="list-style: none"><input type="checkbox" checked> An App’s module that provides “each application” instance. e.g. application context, Retrofit instance, OkHttp instance, Database/ORM instance etc.</li>
-<li style="list-style: none"><input type="checkbox" checked> An App’s component, as interface to be invoked in App class and connect to App’s module.</li>
-<li style="list-style: none"><input type="checkbox" checked> An Builder for App’s component, to build the dagger instance for injection.</li>
+<li><input checked disabled type="checkbox"> An App’s module that provides “each application” instance. e.g. application context, Retrofit instance, OkHttp instance, Database/ORM instance etc.</li>
+<li><input checked disabled type="checkbox"> An App’s component, as interface to be invoked in App class and connect to App’s module.</li>
+<li><input checked disabled type="checkbox"> An Builder for App’s component, to build the dagger instance for injection.</li>
 </ul>
 </li>
 <li><p>If you want to inject an Activity instance, you need:</p>
 <ul>
-<li style="list-style: none"><input type="checkbox" checked> An Activity’s module that provides “each activity” instance. e.g. view model instance etc.</li>
-<li style="list-style: none"><input type="checkbox" checked> An Activity’s component, as interface to be invoked in Activity class and connect to Activity’s module.</li>
-<li style="list-style: none"><input type="checkbox" checked> An ActivityBuilder for Activity’s component, to build the dagger instance for injection.</li>
+<li><input checked disabled type="checkbox"> An Activity’s module that provides “each activity” instance. e.g. view model instance etc.</li>
+<li><input checked disabled type="checkbox"> An Activity’s component, as interface to be invoked in Activity class and connect to Activity’s module.</li>
+<li><input checked disabled type="checkbox"> An ActivityBuilder for Activity’s component, to build the dagger instance for injection.</li>
 </ul>
 </li>
 <li><p>If you want to inject a Fragment instance, you need:</p>
 <ul>
-<li style="list-style: none"><input type="checkbox" checked> An Fragment’s module that provides “each fragment” instance. e.g. view model instance etc.</li>
-<li style="list-style: none"><input type="checkbox" checked> An ActivityBuilder for Fragment’s component, to build the dagger instance for injection.</li>
+<li><input checked disabled type="checkbox"> An Fragment’s module that provides “each fragment” instance. e.g. view model instance etc.</li>
+<li><input checked disabled type="checkbox"> An ActivityBuilder for Fragment’s component, to build the dagger instance for injection.</li>
 </ul>
 </li>
 </ol>
@@ -302,7 +301,8 @@
 <blockquote>
 <p>​     <a href="mailto:git@github.com" target="_blank" rel="noopener">git@github.com</a>:princessdharmy/triviums.git (Kotlin)</p>
 </blockquote>
-<p><br></p>
+<br>
+
 <h3 id="A-Very-Simple-Sample"><a href="#A-Very-Simple-Sample" class="headerlink" title="A Very  Simple Sample"></a>A Very  Simple Sample</h3><p>I prefer to organize my package like this: (In my previous project ‘XCube’)</p>
 <p><img src="/image/di_pkg.png" alt="1555912086984"></p>
 <p>And below is what they look like in my new Kotlin, MVVM project:</p>
@@ -311,7 +311,8 @@
 <blockquote>
 <p><a href="https://github.com/hongweibai/mike-demo-dagger2-mvvm-kotlin-androidx" target="_blank" rel="noopener">https://github.com/hongweibai/mike-demo-dagger2-mvvm-kotlin-androidx</a></p>
 </blockquote>
-<p><br></p>
+<br>
+
 <h3 id="Go-a-little-deeper-about-how-it-works"><a href="#Go-a-little-deeper-about-how-it-works" class="headerlink" title="Go a little deeper about how it works"></a>Go a little deeper about how it works</h3><p>Many people have asked me about how it really works and I guess that understanding it have several benefits:</p>
 <ol>
 <li>Learn design ideas from masters</li>
@@ -321,7 +322,7 @@
 </ol>
 <p>You might have noticed that the first time you build the dagger project, it does not work. Then you do that again without any modification, it works.</p>
 <p>It is because that dagger generate code itself based on your annotations and the 2nd time you compile it, the generated code start to work.</p>
-<p><img src="\image\di_gen.png" alt="di_gen"></p>
+<p><img src="%5Cimage%5Cdi_gen.png" alt="di_gen"></p>
 <p>As illustrated above in the screenshot, you could easily find the generated code, which actually bridges between your dependent injection code and your business code.</p>
 <p>I was intended to draw a class UML diagram as well as a invocation flow chart, but then I found it make it even more complex and difficult to understand. I still suggest you read the code yourself that definitely make it clear. I will list several keynotes to the reading:</p>
 <ol>
@@ -333,6 +334,7 @@
 </li>
 <li><p>this line of code: </p>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> DaggerAppComponent.builder().create(<span class="keyword">this</span>)</span><br></pre></td></tr></table></figure>
+
 <p>in override method applicationInjector()</p>
 </li>
 </ol>
@@ -376,7 +378,7 @@
 </article>
 
     <!-- Footer -->
-    <hr>
+    <hr />
 
 <!-- Footer -->
 <footer>
