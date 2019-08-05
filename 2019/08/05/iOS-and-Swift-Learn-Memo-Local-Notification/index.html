@@ -10,6 +10,8 @@
 
     <!--Description-->
     
+        <meta name="description" content="This is a basic introduction for iOS noob devs about how to crete a local notification.">
+    
 
     <!--Author-->
     
@@ -22,6 +24,8 @@
     
 
     <!--Open Graph Description-->
+    
+        <meta property="og:description" content="This is a basic introduction for iOS noob devs about how to crete a local notification.">
     
 
     <!--Open Graph Site Name-->
@@ -186,13 +190,71 @@
 
             <!-- Tags and categories -->
            
+                <div class="col-lg-4 col-lg-offset-2 col-md-5 col-md-offset-1 post-tags">
+                    
+                        
+
+
+<a href="/tags/Memo/">#Memo</a> <a href="/tags/iOS/">#iOS</a> <a href="/tags/xCode/">#xCode</a> <a href="/tags/Swift-3-0/">#Swift 3.0</a> <a href="/tags/Notification/">#Notification</a>
+
+
+                    
+                </div>
+                <div class="col-lg-4 col-md-5 post-categories">
+                    
+                        
+
+<a href="/categories/iOS/">iOS</a>
+
+                    
+                </div>
+            
 
             <!-- Gallery -->
             
 
             <!-- Post Main Content -->
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                
+                <p>Now, we have gone through some basics for iOS development, such as story board, view controller, and how bind basic components like button, label etc. to code implementation.</p>
+<p>Let’s go a step further, we are trying to send a local notification on your iOS device (e.g. an emulator).</p>
+<p>As a noob, I guess it is not go into too deep about the theory and something around the core stuff. Let’s focus on a single point of knowledge - the notification itself.</p>
+<p>Here I will tell you everything in my code, to let a really newbie like myself to complete this mission smoothly.</p>
+<p>First, in your ViewController.swift file, </p>
+<p>add import like: <code>import UserNotifications</code></p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> UIKit</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> UserNotifications <span class="comment">// we add this line</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ViewController</span>: <span class="title">UIViewController</span> </span>&#123;</span><br></pre></td></tr></table></figure>
+
+<p>Then in the same file, method <code>viewDidLoad()</code></p>
+<p>add this code for asking users for permission for notification:</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">notificationCenter.requestAuthorization(options: options) &#123;</span><br><span class="line">    (didAllow, error) <span class="keyword">in</span></span><br><span class="line">    <span class="keyword">if</span> !didAllow &#123;</span><br><span class="line">    	<span class="built_in">print</span>(<span class="string">"User has declined notifications"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>like:</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">super</span>.viewDidLoad()</span><br><span class="line">    <span class="comment">// Do any additional setup after loading the view.</span></span><br><span class="line">    </span><br><span class="line">    notificationCenter.requestAuthorization(options: options) &#123;</span><br><span class="line">        (didAllow, error) <span class="keyword">in</span></span><br><span class="line">        <span class="keyword">if</span> !didAllow &#123;</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">"User has declined notifications"</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Then, in the same class, add a function:</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">notifyLocal</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">let</span> content = <span class="type">UNMutableNotificationContent</span>()</span><br><span class="line">    content.title = <span class="string">"hongwei's message"</span></span><br><span class="line">    content.body = <span class="string">"Congs! You have successfully sent an iOS notification!"</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// This means sending notification in 10 seconds.</span></span><br><span class="line">    <span class="keyword">let</span> trigger = <span class="type">UNTimeIntervalNotificationTrigger</span>(timeInterval: <span class="number">10</span>, repeats: <span class="literal">false</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">let</span> requestIdentifier = <span class="string">"hongwei.iosAppTestSingle"</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">let</span> request = <span class="type">UNNotificationRequest</span>(identifier: requestIdentifier,</span><br><span class="line">                                        content: content, trigger: trigger)</span><br><span class="line">    </span><br><span class="line">    <span class="type">UNUserNotificationCenter</span>.current().add(request) &#123; error <span class="keyword">in</span></span><br><span class="line">        <span class="keyword">if</span> error == <span class="literal">nil</span> &#123;</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">"Time Interval Notification scheduled: \(requestIdentifier)"</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>then call this function to send notification in any of your UI components, like button, switch and so on.</p>
+<p>We use switch for example,</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@IBAction</span> <span class="function"><span class="keyword">func</span> <span class="title">myswitch</span><span class="params">(<span class="number">_</span> sender: UISwitch)</span></span> &#123;</span><br><span class="line">     <span class="keyword">if</span>(sender.isOn==<span class="literal">true</span>) &#123;</span><br><span class="line">         notifyLocal()</span><br><span class="line">     &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<p>So in this way, when you switch it on, it will send a local notification.</p>
+<p>Here there is another knowledge you maybe interested in,</p>
+<p>In class: <code>AppDelegate.swift</code>, which is also an important system class.</p>
+<p>you can add an override method: </p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">application</span><span class="params">(<span class="number">_</span> application: UIApplication, didReceive notification: UILocalNotification)</span></span> &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"didReceive notification"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>This is not necessarily for successfully sending a local notification but it help you know that your notification is successfully sent!</p>
+<p>You can see this printing log when you open debug console under view menu.</p>
+<p>Now we get back to view controller class,</p>
+<p><code>let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 10, repeats: false)</code> means this notification will be sent in 10 seconds. There are more types of triggers which you can Google them and I won’t go through them here.</p>
+<p>Additional two stuff you need to pay attention to are:</p>
+<ul>
+<li>You need to close the App as soon as you trigger the notification, because a foreground App would not show notification at all !</li>
+<li><code>let requestIdentifier = &quot;hongwei.iosAppTestSingle&quot;</code> seems not really matters. If you set some irrelevant values here, it still works.</li>
+</ul>
+<p>Okay. I hope you all test this feature successfully! </p>
+<p>–END–</p>
+
 
                 
             </div>
