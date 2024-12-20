@@ -21,6 +21,7 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
+<<<<<<< Updated upstream
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
@@ -53,6 +54,29 @@
       <envs />
       <method v="2" />
     </configuration>
+=======
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "D:/code/react24/hongwei-bai.github.io",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_interpreter_path": "node",
+    "nodejs_package_manager_path": "npm",
+    "npm.deploy.executor": "Run",
+    "npm.predeploy.executor": "Run",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RunManager" selected="npm.deploy">
+    <configuration name="Debug Application" type="JavascriptDebugType" uri="http://localhost:3000">
+      <method v="2" />
+    </configuration>
+>>>>>>> Stashed changes
     <configuration name="deploy" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/package.json" />
       <command value="run" />
@@ -85,9 +109,14 @@
     </configuration>
     <recent_temporary>
       <list>
+<<<<<<< Updated upstream
         <item itemvalue="npm.build" />
         <item itemvalue="npm.predeploy" />
         <item itemvalue="npm.deploy" />
+=======
+        <item itemvalue="npm.deploy" />
+        <item itemvalue="npm.predeploy" />
+>>>>>>> Stashed changes
       </list>
     </recent_temporary>
   </component>
@@ -108,8 +137,12 @@
       <updated>1734678926109</updated>
       <workItem from="1734678927114" duration="285000" />
       <workItem from="1734688854839" duration="1888000" />
+<<<<<<< Updated upstream
       <workItem from="1734690776648" duration="873000" />
       <workItem from="1734691789038" duration="354000" />
+=======
+      <workItem from="1734690776648" duration="111000" />
+>>>>>>> Stashed changes
     </task>
     <servers />
   </component>
